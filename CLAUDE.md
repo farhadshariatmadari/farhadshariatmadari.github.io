@@ -200,7 +200,8 @@ must be PNG — SVG is not accepted for either. `index.html` has `og:title` and
 
 ## Images
 
-24 PNGs in `assets/`, already optimised (14.1 MB → 2.9 MB). If you add more:
+24 screenshot PNGs in `assets/`, already optimised (14.1 MB → 2.9 MB), plus the
+four testimonial avatar JPEGs below. If you add more screenshots:
 
 ```bash
 sips --resampleWidth 2320 file.png            # only if wider than 2320
@@ -220,8 +221,7 @@ Sharif AICT) and use the hatch placeholder — see `assets/MISSING-ASSETS.md`.
 
 ### Testimonial avatars
 
-The four testimonial cards on `index.html` expect these files, and **none of
-them are on disk yet**:
+Four real photos, all present, one per testimonial card on `index.html`:
 
 | File | Person |
 |---|---|
@@ -230,17 +230,21 @@ them are on disk yet**:
 | `assets/testimonial-mohammadreza-azhari.jpg` | MohammadReza Azhari |
 | `assets/testimonial-masoud-kaviani.jpg` | Masoud Kaviani |
 
-Until they land the cards show the coloured initials disc they always had —
-`.tst-av` stacks the photo *on top of* the initials, and `avatarRef` hides the
-`<img>` on `error`, so a missing file degrades to initials rather than a broken
-image icon. Both states are verified. Dropping the files in is the whole fix;
-no markup change.
-
-They are square crops rendered at 42×42, so 168px (4×) is plenty:
+168×168 JPEG, ~12 KB each — 4× the 42px render size, so they stay sharp to 4×
+DPR. All four sources happened to be square, so `object-fit: cover` is a 1:1
+fit with no crop. **Check that if you replace one**: a portrait taller than it
+is wide gets centre-cropped, and on a head-and-shoulders shot that cuts the
+face. Crop square first, or set `object-position`.
 
 ```bash
-sips -s format jpeg -Z 168 -s formatOptions 80 source.png --out assets/testimonial-name.jpg
+sips -s format jpeg -s formatOptions 82 -Z 168 source.png --out assets/testimonial-name.jpg
 ```
+
+`.tst-av` stacks the photo *on top of* the coloured initials disc, and
+`avatarRef` hides the `<img>` on `error`, so a missing or misnamed file falls
+back to initials rather than a broken image icon. Both states are verified —
+which also means a typo'd filename fails silently, so check the avatar actually
+renders after any rename.
 
 `alt=""` is deliberate: the person's name sits next to the avatar as text, so
 the photo is decorative and a screen reader repeating the name is noise.
