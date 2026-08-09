@@ -185,6 +185,17 @@ Four landmines already fixed here — don't reintroduce them:
    box — call it wherever `place(false)` is called. Don't "fix" this by dropping
    the `overflow: hidden` in landmine 3; the shadow and the falling card both
    need that edge, just at different distances.
+6. **One `centre()` at mount is not enough.** On a cold load the reading is
+   sometimes taken before the geometry is final and lands a partial correction
+   — 7px of the 24px needed — which puts the shadow back under the stage edge.
+   It reproduces intermittently and only on a first, uncached load. `settle()`
+   therefore re-runs `centre()` on the next frame, at `load`, and after
+   `document.fonts.ready`. `centre()` re-measures from scratch and no-ops when
+   the fan is already balanced, so the repeats can't compound.
+   **`centre()` must never run mid-swap**: the falling card is up to 520px below
+   the deck, so `below` reads hugely negative and the shadow guard would yank
+   the whole fan to the top of the stage. That's what the `_tl.isActive()` bail
+   at the top of `centre()` is for — don't remove it.
 
 ## Logo and favicon
 
