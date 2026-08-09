@@ -20,6 +20,29 @@ npx serve -l 4321 .
 
 `.claude/launch.json` defines this as the `portfolio` server for the preview tool.
 
+## Internal links are extensionless — don't write `.html`
+
+The files on disk are still `Work.html`, `About.html`, … but **every internal
+link omits the extension**: `href="Work"`, `href="How-I-Work"`, and the home
+link is `href="./"` so it lands on the bare domain rather than `/index.html`.
+This also covers the 9 `data-href` attributes on the home page's cards, which
+`onCardClick` feeds straight to `window.location.href`.
+
+It works because GitHub Pages resolves `/Work` to `Work.html` on its own — no
+Jekyll (there's a `.nojekyll`), no rewrite config, nothing to maintain. `npx
+serve` does the same locally via its default `cleanUrls`, so preview matches
+production.
+
+- **Don't restructure into `Work/index.html` folders.** `/Work/` is a 404 today,
+  and moving the files would change the URL depth and break every relative
+  `assets/…` and `./support.js` path on the page. Flat files at the root are
+  what makes the relative paths work.
+- The old `Work.html` URLs still resolve — they're the real filenames — so any
+  link shared before Aug 2026 keeps working. That leaves each page reachable at
+  two URLs, which is why every `<helmet>` now carries a
+  `<link rel="canonical">` pointing at the extensionless form.
+- Adding a page means adding its canonical tag too, right after `<title>`.
+
 ## ⚠️ These pages are NOT plain HTML
 
 They were imported from Claude Design and run on the **x-dc runtime** in
