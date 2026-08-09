@@ -50,8 +50,40 @@ Consequences to keep in mind:
 - Avoid `setState` in page logic that also drives GSAP — a re-render wipes
   transforms written directly to the DOM.
 - Pages that carry logic: `index.html` (card stack), `Contact.html` (form +
-  ripple canvas), `About.html` (fluid canvas + image fallback), `How-I-Work.html`
-  (prism grid).
+  ripple canvas), `About.html` (image fallback). `How-I-Work.html` no longer has
+  a logic class at all — a page with no `data-dc-script` block is fine.
+
+## The prism grid (`prism-grid.js`)
+
+The live hero background on all five main pages (home, Work, About, How I work,
+Contact): 64px cells that flash colour under the pointer plus a slow ambient
+twinkle. It replaced the static 64px CSS grid those heroes used to paint with
+`background-image` — same geometry and same `#eceef2` lines, so nothing moves.
+
+It is a standalone script, not page logic, because the heroes sit on pages whose
+Component classes already own a GSAP card stack, a form with `setState`, and an
+image fallback. Markup per hero, inside a `position: relative; overflow: hidden`
+section:
+
+```html
+<div data-prism-grid class="pg-host"></div>
+<div class="pg-scrim"></div>
+<div class="pg-over"> …hero content… </div>
+```
+
+Things worth knowing before changing it:
+
+- Cells are injected imperatively into an element React renders empty, so React
+  leaves them alone — verified surviving a `setState` re-render on `Contact.html`.
+  The scrim and overlay stay in markup so React owns every node it reconciles.
+- The hovered cell is derived from **pointer coordinates**, not `mouseover` on
+  the cell. Cells sit behind the content, so hit-testing them would need
+  `pointer-events: none` on everything above — which costs text selection and
+  click targets.
+- `About.html` deliberately has no `.pg-over` wrapper: `.about-hero-inner` would
+  become the containing block for the absolutely-positioned sketch and shift it.
+  Its text is already `z-index: 2`, the sketch `z-index: 1`.
+- The 9 case-study pages still use the old static grid background.
 
 ## The home page card stack (`index.html`)
 

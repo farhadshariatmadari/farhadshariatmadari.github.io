@@ -21,7 +21,7 @@
   a:hover { color: #234ad1; }
   ::selection { background: #2f5cf0; color: #fff; }
 </style>
-<script src="./fx.js"></script>
+<script src="./prism-grid.js"></script>
 </helmet>
 
 <div style="max-width: 1240px; margin: 0 auto;">
@@ -43,9 +43,9 @@
 
 <!-- PAGE HEADER · prism grid -->
 <section style="position: relative; overflow: hidden; padding: 88px 40px 56px;">
-  <div ref="{{ gridRef }}" style="position: absolute; inset: 0; z-index: 0;"></div>
-  <div style="position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(246,247,249,.86) 0%, rgba(246,247,249,.5) 55%, rgba(246,247,249,0) 100%);"></div>
-  <div style="position: relative; z-index: 2; pointer-events: none;">
+  <div data-prism-grid class="pg-host"></div>
+  <div class="pg-scrim"></div>
+  <div class="pg-over">
     <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad; margin-bottom: 20px;">// how I work</div>
     <h1 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(36px, 5.4vw, 64px); line-height: 1.0; letter-spacing: -0.03em; margin: 0 0 24px; max-width: 18ch; text-wrap: balance;">Problem first. Foundation second. Flows that leave no gaps.</h1>
     <p style="font-size: clamp(16px, 1.5vw, 19px); line-height: 1.6; color: #3a414d; max-width: 62ch; margin: 0;">A repeatable four-step process, refined across enterprise, healthcare, and AI products — designed so even a fully outsourced dev team can build the work without a single logical gap.</p>
@@ -176,67 +176,5 @@
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script>
-class Component extends DCLogic {
-  colors = ['#2f5cf0', '#22a06b', '#e0912f', '#7a5cf0', '#e0397f'];
-  cell = 64;
-  gridRef = (el) => {
-    if (!el) return;
-    this.grid = el;
-    el.style.display = 'grid';
-    requestAnimationFrame(this.build);
-    if (!this._bound) {
-      this._bound = true;
-      el.addEventListener('mouseover', this.onHover);
-      window.addEventListener('resize', this.onResize);
-      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        this._iv = setInterval(this.ambient, 900);
-      }
-    }
-  };
-  build = () => {
-    const el = this.grid;
-    if (!el) return;
-    const w = el.clientWidth, h = el.clientHeight;
-    if (!w || !h) { requestAnimationFrame(this.build); return; }
-    const cols = Math.ceil(w / this.cell) + 1;
-    const rows = Math.ceil(h / this.cell) + 1;
-    el.style.gridTemplateColumns = `repeat(${cols}, ${this.cell}px)`;
-    el.style.gridAutoRows = `${this.cell}px`;
-    let html = '';
-    for (let i = 0; i < cols * rows; i++) html += '<div class="pg-cell" style="border-right:1px solid #eceef2;border-bottom:1px solid #eceef2;transition:background .9s ease;"></div>';
-    el.innerHTML = html;
-  };
-  flash = (c, a) => {
-    if (!c) return;
-    const col = this.colors[(Math.random() * this.colors.length) | 0];
-    c.style.transition = 'none';
-    c.style.background = this.rgba(col, a);
-    requestAnimationFrame(() => requestAnimationFrame(() => {
-      c.style.transition = 'background 1s ease';
-      c.style.background = 'transparent';
-    }));
-  };
-  onHover = (e) => {
-    const c = e.target;
-    if (c && c.classList && c.classList.contains('pg-cell')) this.flash(c, 0.55);
-  };
-  ambient = () => {
-    const el = this.grid;
-    if (!el || !el.children.length) return;
-    this.flash(el.children[(Math.random() * el.children.length) | 0], 0.26);
-  };
-  onResize = () => { clearTimeout(this._t); this._t = setTimeout(this.build, 200); };
-  rgba(hex, a) {
-    const n = parseInt(hex.slice(1), 16);
-    return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
-  }
-  componentWillUnmount() {
-    clearInterval(this._iv);
-    window.removeEventListener('resize', this.onResize);
-  }
-  renderVals() { return { gridRef: this.gridRef }; }
-}
-</script>
 </body>
 </html>
