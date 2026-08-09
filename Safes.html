@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Safes — Family Safety App · Farhad Shariatmadari</title>
+<meta name="description" content="Case study: took a parental-control app from 500 to 500,000 downloads in four months by replacing heavy manual setup with ready-to-use, age-aware profile roles.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Safes — Family Safety App · Farhad Shariatmadari">
+<meta property="og:description" content="500 → 500,000 downloads in four months. Ready-to-use profile roles that give parents proper protection without configuring everything by hand.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: #f6f7f9; color: #14171c; font-family: 'IBM Plex Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: #2f5cf0; text-decoration: none; }
+  a:hover { color: #234ad1; }
+  ::selection { background: #2f5cf0; color: #fff; }
+</style>
+<script src="./fx.js"></script>
+</helmet>
+
+<div style="max-width: 1240px; margin: 0 auto;">
+
+<!-- ============ NAV ============ -->
+<header style="position: sticky; top: 0; z-index: 50; background: rgba(246,247,249,.85); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e5ea;">
+  <nav style="display: flex; align-items: center; justify-content: space-between; padding: 18px 40px;">
+    <a href="index.html" style="display: flex; align-items: baseline; gap: 10px; color: #14171c;">
+      <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;">Farhad Shariatmadari</span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad;">/ design</span>
+    </a>
+    <div style="display: flex; align-items: center; gap: 32px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+      <a href="Work.html" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>
+      <a href="About.html" style="color: #3a414d;" style-hover="color:#14171c;">About</a>
+      <a href="How-I-Work.html" style="color: #3a414d;" style-hover="color:#14171c;">How I work</a>
+      <a href="Contact.html" style="background: #14171c; color: #fff; padding: 9px 16px; border-radius: 4px;" style-hover="background:#2f5cf0; color:#fff;">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section style="padding: 56px 40px 72px; background-image: linear-gradient(#eceef2 1px, transparent 1px), linear-gradient(90deg, #eceef2 1px, transparent 1px); background-size: 64px 64px; background-position: -1px -1px;">
+  <a href="Work.html" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5a6270; display: inline-block; margin-bottom: 40px;" style-hover="color:#14171c;">← All work</a>
+  <div style="display: flex; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5a6270; margin-bottom: 24px; flex-wrap: wrap;">
+    <span style="border: 1px solid #d7dbe1; background:#fff; padding: 5px 11px; border-radius: 100px;">Consumer mobile</span>
+    <span style="border: 1px solid #d7dbe1; background:#fff; padding: 5px 11px; border-radius: 100px;">Family safety</span>
+    <span style="border: 1px solid #d7dbe1; background:#fff; padding: 5px 11px; border-radius: 100px;">Onboarding</span>
+  </div>
+  <h1 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(38px, 5.6vw, 68px); line-height: 0.98; letter-spacing: -0.03em; margin: 0 0 24px; max-width: 18ch; text-wrap: balance;">Safes</h1>
+  <p style="font-size: clamp(18px, 2vw, 24px); line-height: 1.4; color: #3a414d; max-width: 44ch; margin: 0;">Took a parental-control app from 500 to 500,000 downloads in four months — by making proper protection something parents get without configuring everything by hand.</p>
+</section>
+
+<!-- ============ HERO IMAGE ============ -->
+<section style="padding: 0 40px;">
+  <div style="border: 1px solid #e2e5ea; border-radius: 12px; overflow: hidden; background: #fff;">
+    <div style="aspect-ratio: 16/9; background: repeating-linear-gradient(135deg, #eef1f5 0 12px, #f5f7fa 12px 24px); display: flex; align-items: center; justify-content: center;">
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #b4bcc7; letter-spacing: 0.12em;">[ safes · parent &amp; kid apps hero ]</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTEXT & ROLE ============ -->
+<section style="padding: 80px 40px 40px;">
+  <div style="display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// context &amp; role</div>
+    <div>
+      <p style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: clamp(20px, 2.4vw, 28px); line-height: 1.4; letter-spacing: -0.015em; margin: 0 0 40px; color: #14171c; max-width: 36ch;">A parental control and school-safety app spanning screen time, content filtering, app rules, location, and classroom management.</p>
+      <p style="font-size: 16px; line-height: 1.7; color: #3a414d; max-width: 62ch; margin: 0;">Safes runs across Android, iOS, and Chromebook, with separate parent and kid apps. I enhanced the MVP end to end, established the design system, and simplified the experience for both parents and children.</p>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid #e2e5ea; border-radius: 8px; background: #fff; overflow: hidden; margin-top: 32px;">
+        <div style="padding: 20px 22px; border-right: 1px solid #eef0f3;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size: 11px; color: #97a0ad; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">Company</div>
+          <div style="font-size: 14px; line-height: 1.5;">SternX Technology GmbH</div>
+        </div>
+        <div style="padding: 20px 22px; border-right: 1px solid #eef0f3;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size: 11px; color: #97a0ad; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">Role</div>
+          <div style="font-size: 14px; line-height: 1.5;">Senior Product Designer</div>
+        </div>
+        <div style="padding: 20px 22px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size: 11px; color: #97a0ad; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">Platforms</div>
+          <div style="font-size: 14px; line-height: 1.5;">Android · iOS · Chromebook</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROBLEM ============ -->
+<section style="padding: 56px 40px;">
+  <div style="border-top: 1px solid #e2e5ea; padding-top: 48px; display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// problem</div>
+    <div>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 24px; max-width: 24ch;">Protection that demanded too much setup.</h2>
+      <p style="font-size: 16px; line-height: 1.7; color: #3a414d; max-width: 62ch; margin: 0;">The MVP existed, but setup asked parents for heavy manual configuration — a major drop-off point. Parents wanting to keep their kids safe were stalling before they ever got protection in place.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPROACH ============ -->
+<section style="padding: 56px 40px;">
+  <div style="border-top: 1px solid #e2e5ea; padding-top: 48px; display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// approach</div>
+    <div>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 32px; max-width: 26ch;">Replace configuration with ready-to-use roles.</h2>
+      <div style="border: 1px solid #2f5cf0; border-radius: 12px; background: #fff; padding: 40px; margin-bottom: 20px;">
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #2f5cf0; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 14px;">Signature feature</div>
+        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 22px; letter-spacing: -0.015em; margin-bottom: 12px;">Ready-to-use profile roles</div>
+        <p style="font-size: 15px; line-height: 1.7; color: #3a414d; margin: 0; max-width: 60ch;">Pre-built, automated rule sets tailored by a child's age, gender, and region — so parents get proper protection immediately, without having to configure every rule themselves.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 0; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden;">
+        <div style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px 28px; border-bottom: 1px solid #eef0f3;">
+          <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; color: #cdd3db;">01</span>
+          <div><div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size: 17px; margin-bottom: 6px;">Enhanced the MVP end to end</div><p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">Reworked the full product across both parent and kid apps rather than patching individual screens.</p></div>
+        </div>
+        <div style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px 28px; border-bottom: 1px solid #eef0f3;">
+          <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; color: #cdd3db;">02</span>
+          <div><div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size: 17px; margin-bottom: 6px;">Established the design system</div><p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">Built the foundation that kept both apps consistent as functionality grew.</p></div>
+        </div>
+        <div style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px 28px;">
+          <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; color: #cdd3db;">03</span>
+          <div><div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size: 17px; margin-bottom: 6px;">Simplified for parents and children alike</div><p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">Reduced the cognitive load on both sides of the product, so setup and everyday use stayed approachable.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KEY WORK ============ -->
+<section style="padding: 56px 40px;">
+  <div style="border-top: 1px solid #e2e5ea; padding-top: 48px;">
+    <div style="display: grid; grid-template-columns: 200px 1fr; gap: 48px; margin-bottom: 36px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// key work</div>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0; max-width: 24ch;">The parent app, the kid app, and setup.</h2>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+      <div style="border: 1px solid #e2e5ea; border-radius: 10px; overflow: hidden; background: #fff;">
+        <div style="aspect-ratio: 3/5; background: repeating-linear-gradient(135deg, #eef1f5 0 12px, #f5f7fa 12px 24px); display: flex; align-items: center; justify-content: center;"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#b4bcc7;letter-spacing:0.1em;">[ profile roles ]</span></div>
+        <div style="padding: 16px 18px; font-size: 12.5px; color: #5a6270; border-top: 1px solid #eef0f3;">Ready-to-use roles.</div>
+      </div>
+      <div style="border: 1px solid #e2e5ea; border-radius: 10px; overflow: hidden; background: #fff;">
+        <div style="aspect-ratio: 3/5; background: repeating-linear-gradient(135deg, #eef1f5 0 12px, #f5f7fa 12px 24px); display: flex; align-items: center; justify-content: center;"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#b4bcc7;letter-spacing:0.1em;">[ parent · dashboard ]</span></div>
+        <div style="padding: 16px 18px; font-size: 12.5px; color: #5a6270; border-top: 1px solid #eef0f3;">Parent dashboard.</div>
+      </div>
+      <div style="border: 1px solid #e2e5ea; border-radius: 10px; overflow: hidden; background: #fff;">
+        <div style="aspect-ratio: 3/5; background: repeating-linear-gradient(135deg, #eef1f5 0 12px, #f5f7fa 12px 24px); display: flex; align-items: center; justify-content: center;"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#b4bcc7;letter-spacing:0.1em;">[ kid app ]</span></div>
+        <div style="padding: 16px 18px; font-size: 12.5px; color: #5a6270; border-top: 1px solid #eef0f3;">Kid app.</div>
+      </div>
+      <div style="border: 1px solid #e2e5ea; border-radius: 10px; overflow: hidden; background: #fff;">
+        <div style="aspect-ratio: 3/5; background: repeating-linear-gradient(135deg, #eef1f5 0 12px, #f5f7fa 12px 24px); display: flex; align-items: center; justify-content: center;"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#b4bcc7;letter-spacing:0.1em;">[ setup flow ]</span></div>
+        <div style="padding: 16px 18px; font-size: 12.5px; color: #5a6270; border-top: 1px solid #eef0f3;">Simplified setup.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OUTCOMES ============ -->
+<section style="padding: 56px 40px;">
+  <div style="border-top: 1px solid #e2e5ea; padding-top: 48px; display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// outcomes</div>
+    <div>
+      <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px;">
+        <div style="border: 1px solid #2f5cf0; border-radius: 12px; background: #14171c; color: #f6f7f9; padding: 44px; position: relative; overflow: hidden;">
+          <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
+          <div style="position: relative;">
+            <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #6f7a8a; letter-spacing: 0.1em; margin-bottom: 18px;">DOWNLOADS · 4 MONTHS</div>
+            <div style="display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap;">
+              <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(32px, 4vw, 48px); letter-spacing: -0.02em; line-height: 1; color: #6f7a8a;">500</span>
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 24px; color: #6f7a8a;">→</span>
+              <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(40px, 6vw, 72px); letter-spacing: -0.03em; line-height: 1; color: #6f9dff;">500K</span>
+            </div>
+            <p style="font-size: 15px; line-height: 1.7; color: #a7afba; margin: 24px 0 0; max-width: 46ch;">A 1,000× jump in installs within four months of the redesign shipping.</p>
+          </div>
+        </div>
+        <div style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: 44px; display: flex; flex-direction: column; justify-content: center;">
+          <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 44px; letter-spacing: -0.02em; line-height: 1;">4+ ★</div>
+          <p style="font-size: 15px; line-height: 1.6; color: #3a414d; margin: 16px 0 0;">Maintained a 4+ star rating on the Play Store throughout the tenure.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEXT PROJECT ============ -->
+<section style="padding: 40px 40px 96px;">
+  <a href="Medio.html" style="display: block; border-radius: 14px; background: #14171c; color: #f6f7f9; padding: 56px; position: relative; overflow: hidden;" style-hover="background:#1b1f27;">
+    <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
+    <div style="position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+      <div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6f7a8a; margin-bottom: 16px;">// next project</div>
+        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(28px, 4vw, 44px); letter-spacing: -0.025em; line-height: 1;">Medio</div>
+        <div style="font-size: 16px; color: #a7afba; margin-top: 12px; max-width: 44ch;">A four-panel healthcare system, airtight enough for an outsourced team to build.</div>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #f6f7f9; border: 1px solid #33383f; padding: 13px 20px; border-radius: 5px;">View case →</span>
+    </div>
+  </a>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer style="border-top: 1px solid #e2e5ea; padding: 48px 40px 56px;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px;">
+    <div style="max-width: 34ch;">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px; margin-bottom: 10px;">Farhad Shariatmadari</div>
+      <p style="font-size: 13px; line-height: 1.6; color: #5a6270; margin: 0;">Lead Product &amp; Experience Designer. Based in Tehran; working remotely with international clients.</p>
+    </div>
+    <div style="display: flex; gap: 56px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <span style="color: #97a0ad; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">Site</span>
+        <a href="Work.html" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>
+        <a href="About.html" style="color: #3a414d;" style-hover="color:#14171c;">About</a>
+        <a href="How-I-Work.html" style="color: #3a414d;" style-hover="color:#14171c;">How I work</a>
+        <a href="Contact.html" style="color: #3a414d;" style-hover="color:#14171c;">Contact</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <span style="color: #97a0ad; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">Reach me</span>
+        <a href="mailto:farhadshariatmadari@gmail.com" style="color: #3a414d;" style-hover="color:#14171c;">Email</a>
+        <a href="tel:+989006665599" style="color: #3a414d;" style-hover="color:#14171c;">+98 900 666 55 99</a>
+        <a href="https://www.linkedin.com/in/farhadshariatmadari/" style="color: #3a414d;" style-hover="color:#14171c;">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 44px; padding-top: 20px; border-top: 1px solid #eef0f3; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+    <span>© 2026 Farhad Shariatmadari</span>
+    <span>Tehran, Iran · Remote worldwide</span>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+</body>
+</html>

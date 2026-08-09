@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Contact — Farhad Shariatmadari</title>
+<meta name="description" content="Start a conversation with Farhad Shariatmadari — Lead Product & Experience Designer. Contract, full-time, part-time, or consulting. Remote worldwide, hybrid in Tehran.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: #f6f7f9; color: #14171c; font-family: 'IBM Plex Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: #2f5cf0; text-decoration: none; }
+  a:hover { color: #234ad1; }
+  ::selection { background: #2f5cf0; color: #fff; }
+  @keyframes pulseDot { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+  .field { width: 100%; font-family: 'IBM Plex Sans', sans-serif; font-size: 15px; color: #14171c; background: #fbfcfd; border: 1px solid #d7dbe1; border-radius: 7px; padding: 13px 15px; outline: none; transition: border-color .15s, box-shadow .15s; }
+  .field:focus { border-color: #2f5cf0; box-shadow: 0 0 0 3px rgba(47,92,240,.14); background: #fff; }
+  .field::placeholder { color: #9aa3b0; }
+  textarea.field { resize: vertical; min-height: 128px; line-height: 1.55; }
+  .lbl { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #97a0ad; margin-bottom: 8px; display: block; }
+</style>
+<script src="./fx.js"></script>
+</helmet>
+
+<canvas ref="{{ rippleRef }}" style="position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1;"></canvas>
+
+<div style="max-width: 1240px; margin: 0 auto;">
+
+<header style="position: sticky; top: 0; z-index: 50; background: rgba(246,247,249,.85); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e5ea;">
+  <nav style="display: flex; align-items: center; justify-content: space-between; padding: 18px 40px;">
+    <a href="index.html" style="display: flex; align-items: baseline; gap: 10px; color: #14171c;">
+      <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;">Farhad Shariatmadari</span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad;">/ design</span>
+    </a>
+    <div style="display: flex; align-items: center; gap: 32px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+      <a href="Work.html" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>
+      <a href="About.html" style="color: #3a414d;" style-hover="color:#14171c;">About</a>
+      <a href="How-I-Work.html" style="color: #3a414d;" style-hover="color:#14171c;">How I work</a>
+      <a href="Contact.html" style="background: #2f5cf0; color: #fff; padding: 9px 16px; border-radius: 4px;" style-hover="background:#234ad1; color:#fff;">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<!-- HEADER -->
+<section style="padding: 88px 40px 40px; background-image: linear-gradient(#eceef2 1px, transparent 1px), linear-gradient(90deg, #eceef2 1px, transparent 1px); background-size: 64px 64px; background-position: -1px -1px;">
+  <div style="display: inline-flex; align-items: center; gap: 9px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5a6270; border: 1px solid #d7dbe1; background: #fff; padding: 6px 12px; border-radius: 100px; margin-bottom: 28px;">
+    <span style="width: 7px; height: 7px; border-radius: 50%; background: #22a06b; animation: pulseDot 2.4s infinite;"></span>
+    Available for contract, full-time &amp; consulting
+  </div>
+  <h1 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(36px, 5.4vw, 64px); line-height: 1.0; letter-spacing: -0.03em; margin: 0 0 22px; max-width: 16ch; text-wrap: balance;">Let's talk about <span ref="{{ scrambleRef }}" style="display:inline-block;">what you're building.</span></h1>
+  <p style="font-size: clamp(16px, 1.5vw, 19px); line-height: 1.6; color: #3a414d; max-width: 60ch; margin: 0;">The more ambiguous the problem, the more interested I am. Send a few lines about your product and I'll get back to you — usually within a day or two.</p>
+</section>
+
+<!-- BODY -->
+<section style="padding: 32px 40px 24px;">
+  <div style="display: grid; grid-template-columns: 1fr 1.1fr; gap: 24px; align-items: start;">
+
+    <!-- METHODS -->
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <a href="mailto:farhadshariatmadari@gmail.com" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; padding: 22px 24px; color: #14171c;" style-hover="border-color:#c0c6cf;">
+        <div>
+          <div class="lbl">Email</div>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px;">farhadshariatmadari@gmail.com</div>
+        </div>
+        <span style="font-family: 'JetBrains Mono', monospace; color: #2f5cf0; font-size: 18px;">→</span>
+      </a>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+        <a href="tel:+989006665599" style="border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; padding: 22px 24px; color: #14171c;" style-hover="border-color:#c0c6cf;">
+          <div class="lbl">Phone</div>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16px;">+98 900 666 55 99</div>
+        </a>
+        <a href="tel:+989106303077" style="border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; padding: 22px 24px; color: #14171c;" style-hover="border-color:#c0c6cf;">
+          <div class="lbl">Phone</div>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16px;">+98 910 630 30 77</div>
+        </a>
+      </div>
+
+      <a href="https://www.linkedin.com/in/farhadshariatmadari/" style="display: flex; align-items: center; justify-content: space-between; gap: 16px; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; padding: 22px 24px; color: #14171c;" style-hover="border-color:#c0c6cf;">
+        <div>
+          <div class="lbl">LinkedIn</div>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 17px;">/in/farhadshariatmadari</div>
+        </div>
+        <span style="font-family: 'JetBrains Mono', monospace; color: #2f5cf0; font-size: 18px;">→</span>
+      </a>
+
+      <div style="border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr;">
+          <div style="padding: 20px 24px; border-right: 1px solid #eef0f3; border-bottom: 1px solid #eef0f3;"><div class="lbl">Location</div><div style="font-size: 14.5px;">Tehran, Iran</div></div>
+          <div style="padding: 20px 24px; border-bottom: 1px solid #eef0f3;"><div class="lbl">Working modes</div><div style="font-size: 14.5px;">Remote worldwide · hybrid Tehran</div></div>
+          <div style="padding: 20px 24px; border-right: 1px solid #eef0f3;"><div class="lbl">Engagements</div><div style="font-size: 14.5px;">Contract · full-time · part-time · consulting</div></div>
+          <div style="padding: 20px 24px;"><div class="lbl">Languages</div><div style="font-size: 14.5px;">Farsi &amp; English</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <div style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: 32px 34px;">
+      <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+        <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px 4px;">
+          <div style="width: 48px; height: 48px; border-radius: 50%; background: #eaf6f0; color: #22a06b; display: flex; align-items: center; justify-content: center; font-size: 24px;">✓</div>
+          <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 24px; letter-spacing: -0.02em; margin: 0;">Your email is ready to send.</h2>
+          <p style="font-size: 15px; line-height: 1.6; color: #5a6270; margin: 0; max-width: 46ch;">I've opened a pre-filled email in your mail app. If nothing happened, reach me directly at <a href="mailto:farhadshariatmadari@gmail.com">farhadshariatmadari@gmail.com</a>.</p>
+          <button onClick="{{ reset }}" style="margin-top: 6px; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #14171c; background: #fff; border: 1px solid #d7dbe1; border-radius: 5px; padding: 11px 18px;">Write another</button>
+        </div>
+      </sc-if>
+      <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+        <div style="display: flex; flex-direction: column; gap: 18px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
+            <div><label class="lbl" for="cn">Your name</label><input id="cn" class="field" type="text" placeholder="Jane Doe" value="{{ name }}" onInput="{{ onName }}"></div>
+            <div><label class="lbl" for="ce">Email</label><input id="ce" class="field" type="email" placeholder="jane@company.com" value="{{ email }}" onInput="{{ onEmail }}"></div>
+          </div>
+          <div><label class="lbl" for="ct">Engagement type</label><select id="ct" class="field" value="{{ type }}" onChange="{{ onType }}"><option>Contract</option><option>Full-time</option><option>Part-time</option><option>Consulting</option><option>Not sure yet</option></select></div>
+          <div><label class="lbl" for="cm">What are you building?</label><textarea id="cm" class="field" placeholder="A few lines about the product, the problem, and timeline…" value="{{ message }}" onInput="{{ onMessage }}"></textarea></div>
+          <button onClick="{{ send }}" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: #2f5cf0; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 15px 24px; border: none; border-radius: 5px;" style-hover="background:#234ad1;">Send message <span style="font-size:16px;">→</span></button>
+          <p style="font-size: 12px; color: #97a0ad; margin: 0; line-height: 1.5;">This opens a pre-filled email in your own mail app — nothing is stored here.</p>
+        </div>
+      </sc-if>
+    </div>
+
+  </div>
+</section>
+
+<footer style="border-top: 1px solid #e2e5ea; padding: 48px 40px 56px; margin-top: 40px;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px;">
+    <div style="max-width: 34ch;">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px; margin-bottom: 10px;">Farhad Shariatmadari</div>
+      <p style="font-size: 13px; line-height: 1.6; color: #5a6270; margin: 0;">Lead Product &amp; Experience Designer. Based in Tehran; working remotely with international clients.</p>
+    </div>
+    <div style="display: flex; gap: 56px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <span style="color: #97a0ad; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">Site</span>
+        <a href="Work.html" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>
+        <a href="About.html" style="color: #3a414d;" style-hover="color:#14171c;">About</a>
+        <a href="How-I-Work.html" style="color: #3a414d;" style-hover="color:#14171c;">How I work</a>
+        <a href="Contact.html" style="color: #3a414d;" style-hover="color:#14171c;">Contact</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <span style="color: #97a0ad; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">Reach me</span>
+        <a href="mailto:farhadshariatmadari@gmail.com" style="color: #3a414d;" style-hover="color:#14171c;">Email</a>
+        <a href="tel:+989006665599" style="color: #3a414d;" style-hover="color:#14171c;">+98 900 666 55 99</a>
+        <a href="https://www.linkedin.com/in/farhadshariatmadari/" style="color: #3a414d;" style-hover="color:#14171c;">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 44px; padding-top: 20px; border-top: 1px solid #eef0f3; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+    <span>© 2026 Farhad Shariatmadari</span>
+    <span>Tehran, Iran · Remote worldwide</span>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { name: '', email: '', type: 'Contract', message: '', sent: false };
+  set(k) { return (e) => this.setState({ [k]: e.target.value }); }
+  rippleRef = (el) => {
+    if (!el || this._rp === el) return;
+    this._rp = el; this._rctx = el.getContext('2d'); this._rmouse = { x: -9999, y: -9999 };
+    const size = () => { this._rdpr = Math.min(2, window.devicePixelRatio || 1); el.width = innerWidth * this._rdpr; el.height = innerHeight * this._rdpr; };
+    size(); window.addEventListener('resize', size);
+    window.addEventListener('pointermove', (e) => { this._rmouse = { x: e.clientX * this._rdpr, y: e.clientY * this._rdpr }; }, { passive: true });
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { this.drawRipple(0); return; }
+    let t = 0;
+    const loop = () => { this.drawRipple(t); t += 0.006; this._rraf = requestAnimationFrame(loop); };
+    loop();
+  };
+  drawRipple = (t) => {
+    const el = this._rp, ctx = this._rctx; if (!ctx) return;
+    const dpr = this._rdpr || 1, W = el.width, H = el.height;
+    ctx.clearRect(0, 0, W, H);
+    const gap = 34 * dpr, len = 9 * dpr;
+    ctx.lineWidth = Math.max(1, dpr); ctx.strokeStyle = 'rgba(47,92,240,0.10)'; ctx.lineCap = 'round';
+    const mx = this._rmouse.x, my = this._rmouse.y, R = 150 * dpr;
+    for (let x = gap / 2; x < W; x += gap) {
+      for (let y = gap / 2; y < H; y += gap) {
+        let a = (Math.sin(x * 0.01 / dpr + t) + Math.cos(y * 0.012 / dpr - t * 0.8)) * Math.PI;
+        const dx = x - mx, dy = y - my, dist = Math.hypot(dx, dy);
+        if (dist < R) { const infl = 1 - dist / R; a = a * (1 - infl) + (Math.atan2(dy, dx) + Math.PI / 2) * infl; }
+        const c = Math.cos(a) * len, s = Math.sin(a) * len;
+        ctx.beginPath(); ctx.moveTo(x - c, y - s); ctx.lineTo(x + c, y + s); ctx.stroke();
+      }
+    }
+  };
+  scrambleRef = (el) => {
+    if (!el || this._sc === el) return;
+    this._sc = el; this._scText = el.textContent;
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    el.addEventListener('pointerenter', this.runScramble);
+    this.runScramble();
+  };
+  runScramble = () => {
+    const el = this._sc, text = this._scText; if (!el) return;
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz/<>-_$%';
+    let frame = 0; const speed = 0.5;
+    clearInterval(this._sci);
+    this._sci = setInterval(() => {
+      const revealed = frame * speed;
+      let out = '';
+      for (let i = 0; i < text.length; i++) {
+        if (text[i] === ' ' || i < revealed) out += text[i];
+        else out += chars[(Math.random() * chars.length) | 0];
+      }
+      el.textContent = out;
+      if (revealed >= text.length) { clearInterval(this._sci); el.textContent = text; }
+      frame++;
+    }, 38);
+  };
+  renderVals() {
+    const { name, email, type, message, sent } = this.state;
+    const send = () => {
+      const subj = encodeURIComponent(`New project inquiry — ${type}${name ? ' — ' + name : ''}`);
+      const body = encodeURIComponent(
+        `Name: ${name}\nEmail: ${email}\nEngagement: ${type}\n\n${message}`
+      );
+      window.location.href = `mailto:farhadshariatmadari@gmail.com?subject=${subj}&body=${body}`;
+      this.setState({ sent: true });
+    };
+    const reset = () => this.setState({ sent: false, message: '' });
+    return {
+      name, email, type, message, sent, notSent: !sent,
+      onName: this.set('name'), onEmail: this.set('email'),
+      onType: this.set('type'), onMessage: this.set('message'),
+      send, reset, scrambleRef: this.scrambleRef, rippleRef: this.rippleRef
+    };
+  }
+}
+</script>
+</body>
+</html>

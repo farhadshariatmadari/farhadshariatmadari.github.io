@@ -1,0 +1,18 @@
+# GitHub Pages on a free account requires a PUBLIC repo, so anything listed here
+# stays on your machine and never reaches the internet.
+
+# Internal working documents — contains [CONFIRM] items, "do not mention" notes,
+# and the mock-testimonial instructions. Must not be published.
+uploads/
+assets/MISSING-ASSETS.md
+DESIGN_HANDOFF.md
+
+# Internal design exploration, not part of the public site
+Style Directions.dc.html
+
+# The previous portfolio, kept locally for reference
+legacy-portfolio.html
+
+# Local tooling / OS noise
+.claude/
+.DS_Store

@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Farhad Shariatmadari — Lead Product &amp; Experience Designer</title>
+<meta name="description" content="Lead Product & Experience Designer with 7–8 years shipping complex B2B platforms and AI-driven products across Iran, the UAE, and Greece. Available for contract, full-time, and consulting.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Farhad Shariatmadari — Lead Product & Experience Designer">
+<meta property="og:description" content="I turn complex, ambiguous systems into products people can actually use. Enterprise, healthcare, and AI-first product design.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: #f6f7f9; color: #14171c; font-family: 'IBM Plex Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: #2f5cf0; text-decoration: none; }
+  a:hover { color: #234ad1; }
+  ::selection { background: #2f5cf0; color: #fff; }
+  @keyframes pulseDot { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+  @keyframes blurIn { from { opacity: 0; filter: blur(12px); transform: translateY(14px); } to { opacity: 1; filter: blur(0); transform: none; } }
+  @keyframes riseIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+  @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  @keyframes spotDrift { 0% { transform: translate(-6%, -4%); } 50% { transform: translate(8%, 6%); } 100% { transform: translate(-6%, -4%); } }
+  @keyframes dashFlow { to { stroke-dashoffset: -28; } }
+  @keyframes nodePulse { 0%,100% { opacity: .35; transform: scale(1); } 50% { opacity: 1; transform: scale(1.25); } }
+  @keyframes chipGlow { 0%,100% { box-shadow: 0 0 0 0 rgba(47,92,240,.0); } 50% { box-shadow: 0 0 0 6px rgba(47,92,240,.10); } }
+  @keyframes shimmer { 0% { transform: translateX(-140%); } 60%,100% { transform: translateX(260%); } }
+  .anim { opacity: 0; animation: blurIn .7s cubic-bezier(.2,.72,.2,1) both; }
+  .rise { opacity: 0; animation: riseIn .7s cubic-bezier(.2,.72,.2,1) both; }
+  .shimmer-btn { position: relative; overflow: hidden; }
+  .shimmer-btn::after { content: ""; position: absolute; top: 0; left: 0; width: 40%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent); transform: translateX(-140%); animation: shimmer 4.5s ease-in-out 1.2s infinite; }
+  .flow-line { stroke-dasharray: 6 8; animation: dashFlow 1.1s linear infinite; }
+  .float-panel { animation: floatY 7s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) {
+    .anim, .rise { animation: none; opacity: 1; }
+    .float-panel, .flow-line, .shimmer-btn::after { animation: none; }
+  }
+
+  /* ============ project card swap ============ */
+  .cs-top { display: grid; grid-template-columns: minmax(0, 1fr) 600px; gap: 48px; align-items: center; }
+  .cs-intro { min-width: 0; }
+  .cs-stage-wrap { display: flex; justify-content: center; }
+  /* stage must clear the card plus the 8-step fan: 420+160 wide, 424+144 tall.
+     overflow:hidden keeps the swapping card's 520px fall from sweeping over the
+     project index that sits directly below. */
+  .cs-stage { position: relative; width: 600px; height: 590px; perspective: 1200px; overflow: hidden; }
+  /* the translate is a no-JS fallback; measure() recomputes it from the live fan size */
+  .cs-track { position: absolute; inset: 0; transform: translate(-80px, 72px); transform-style: preserve-3d; }
+
+  .cs-card {
+    position: absolute; top: 50%; left: 50%;
+    width: 420px; height: 424px;
+    display: flex; flex-direction: column;
+    background: #fff; border: 1px solid #e2e5ea; border-radius: 12px;
+    box-shadow: 0 26px 54px -30px rgba(20,23,28,.5);
+    overflow: hidden; cursor: pointer;
+    transform-style: preserve-3d; will-change: transform; backface-visibility: hidden;
+    transition: border-color .2s ease;
+  }
+  .cs-card:hover { border-color: #c0c6cf; }
+  /* pre-JS / no-GSAP resting state: a neat centred stack that GSAP fans out.
+     Deliberately no skew here — GSAP folds skewY into rotation+skewX when it
+     parses the existing transform, so a CSS skew becomes a baseline it cannot
+     later clear, and skewY:0 on mobile would silently do nothing. */
+  .cs-card { transform: translate(-50%, -50%); }
+  .cs-card-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 20px; border-bottom: 1px solid #eef0f3; font-family: 'JetBrains Mono', monospace; font-size: 11px; }
+  .cs-card-id { color: #97a0ad; }
+  .cs-card-cat { color: #2f5cf0; font-size: 10px; letter-spacing: .07em; text-transform: uppercase; white-space: nowrap; }
+  /* screenshot band; .is-empty falls back to the hatch treatment the case-study
+     pages use for projects whose shots aren't publishable / weren't supplied */
+  .cs-card-shot { height: 168px; flex: 0 0 auto; overflow: hidden; border-bottom: 1px solid #eef0f3; background: #f1f3f6; }
+  .cs-card-shot img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  /* 2880px-wide desktop captures are illegible squeezed into a 420px band, so
+     zoom into the top-left of the UI instead of showing the whole window */
+  .cs-card-shot.is-wide img { transform: scale(1.85); transform-origin: top left; }
+  .cs-card-shot.is-empty { display: flex; align-items: center; justify-content: center; background: repeating-linear-gradient(135deg, #eef1f5 0 11px, #f5f7fa 11px 22px); }
+  .cs-card-shot.is-empty span { font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.12em; color: #b4bcc7; }
+  .cs-card-body { flex: 1; min-height: 0; padding: 18px 22px 0; display: flex; flex-direction: column; }
+  .cs-card-body h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 21px; letter-spacing: -0.02em; margin: 0 0 8px; }
+  .cs-card-body p { font-size: 13px; line-height: 1.55; color: #5a6270; margin: 0; }
+  .cs-card-stat { margin: auto 0 18px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 28px; letter-spacing: -0.02em; line-height: 1; color: #2f5cf0; }
+  .cs-card-stat.is-text { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: #14171c; display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .cs-card-stat small { display: block; width: 100%; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 400; letter-spacing: .03em; color: #97a0ad; margin-top: 8px; }
+  .cs-card-stat.is-text small { margin-top: 2px; }
+  .cs-dot { width: 7px; height: 7px; border-radius: 50%; background: #e0912f; flex: 0 0 auto; }
+  .cs-card-foot { display: flex; align-items: center; justify-content: space-between; padding: 13px 22px; border-top: 1px solid #eef0f3; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5a6270; }
+  .cs-card-go { color: #2f5cf0; font-size: 14px; transition: transform .2s ease; }
+  .cs-card:hover .cs-card-go { transform: translateX(4px); }
+
+  /* project index */
+  .cs-list { margin-top: 48px; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden; }
+  /* fixed metric column: each row is its own grid, so an `auto` column here would
+     resize the 1fr columns per row and the tags would no longer line up */
+  .cs-row { position: relative; display: grid; grid-template-columns: 42px minmax(0, 1fr) minmax(0, 1.15fr) 168px 26px; align-items: center; gap: 18px; padding: 15px 22px; border-bottom: 1px solid #eef0f3; color: #14171c; transition: background .18s ease; }
+  .cs-row:last-child { border-bottom: none; }
+  .cs-row::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: #2f5cf0; opacity: 0; transition: opacity .18s ease; }
+  .cs-row:hover, .cs-row.is-active { background: #fbfcfd; color: #14171c; }
+  .cs-row.is-active::before { opacity: 1; }
+  .cs-row:focus-visible { outline: 2px solid #2f5cf0; outline-offset: -2px; }
+  .cs-row-n { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #b4bcc7; }
+  .cs-row-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16px; letter-spacing: -0.01em; }
+  .cs-row-tag { font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #5a6270; }
+  .cs-row-metric { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #97a0ad; white-space: nowrap; text-align: right; }
+  .cs-row-arrow { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #c0c6cf; text-align: right; transition: color .18s ease, transform .18s ease; }
+  .cs-row:hover .cs-row-arrow, .cs-row.is-active .cs-row-arrow { color: #2f5cf0; transform: translateX(3px); }
+
+  @media (max-width: 1100px) {
+    .cs-top { grid-template-columns: 1fr; gap: 40px; }
+    .cs-stage-wrap { justify-content: flex-start; }
+  }
+  /* column counts must track the children that stay visible at each breakpoint,
+     otherwise the leftovers wrap onto an implicit row */
+  @media (max-width: 860px) {
+    .cs-row { grid-template-columns: 34px minmax(0, 1fr) 150px 22px; gap: 14px; padding: 14px 18px; }
+    .cs-row-tag { display: none; }
+  }
+  /* narrow: the 3D fan can't fit a phone, so it collapses to a clean single-card
+     rotator (measure() zeroes the offsets) and the index list carries navigation */
+  @media (max-width: 620px) {
+    /* stage clears the card plus the 8-step fan (8 × 5px vertical) */
+    .cs-stage { width: 100%; height: 452px; }
+    /* leave room for the 8-step fan (8 × 6px) so the deck never leaves the stage */
+    .cs-card { width: calc(100% - 48px); height: 404px; }
+    .cs-card-shot { height: 108px; }
+    .cs-card-body { padding: 16px 18px 0; }
+    .cs-card-body h3 { font-size: 19px; }
+    .cs-card-body p { font-size: 12.5px; }
+    .cs-card-stat { font-size: 25px; margin-bottom: 14px; }
+    .cs-row { grid-template-columns: 30px minmax(0, 1fr) 22px; }
+    .cs-row-metric { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cs-card-go, .cs-row-arrow { transition: none; }
+  }
+</style>
+<script src="./fx.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+</helmet>
+
+<div style="max-width: 1240px; margin: 0 auto;">
+
+<!-- ============ NAV ============ -->
+<header style="position: sticky; top: 0; z-index: 50; background: rgba(246,247,249,.85); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e5ea;">
+  <nav style="display: flex; align-items: center; justify-content: space-between; padding: 18px 40px;">
+    <a href="index.html" style="display: flex; align-items: baseline; gap: 10px; color: #14171c;">
+      <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;">Farhad Shariatmadari</span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad;">/ design</span>
+    </a>
+    <div style="display: flex; align-items: center; gap: 32px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+      <a href="Work.html" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>
+      <a href="About.html" style="color: #3a414d;" style-hover="color:#14171c;">About</a>
+      <a href="How-I-Work.html" style="color: #3a414d;" style-hover="color:#14171c;">How I work</a>
+      <a href="Contact.html" style="background: #14171c; color: #fff; padding: 9px 16px; border-radius: 4px;" style-hover="background:#2f5cf0; color:#fff;">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section style="position: relative; overflow: hidden; padding: 96px 40px 84px; background-image: linear-gradient(#eceef2 1px, transparent 1px), linear-gradient(90deg, #eceef2 1px, transparent 1px); background-size: 64px 64px; background-position: -1px -1px;">
+  <div style="position: absolute; inset: -20% -10%; z-index: 0; pointer-events: none; background: radial-gradient(closest-side, rgba(47,92,240,.14), rgba(47,92,240,0) 70%); filter: blur(10px); animation: spotDrift 16s ease-in-out infinite;"></div>
+  <div style="position: relative; z-index: 1; display: flex; gap: 48px; align-items: center; flex-wrap: wrap;">
+  <div style="flex: 1 1 460px; min-width: min(100%, 440px);">
+  <div class="rise" style="animation-delay:.05s; display: inline-flex; align-items: center; gap: 9px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5a6270; border: 1px solid #d7dbe1; background: #fff; padding: 6px 12px; border-radius: 100px; margin-bottom: 32px;">
+    <span style="width: 7px; height: 7px; border-radius: 50%; background: #22a06b; animation: pulseDot 2.4s infinite;"></span>
+    Available for contract, full-time &amp; consulting
+  </div>
+  <h1 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(40px, 6.4vw, 80px); line-height: 0.98; letter-spacing: -0.03em; margin: 0 0 28px; max-width: 15ch; text-wrap: balance;"><span class="anim" style="display:block; animation-delay:.12s;">I turn complex,</span><span class="anim" style="display:block; animation-delay:.22s;">ambiguous systems</span><span class="anim" style="display:block; animation-delay:.32s;">into products people</span><span class="anim" style="display:block; animation-delay:.42s;">can actually use.</span></h1>
+  <p class="anim" style="animation-delay:.52s; font-size: clamp(16px, 1.6vw, 20px); line-height: 1.6; color: #3a414d; max-width: 56ch; margin: 0 0 40px;">Lead Product &amp; Experience Designer, 7–8 years in. I design enterprise platforms, healthcare systems, and AI products across Iran, the UAE, and Greece — several the first of their kind in their market.</p>
+  <div class="rise" style="animation-delay:.62s; display: flex; flex-wrap: wrap; gap: 14px; align-items: center;">
+    <a href="Contact.html" class="shimmer-btn" style="display: inline-flex; align-items: center; gap: 10px; background: #2f5cf0; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 15px 24px; border-radius: 5px;" style-hover="background:#234ad1;">Start a conversation <span style="font-size:16px;">→</span></a>
+    <a href="Work.html" style="display: inline-flex; align-items: center; gap: 10px; color: #14171c; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 15px 24px; border-radius: 5px; border: 1px solid #d7dbe1; background: #fff;" style-hover="border-color:#14171c;">See the work</a>
+  </div>
+  </div>
+
+  <!-- animated system schematic -->
+  <div class="rise" style="animation-delay:.3s; flex: 0 1 460px; min-width: min(100%, 320px);">
+    <div class="float-panel" style="border: 1px solid #e2e5ea; border-radius: 12px; background: rgba(255,255,255,.72); backdrop-filter: blur(6px); box-shadow: 0 30px 60px -40px rgba(20,23,28,.32); overflow: hidden;">
+      <div style="display: flex; align-items: center; gap: 8px; padding: 11px 16px; border-bottom: 1px solid #eef0f3;">
+        <span style="width:9px;height:9px;border-radius:50%;background:#e2e5ea;"></span>
+        <span style="width:9px;height:9px;border-radius:50%;background:#e2e5ea;"></span>
+        <span style="width:9px;height:9px;border-radius:50%;background:#e2e5ea;"></span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#97a0ad; margin-left:6px;">system.map</span>
+        <span style="margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:10px; color:#2f5cf0; letter-spacing:.08em;">LIVE</span>
+      </div>
+      <svg viewBox="0 0 460 360" width="100%" style="display:block;" role="img" aria-label="Diagram: tangled inputs resolving through design into clean product screens">
+        <!-- chaos: crossing gray links -->
+        <g stroke="#d5dae1" stroke-width="1.4" fill="none">
+          <path d="M40 60 L150 180"/><path d="M44 150 L150 172"/><path d="M36 232 L150 190"/><path d="M70 300 L150 200"/><path d="M52 60 L44 150"/><path d="M44 150 L36 232"/><path d="M36 232 L70 300"/><path d="M52 60 L36 232"/>
+        </g>
+        <!-- chaos nodes -->
+        <g fill="#aeb6c1">
+          <circle cx="40" cy="60" r="5"/><circle cx="44" cy="150" r="5"/><circle cx="36" cy="232" r="5"/><circle cx="70" cy="300" r="5"/><circle cx="52" cy="60" r="3"/>
+        </g>
+        <!-- flow: design -> product (animated) -->
+        <g fill="none" stroke="#2f5cf0" stroke-width="2">
+          <path class="flow-line" d="M150 186 C 210 186, 240 96, 300 96"/>
+          <path class="flow-line" style="animation-delay:.25s" d="M150 186 C 220 186, 250 186, 300 186"/>
+          <path class="flow-line" style="animation-delay:.5s" d="M150 186 C 210 186, 240 276, 300 276"/>
+        </g>
+        <!-- center design chip -->
+        <g>
+          <rect x="110" y="160" width="80" height="52" rx="11" fill="#14171c"/>
+          <rect x="110" y="160" width="80" height="52" rx="11" fill="none" stroke="#2f5cf0" stroke-width="1.5" opacity=".5"/>
+          <rect x="126" y="178" width="14" height="14" rx="3" fill="#2f5cf0"/>
+          <rect x="146" y="178" width="20" height="4" rx="2" fill="#4a5566"/>
+          <rect x="146" y="186" width="14" height="4" rx="2" fill="#3a4353"/>
+        </g>
+        <!-- ordered product rows -->
+        <g>
+          <rect x="300" y="72" width="140" height="48" rx="9" fill="#fff" stroke="#e2e5ea"/>
+          <circle cx="320" cy="96" r="6" fill="#2f5cf0"/><rect x="336" y="88" width="78" height="5" rx="2.5" fill="#cfd5dd"/><rect x="336" y="100" width="52" height="5" rx="2.5" fill="#e3e7ec"/>
+          <rect x="300" y="162" width="140" height="48" rx="9" fill="#fff" stroke="#e2e5ea"/>
+          <circle cx="320" cy="186" r="6" fill="#22a06b"/><rect x="336" y="178" width="78" height="5" rx="2.5" fill="#cfd5dd"/><rect x="336" y="190" width="52" height="5" rx="2.5" fill="#e3e7ec"/>
+          <rect x="300" y="252" width="140" height="48" rx="9" fill="#fff" stroke="#e2e5ea"/>
+          <circle cx="320" cy="276" r="6" fill="#e0912f"/><rect x="336" y="268" width="78" height="5" rx="2.5" fill="#cfd5dd"/><rect x="336" y="280" width="52" height="5" rx="2.5" fill="#e3e7ec"/>
+        </g>
+        <!-- traveling pulses -->
+        <g fill="#2f5cf0">
+          <circle r="3.5"><animateMotion dur="2.4s" repeatCount="indefinite" path="M150 186 C 210 186, 240 96, 300 96"/></circle>
+          <circle r="3.5"><animateMotion dur="2.4s" begin=".6s" repeatCount="indefinite" path="M150 186 C 220 186, 250 186, 300 186"/></circle>
+          <circle r="3.5"><animateMotion dur="2.4s" begin="1.2s" repeatCount="indefinite" path="M150 186 C 210 186, 240 276, 300 276"/></circle>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  </div>
+</section>
+
+<!-- ============ STATS BAR ============ -->
+<section style="padding: 0 40px;">
+  <div style="border: 1px solid #e2e5ea; border-radius: 8px; background: #fff; display: grid; grid-template-columns: repeat(5, 1fr); overflow: hidden;">
+    <div style="padding: 28px 24px; border-right: 1px solid #eef0f3;">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; line-height: 1;">7–8</div>
+      <div style="font-size: 12.5px; color: #5a6270; line-height: 1.45; margin-top: 8px;">years of product design experience</div>
+    </div>
+    <div style="padding: 28px 24px; border-right: 1px solid #eef0f3;">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; line-height: 1;">500K+</div>
+      <div style="font-size: 12.5px; color: #5a6270; line-height: 1.45; margin-top: 8px;">downloads for Safes, up from 500</div>
+    </div>
+    <div style="padding: 28px 24px; border-right: 1px solid #eef0f3;">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; line-height: 1; color: #2f5cf0;">7×</div>
+      <div style="font-size: 12.5px; color: #5a6270; line-height: 1.45; margin-top: 8px;">conversion lift on DigiKala Mehr</div>
+    </div>
+    <div style="padding: 28px 24px; border-right: 1px solid #eef0f3;">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; line-height: 1;">3</div>
+      <div style="font-size: 12.5px; color: #5a6270; line-height: 1.45; margin-top: 8px;">first-of-their-kind products in Iran</div>
+    </div>
+    <div style="padding: 28px 24px;">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; line-height: 1;">3</div>
+      <div style="font-size: 12.5px; color: #5a6270; line-height: 1.45; margin-top: 8px;">markets shipped: Iran, UAE, Greece</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURED WORK · CARD SWAP ============ -->
+<section style="padding: 88px 40px 40px;">
+
+  <div class="cs-top">
+    <div class="cs-intro">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad; margin-bottom: 12px;">// selected work · 9 projects</div>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 32px; letter-spacing: -0.02em; margin: 0 0 18px;">Nine products, nine kinds of proof.</h2>
+      <p style="font-size: 15.5px; line-height: 1.65; color: #3a414d; margin: 0 0 26px; max-width: 44ch;">Enterprise platforms, AI-first products, and hard conversion problems — most joined at their most ambiguous stage. Hover the stack to hold a card, or pick a project from the list.</p>
+      <a href="Work.html" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; white-space: nowrap;">All projects →</a>
+    </div>
+
+    <div class="cs-stage-wrap">
+      <div class="cs-stage" ref="{{ stageRef }}">
+        <div class="cs-track">
+
+          <article class="cs-card" data-href="Trio.html" aria-label="Trio case study">
+            <div class="cs-card-bar"><span class="cs-card-id">project.trio</span><span class="cs-card-cat">Enterprise · UEM</span></div>
+            <div class="cs-card-shot is-wide"><img src="assets/trio-devices.png" alt="Trio device inventory" loading="lazy" style="object-position:top left;"></div>
+            <div class="cs-card-body">
+              <h3>Trio</h3>
+              <p>Zero to a Gitex-recognized enterprise device management platform, competing with Kandji and Jamf.</p>
+              <div class="cs-card-stat">4.9★<small>G2 rating · MVP shipped solo in 4 months</small></div>
+            </div>
+            <div class="cs-card-foot"><span>View case</span><span class="cs-card-go">→</span></div>
+          </article>
+
+          <article class="cs-card" data-href="Behinto.html" aria-label="Behinto case study">
+            <div class="cs-card-bar"><span class="cs-card-id">project.behinto</span><span class="cs-card-cat">AI-first · Healthcare</span></div>
+            <div class="cs-card-shot"><img src="assets/behinto-recommendations.png" alt="Behinto AI screening plan" loading="lazy" style="object-position:top center;"></div>
+            <div class="cs-card-body">
+              <h3>Behinto</h3>
+              <p>Iran's first AI healthcare assistant — grounded in officially vetted documents doctors can stand behind.</p>
+              <div class="cs-card-stat is-text"><span class="cs-dot"></span>In pilot · launching 2026<small>Persian-first, RTL-first design system</small></div>
+            </div>
+            <div class="cs-card-foot"><span>View case</span><span class="cs-card-go">→</span></div>
+          </article>
+
+          <article class="cs-card" data-href="DigiKala-Mehr.html" aria-label="DigiKala Mehr case study">
+            <div class="cs-card-bar"><span class="cs-card-id">project.mehr</span><span class="cs-card-cat">Charity commerce</span></div>
+            <div class="cs-card-shot is-wide"><img src="assets/mehr-opportunities.png" alt="DigiKala Mehr charity campaign page" loading="lazy" style="object-position:top left;"></div>
+            <div class="cs-card-body">
+              <h3>DigiKala Mehr</h3>
+              <p>Sole designer at Iran's largest e-commerce company, on its hardest conversion problem.</p>
+              <div class="cs-card-stat">0.4% → 2.8%<small>purchase conversion · 7× lift</small></div>
+            </div>
+            <div class="cs-card-foot"><span>View case</span><span class="cs-card-go">→</span></div>
+          </article>
+
+          <article class="cs-card" data-href="Safes.html" aria-label="Safes case study">
+            <div class="cs-card-bar"><span class="cs-card-id">project.safes</span><span class="cs-card-cat">Consumer · Family safety</span></div>
+            <div class="cs-card-shot is-empty"><span>[ safes · parent &amp; kid apps ]</span></div>
+            <div class="cs-card-body">
+              <h3>Safes</h3>
+              <p>Parental control rebuilt around ready-to-use profile roles, so setup stopped being the drop-off.</p>
+              <div class="cs-card-stat">500 → 500K<small>downloads within four months</small></div>
+            </div>
+            <div class="cs-card-foot"><span>View case</span><span class="cs-card-go">→</span></div>
+          </article>
+
+          <article class="cs-card" data-href="Medio.html" aria-label="Medio case study">
+            <div class="cs-card-bar"><span class="cs-card-id">project.medio</span><span class="cs-card-cat">Healthcare · Multi-panel</span></div>
+            <div class="cs-card-shot is-empty"><span>[ medio · physician panel ]</span></div>
+            <div class="cs-card-body">
+              <h3>Medio</h3>
+              <p>A four-panel care system coherent enough for a fully outsourced team to build without gaps.</p>
+              <div class="cs-card-stat">360+<small>semantic color tokens, full light / dark</small></div>
+            </div>
+            <div class="cs-card-foot"><span>View case</span><span class="cs-card-go">→</span></div>
+          </article>
+
+          <article class="cs-card" data-href="Zeero.html" aria-label="Zeero case study">
+            <div class="cs-card-bar"><span class="cs-card-id">project.zeero</span><span class="cs-card-cat">Mobility · Sharing</span></div>
+            <div class="cs-card-shot"><img src="assets/zeero-map-reserve.png" alt="Zeero map and vehicle reservation" loading="lazy" style="object-position:top center;"></div>
+            <div class="cs-card-body">
+              <h3>Zeero</h3>
+              <p>Iran's first e-bike and scooter sharing service, redesigned across mobile and web.</p>
+              <div class="cs-card-stat">3× area<small>service coverage ≈ · +30% first-ride ≈</small></div>
+            </div>
+            <div class="cs-card-foot"><span>View case</span><span class="cs-card-go">→</span></div>
+          </article>
+
+          <article class="cs-card" data-href="Vendora.html" aria-label="Vendora case study">
+            <div class="cs-card-bar"><span class="cs-card-id">project.vendora</span><span class="cs-card-cat">E-commerce · Greece</span></div>
+            <div class="cs-card-shot is-empty"><span>[ vendora · merchant panel ]</span></div>
+            <div class="cs-card-body">
+              <h3>Vendora</h3>
+              <p>A government-backed, Shopify-class commerce platform built to be Greece's homegrown alternative.</p>
+              <div class="cs-card-stat">55+<small>production components · 4 theme modes</small></div>
+            </div>
+            <div class="cs-card-foot"><span>View case</span><span class="cs-card-go">→</span></div>
+          </article>
+
+          <article class="cs-card" data-href="Agrino.html" aria-label="Agrino case study">
+            <div class="cs-card-bar"><span class="cs-card-id">project.agrino</span><span class="cs-card-cat">AI · Agriculture</span></div>
+            <div class="cs-card-shot is-empty"><span>[ agrino · chat home ]</span></div>
+            <div class="cs-card-body">
+              <h3>Agrino</h3>
+              <p>Iran's first agriculture super-app — a chat-centric AI product for farmers, backed by Keshavarzi Bank.</p>
+              <div class="cs-card-stat is-text"><span class="cs-dot"></span>Foundations shipped<small>launching 2026</small></div>
+            </div>
+            <div class="cs-card-foot"><span>View case</span><span class="cs-card-go">→</span></div>
+          </article>
+
+          <article class="cs-card" data-href="Sharif-AICT.html" aria-label="Sharif University AICT">
+            <div class="cs-card-bar"><span class="cs-card-id">project.sharif</span><span class="cs-card-cat">Research · AI infra</span></div>
+            <div class="cs-card-shot is-empty"><span>[ sharif · admin panel ]</span></div>
+            <div class="cs-card-body">
+              <h3>Sharif University · AICT</h3>
+              <p>Design strategy and one unified system across admin panels for complex AI infrastructure platforms.</p>
+              <div class="cs-card-stat is-text"><span class="cs-dot"></span>Ongoing<small>Lead Product Designer &amp; Consultant</small></div>
+            </div>
+            <div class="cs-card-foot"><span>View case</span><span class="cs-card-go">→</span></div>
+          </article>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- clickable project index, synced to the stack -->
+  <nav class="cs-list" ref="{{ listRef }}" aria-label="All projects">
+    <a class="cs-row" href="Trio.html" data-idx="0"><span class="cs-row-n">01</span><span class="cs-row-name">Trio</span><span class="cs-row-tag">Enterprise · UEM / MDM</span><span class="cs-row-metric">4.9★ G2 · Gitex</span><span class="cs-row-arrow">→</span></a>
+    <a class="cs-row" href="Behinto.html" data-idx="1"><span class="cs-row-n">02</span><span class="cs-row-name">Behinto</span><span class="cs-row-tag">AI-first · Healthcare</span><span class="cs-row-metric">In pilot · 2026</span><span class="cs-row-arrow">→</span></a>
+    <a class="cs-row" href="DigiKala-Mehr.html" data-idx="2"><span class="cs-row-n">03</span><span class="cs-row-name">DigiKala Mehr</span><span class="cs-row-tag">Charity commerce · Digikala</span><span class="cs-row-metric">0.4% → 2.8%</span><span class="cs-row-arrow">→</span></a>
+    <a class="cs-row" href="Safes.html" data-idx="3"><span class="cs-row-n">04</span><span class="cs-row-name">Safes</span><span class="cs-row-tag">Consumer · Family safety</span><span class="cs-row-metric">500 → 500K</span><span class="cs-row-arrow">→</span></a>
+    <a class="cs-row" href="Medio.html" data-idx="4"><span class="cs-row-n">05</span><span class="cs-row-name">Medio</span><span class="cs-row-tag">Healthcare · Multi-panel</span><span class="cs-row-metric">360+ tokens</span><span class="cs-row-arrow">→</span></a>
+    <a class="cs-row" href="Zeero.html" data-idx="5"><span class="cs-row-n">06</span><span class="cs-row-name">Zeero</span><span class="cs-row-tag">Mobility · Sharing</span><span class="cs-row-metric">3× area · +30%</span><span class="cs-row-arrow">→</span></a>
+    <a class="cs-row" href="Vendora.html" data-idx="6"><span class="cs-row-n">07</span><span class="cs-row-name">Vendora</span><span class="cs-row-tag">E-commerce · Greece</span><span class="cs-row-metric">55+ components</span><span class="cs-row-arrow">→</span></a>
+    <a class="cs-row" href="Agrino.html" data-idx="7"><span class="cs-row-n">08</span><span class="cs-row-name">Agrino</span><span class="cs-row-tag">AI · Agriculture</span><span class="cs-row-metric">Launching 2026</span><span class="cs-row-arrow">→</span></a>
+    <a class="cs-row" href="Sharif-AICT.html" data-idx="8"><span class="cs-row-n">09</span><span class="cs-row-name">Sharif University · AICT</span><span class="cs-row-tag">Research · AI infrastructure</span><span class="cs-row-metric">Ongoing</span><span class="cs-row-arrow">→</span></a>
+  </nav>
+
+</section>
+
+<!-- ============ LOGO BAR ============ -->
+<section style="padding: 64px 40px;">
+  <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad; margin-bottom: 28px; text-align: center;">Trusted with the work at</div>
+  <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px 44px; font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 20px; color: #8b93a0;">
+    <span>Digikala</span>
+    <span>Keshavarzi Bank</span>
+    <span>Sharif University · AICT</span>
+    <span>SternX Technology</span>
+    <span>Circle One</span>
+    <span>Zeero</span>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section style="padding: 40px 40px 88px;">
+  <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 40px; flex-wrap: wrap;">
+    <div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad; margin-bottom: 12px;">// what people say</div>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 32px; letter-spacing: -0.02em; margin: 0;">Managers and teammates, in their words.</h2>
+    </div>
+    <a href="https://www.linkedin.com/in/farhadshariatmadari/" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; white-space: nowrap;">Recommendations on LinkedIn →</a>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+
+    <figure style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: 34px 36px 30px; margin: 0; display: flex; flex-direction: column;">
+      <blockquote style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 19px; line-height: 1.45; letter-spacing: -0.01em; margin: 0 0 auto; color: #14171c;">“Farhad has a rare combination of strong design skills, product thinking, and technical understanding. He doesn't just make things look good — he asks the right questions, challenges assumptions, and keeps the user experience at the center of every decision.”</blockquote>
+      <figcaption style="display: flex; align-items: center; gap: 13px; margin-top: 26px;">
+        <div style="width: 42px; height: 42px; border-radius: 50%; background: #2f5cf0; color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; flex: 0 0 auto;">ST</div>
+        <div style="font-size: 13px; line-height: 1.4;">
+          <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: #14171c; font-size: 14.5px;">Soheil Tehranipour</div>
+          <div style="color: #5a6270; font-size: 12.5px;">CEO, Saean Ertebat (SENA) · LLM Technical Lead, National AI Platform (Sharif University)</div>
+        </div>
+      </figcaption>
+    </figure>
+
+    <figure style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: 34px 36px 30px; margin: 0; display: flex; flex-direction: column;">
+      <blockquote style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 19px; line-height: 1.45; letter-spacing: -0.01em; margin: 0 0 auto; color: #14171c;">“An exceptional product designer with deep expertise in enterprise design and design-strategy leadership. I was consistently impressed by his attention to detail, thoughtful approach, outstanding communication, and his ability to leverage AI effectively throughout the design process.”</blockquote>
+      <figcaption style="display: flex; align-items: center; gap: 13px; margin-top: 26px;">
+        <div style="width: 42px; height: 42px; border-radius: 50%; background: #22a06b; color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; flex: 0 0 auto;">MM</div>
+        <div style="font-size: 13px; line-height: 1.4;">
+          <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: #14171c; font-size: 14.5px;">Mohammad Maher</div>
+          <div style="color: #5a6270; font-size: 12.5px;">Design Director · ex-Head of Design, Digikala · managed Farhad directly</div>
+        </div>
+      </figcaption>
+    </figure>
+
+    <figure style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: 34px 36px 30px; margin: 0; display: flex; flex-direction: column;">
+      <blockquote style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 19px; line-height: 1.45; letter-spacing: -0.01em; margin: 0 0 auto; color: #14171c;">“Farhad was our Product Design Lead at Trio — in practice, closer to a product manager with world-class UI/UX skills. Enterprise B2B is genuinely hard to design for; he researched deeply, simplified relentlessly, and shipped interfaces that made a complicated product feel manageable. I'd work with him again without hesitation.”</blockquote>
+      <figcaption style="display: flex; align-items: center; gap: 13px; margin-top: 26px;">
+        <div style="width: 42px; height: 42px; border-radius: 50%; background: #14171c; color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; flex: 0 0 auto;">MA</div>
+        <div style="font-size: 13px; line-height: 1.4;">
+          <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: #14171c; font-size: 14.5px;">MohammadReza Azhari</div>
+          <div style="color: #5a6270; font-size: 12.5px;">Product leader · managed Farhad directly at Trio</div>
+        </div>
+      </figcaption>
+    </figure>
+
+    <figure style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: 34px 36px 30px; margin: 0; display: flex; flex-direction: column;">
+      <blockquote style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 19px; line-height: 1.45; letter-spacing: -0.01em; margin: 0 0 auto; color: #14171c;">“An exceptional professional and talented designer who excels at collaborating with development teams to deliver products seamlessly. His expertise and proactive approach ensure outstanding results and a smooth product launch.”</blockquote>
+      <figcaption style="display: flex; align-items: center; gap: 13px; margin-top: 26px;">
+        <div style="width: 42px; height: 42px; border-radius: 50%; background: #e0912f; color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; flex: 0 0 auto;">MK</div>
+        <div style="font-size: 13px; line-height: 1.4;">
+          <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: #14171c; font-size: 14.5px;">Masoud Kaviani</div>
+          <div style="color: #5a6270; font-size: 12.5px;">Senior Data Scientist, Filimo/Aparat · AI Tech Lead, Sharif University</div>
+        </div>
+      </figcaption>
+    </figure>
+
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section style="padding: 0 40px 96px;">
+  <div style="border-radius: 14px; background: #14171c; color: #f6f7f9; padding: 72px 56px; position: relative; overflow: hidden;">
+    <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
+    <div style="position: relative;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6f7a8a; margin-bottom: 20px;">// let's talk</div>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(30px, 4.4vw, 52px); line-height: 1.02; letter-spacing: -0.025em; margin: 0 0 20px; max-width: 18ch;">Have a complex problem that needs a clear product?</h2>
+      <p style="font-size: 17px; line-height: 1.6; color: #a7afba; max-width: 52ch; margin: 0 0 36px;">I work remotely with international clients and hybrid in Tehran — contract, full-time, or consulting. Tell me what you're building.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center;">
+        <a href="mailto:farhadshariatmadari@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: #2f5cf0; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 15px 24px; border-radius: 5px;" style-hover="background:#3f6bff;">farhadshariatmadari@gmail.com <span style="font-size:16px;">→</span></a>
+        <a href="https://www.linkedin.com/in/farhadshariatmadari/" style="display: inline-flex; align-items: center; gap: 10px; color: #f6f7f9; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 15px 24px; border-radius: 5px; border: 1px solid #33383f;" style-hover="border-color:#5a6270;">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer style="border-top: 1px solid #e2e5ea; padding: 48px 40px 56px;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px;">
+    <div style="max-width: 34ch;">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px; margin-bottom: 10px;">Farhad Shariatmadari</div>
+      <p style="font-size: 13px; line-height: 1.6; color: #5a6270; margin: 0;">Lead Product &amp; Experience Designer. Based in Tehran; working remotely with international clients.</p>
+    </div>
+    <div style="display: flex; gap: 56px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <span style="color: #97a0ad; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">Site</span>
+        <a href="Work.html" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>
+        <a href="About.html" style="color: #3a414d;" style-hover="color:#14171c;">About</a>
+        <a href="How-I-Work.html" style="color: #3a414d;" style-hover="color:#14171c;">How I work</a>
+        <a href="Contact.html" style="color: #3a414d;" style-hover="color:#14171c;">Contact</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <span style="color: #97a0ad; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">Reach me</span>
+        <a href="mailto:farhadshariatmadari@gmail.com" style="color: #3a414d;" style-hover="color:#14171c;">Email</a>
+        <a href="tel:+989006665599" style="color: #3a414d;" style-hover="color:#14171c;">+98 900 666 55 99</a>
+        <a href="https://www.linkedin.com/in/farhadshariatmadari/" style="color: #3a414d;" style-hover="color:#14171c;">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 44px; padding-top: 20px; border-top: 1px solid #eef0f3; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+    <span>© 2026 Farhad Shariatmadari</span>
+    <span>Tehran, Iran · Remote worldwide</span>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+/**
+ * CardSwap, ported from the React/GSAP component to this project's x-dc runtime.
+ *
+ * Differences from the source component, and why:
+ *  - No React state is touched, so React never re-renders and never clobbers the
+ *    transforms GSAP writes. Card order lives in a plain instance field and the
+ *    active row is toggled by classList.
+ *  - Cards are authored statically in the template rather than mapped from an
+ *    array, so this needs no loop syntax from the runtime — refs are resolved by
+ *    querying the stage once on mount.
+ *  - Easing defaults to the site's crisp motion rather than the source's
+ *    elastic.out bounce, which reads wrong against this design system.
+ *  - Adds focusCard(), so the project index below can pull any card to the front.
+ */
+class Component extends DCLogic {
+  DELAY = 3400;     // ms between swaps
+
+  cfg = {
+    ease: 'power2.inOut',
+    durDrop: 0.85,
+    durMove: 0.85,
+    durReturn: 0.85,
+    promoteOverlap: 0.5,
+    stagger: 0.07,
+    returnDelay: 0.2
+  };
+
+  stageRef = (el) => {
+    if (!el || this._stage === el) return;
+    this._stage = el;
+    this._track = el.querySelector('.cs-track');
+    this._cards = Array.prototype.slice.call(el.querySelectorAll('.cs-card'));
+    this._order = this._cards.map((_, i) => i);
+    this._reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    this._cards.forEach((card) => card.addEventListener('click', this.onCardClick));
+    el.addEventListener('mouseenter', this.pause);
+    el.addEventListener('mouseleave', this.resume);
+    window.addEventListener('resize', this.onResize);
+
+    this.measure();
+    this.place(false);
+    this.markActive();
+    this.resume();
+  };
+
+  /**
+   * Fan geometry for the current stage width, derived fresh on each use so a
+   * resize can never leave stale offsets behind.
+   *
+   * Narrow screens get a shallow fan: enough offset to separate the cards'
+   * shadows (nine identical shadows at offset 0 pile into a dark halo) while
+   * still fitting the stage, and zero skew because slanted body copy is
+   * unreadable at that size.
+   */
+  metrics = () => {
+    const w = (this._stage && this._stage.clientWidth) || 560;
+    return w < 470
+      ? { dist: 6, vdist: 5, skew: 0, drop: 340 }
+      : { dist: 20, vdist: 18, skew: 2, drop: 520 };
+  };
+
+  /** Re-centre the track on the fan's bounding box so it never drifts off stage. */
+  measure = () => {
+    if (!this._track || !this._cards) return;
+    const m = this.metrics();
+    const n = this._cards.length - 1;
+    this._track.style.transform =
+      'translate(' + (-n * m.dist) / 2 + 'px,' + (n * m.vdist) / 2 + 'px)';
+  };
+
+  onResize = () => {
+    clearTimeout(this._rt);
+    this._rt = setTimeout(() => {
+      if (this._tl) { this._tl.kill(); this._tl = null; }
+      this.measure();
+      this.place(false);
+    }, 180);
+  };
+
+  listRef = (el) => {
+    if (!el || this._list === el) return;
+    this._list = el;
+    this._rows = Array.prototype.slice.call(el.querySelectorAll('.cs-row'));
+    this._rows.forEach((row, i) => {
+      const hold = () => this.focusCard(i);
+      row.addEventListener('mouseenter', hold);
+      row.addEventListener('focus', hold);
+    });
+    el.addEventListener('mouseleave', this.resume);
+    this.markActive();
+  };
+
+  onCardClick = (e) => {
+    const href = e.currentTarget.getAttribute('data-href');
+    if (href) window.location.href = href;
+  };
+
+  slot = (pos, total) => {
+    const m = this.metrics();
+    return {
+      x: pos * m.dist,
+      y: -pos * m.vdist,
+      z: -pos * m.dist * 1.5,
+      zIndex: total - pos
+    };
+  };
+
+  /** Position one card at a slot, with or without a tween. */
+  seat = (el, s, animate) => {
+    const skew = this.metrics().skew;
+    if (!window.gsap) {
+      el.style.transform =
+        'translate(-50%,-50%) translate3d(' + s.x + 'px,' + s.y + 'px,' + s.z + 'px) skewY(' + skew + 'deg)';
+      el.style.zIndex = s.zIndex;
+      return;
+    }
+    const base = {
+      x: s.x, y: s.y, z: s.z,
+      xPercent: -50, yPercent: -50,
+      skewY: skew,
+      transformOrigin: 'center center',
+      force3D: true
+    };
+    if (animate) {
+      gsap.set(el, { zIndex: s.zIndex });
+      gsap.to(el, Object.assign({ duration: this.cfg.durMove, ease: this.cfg.ease }, base));
+    } else {
+      gsap.set(el, Object.assign({ zIndex: s.zIndex }, base));
+    }
+  };
+
+  place = (animate) => {
+    const total = this._cards.length;
+    this._order.forEach((cardIdx, pos) => this.seat(this._cards[cardIdx], this.slot(pos, total), animate));
+  };
+
+  /** One cycle: front card drops away, the rest promote forward, front returns to the back. */
+  swap = () => {
+    if (!window.gsap || !this._order || this._order.length < 2) return;
+    const total = this._cards.length;
+    const front = this._order[0];
+    const rest = this._order.slice(1);
+    const elFront = this._cards[front];
+    const C = this.cfg;
+
+    const tl = gsap.timeline();
+    this._tl = tl;
+
+    tl.to(elFront, { y: '+=' + this.metrics().drop, duration: C.durDrop, ease: C.ease });
+    tl.addLabel('promote', '-=' + C.durDrop * C.promoteOverlap);
+
+    rest.forEach((cardIdx, i) => {
+      const el = this._cards[cardIdx];
+      const s = this.slot(i, total);
+      tl.set(el, { zIndex: s.zIndex }, 'promote');
+      tl.to(el, { x: s.x, y: s.y, z: s.z, duration: C.durMove, ease: C.ease }, 'promote+=' + i * C.stagger);
+    });
+
+    const back = this.slot(total - 1, total);
+    tl.addLabel('return', 'promote+=' + C.durMove * C.returnDelay);
+    tl.call(() => gsap.set(elFront, { zIndex: back.zIndex }), undefined, 'return');
+    tl.to(elFront, { x: back.x, y: back.y, z: back.z, duration: C.durReturn, ease: C.ease }, 'return');
+    tl.call(() => {
+      this._order = rest.concat([front]);
+      this.markActive();
+    });
+  };
+
+  /** Pull an arbitrary card to the front — used by the project index. */
+  focusCard = (idx) => {
+    if (!this._order) return;
+    clearInterval(this._iv);
+    this._iv = 0;
+    if (this._tl) { this._tl.kill(); this._tl = null; }
+    if (this._order[0] === idx) return;
+    this._order = [idx].concat(this._order.filter((i) => i !== idx));
+    this.place(true);
+    this.markActive();
+  };
+
+  markActive = () => {
+    if (!this._rows || !this._order) return;
+    const active = this._order[0];
+    this._rows.forEach((row, i) => row.classList.toggle('is-active', i === active));
+  };
+
+  pause = () => {
+    clearInterval(this._iv);
+    this._iv = 0;
+    if (this._tl) this._tl.pause();
+  };
+
+  resume = () => {
+    if (this._reduced || !window.gsap) return;
+    if (this._tl) this._tl.play();
+    clearInterval(this._iv);
+    this._iv = setInterval(this.swap, this.DELAY);
+  };
+
+  componentWillUnmount() {
+    clearInterval(this._iv);
+    clearTimeout(this._rt);
+    window.removeEventListener('resize', this.onResize);
+    if (this._tl) this._tl.kill();
+  }
+
+  renderVals() {
+    return { stageRef: this.stageRef, listRef: this.listRef };
+  }
+}
+</script>
+</body>
+</html>

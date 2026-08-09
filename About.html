@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>About — Farhad Shariatmadari</title>
+<meta name="description" content="Lead Product & Experience Designer with an engineering foundation, joining products at their most ambiguous stage and leaving them with a design system, coherent flows, and a team to carry them forward.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: #f6f7f9; color: #14171c; font-family: 'IBM Plex Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: #2f5cf0; text-decoration: none; }
+  a:hover { color: #234ad1; }
+  ::selection { background: #2f5cf0; color: #fff; }
+  .about-hero { position: relative; overflow: hidden; min-height: 600px; display: flex; align-items: center; }
+  .about-hero-art { position: absolute; right: 24px; bottom: 0; height: 560px; width: auto; max-width: 48%; object-fit: contain; object-position: bottom right; pointer-events: none; z-index: 1; }
+  .about-hero-text { position: relative; z-index: 2; max-width: 620px; }
+  /* placeholder for the sketch, using the same hatch treatment the case-study
+     pages already use for shots that haven't been supplied yet */
+  .about-hero-art-fallback { width: 380px; height: 560px; display: flex; align-items: center; justify-content: center; border: 1px solid #e2e5ea; border-radius: 12px; background: repeating-linear-gradient(135deg, #eef1f5 0 11px, #f5f7fa 11px 22px); }
+  .about-hero-art-fallback span { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #b4bcc7; }
+  .about-hero-art-fallback[hidden] { display: none; }
+  @media (max-width: 900px) {
+    .about-hero { min-height: 0; }
+    .about-hero-art { position: static; height: auto; width: 100%; max-width: 300px; margin: 36px auto 0; display: block; }
+    /* height:auto above would collapse the empty placeholder, so give it one */
+    .about-hero-art-fallback { display: flex; height: 380px; }
+    .about-hero-art-fallback[hidden] { display: none; }
+    .about-hero-inner { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</helmet>
+
+<canvas ref="{{ fluidRef }}" style="position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 45; mix-blend-mode: multiply; opacity: .6;"></canvas>
+
+<div style="max-width: 1240px; margin: 0 auto;">
+
+<header style="position: sticky; top: 0; z-index: 50; background: rgba(246,247,249,.85); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e5ea;">
+  <nav style="display: flex; align-items: center; justify-content: space-between; padding: 18px 40px;">
+    <a href="index.html" style="display: flex; align-items: baseline; gap: 10px; color: #14171c;">
+      <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;">Farhad Shariatmadari</span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad;">/ design</span>
+    </a>
+    <div style="display: flex; align-items: center; gap: 32px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+      <a href="Work.html" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>
+      <a href="About.html" style="color: #14171c;" style-hover="color:#14171c;">About</a>
+      <a href="How-I-Work.html" style="color: #3a414d;" style-hover="color:#14171c;">How I work</a>
+      <a href="Contact.html" style="background: #14171c; color: #fff; padding: 9px 16px; border-radius: 4px;" style-hover="background:#2f5cf0; color:#fff;">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<!-- INTRO -->
+<section class="about-hero" style="padding: 80px 40px 0; background-image: linear-gradient(#eceef2 1px, transparent 1px), linear-gradient(90deg, #eceef2 1px, transparent 1px); background-size: 64px 64px; background-position: -1px -1px;">
+  <div class="about-hero-inner" style="display: flex; gap: 40px; align-items: center; width: 100%;">
+    <div class="about-hero-text">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad; margin-bottom: 20px;">// about</div>
+      <h1 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(34px, 5vw, 60px); line-height: 1.02; letter-spacing: -0.03em; margin: 0 0 24px; max-width: 17ch; text-wrap: balance;">A designer who thinks like the engineer building the thing.</h1>
+      <p style="font-size: clamp(16px, 1.5vw, 19px); line-height: 1.6; color: #3a414d; max-width: 52ch; margin: 0 0 40px;">Lead Product &amp; Experience Designer with 7–8 years shipping complex B2B platforms and AI-driven consumer products. I've led design for an enterprise MDM platform recognized at Gitex, scaled a family-safety app from 500 to 500,000 downloads, and am currently designing Iran's first AI healthcare assistant and first agriculture super-app.</p>
+    </div>
+    <img class="about-hero-art" ref="{{ artRef }}" src="assets/farhad-sketch.png" alt="Construction sketch of Farhad Shariatmadari with UI proportion guides">
+    <!-- shown only if the sketch is missing; swaps itself out once the file lands -->
+    <div class="about-hero-art about-hero-art-fallback" ref="{{ artFallbackRef }}" hidden aria-hidden="true">
+      <span>[ farhad · construction sketch ]</span>
+    </div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section style="padding: 72px 40px 40px;">
+  <div style="display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// the story</div>
+    <div style="max-width: 64ch;">
+      <p style="font-size: 17px; line-height: 1.75; color: #3a414d; margin: 0 0 22px;">I discovered user experience in my first year studying Computer Science at Amirkabir University of Technology, started taking on small projects in my second year, and was working in companies by my third. That engineering foundation still shows: I design flows with the logic of someone who understands how systems are built — which is why outsourced and distributed dev teams can implement my work without logical gaps.</p>
+      <p style="font-size: 17px; line-height: 1.75; color: #3a414d; margin: 0;">Since then my career has followed one pattern: joining products at their most ambiguous stage — no flows, no system, often no precedent in the market — and leaving them with a scalable design system, a coherent experience, and a design team that can carry it forward.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section style="padding: 40px 40px;">
+  <div style="border-top: 1px solid #e2e5ea; padding-top: 48px; display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// philosophy</div>
+    <blockquote style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: clamp(22px, 2.8vw, 32px); line-height: 1.35; letter-spacing: -0.015em; color: #14171c; max-width: 30ch;">“I start with the problem, never the solution. My first job is to actually understand it — then I build the foundation, a design system that can hold the product as it grows. Only then do I design the flows, in step with the development cycle, so nothing ships with a logical gap in it.”</blockquote>
+  </div>
+</section>
+
+<!-- WHAT I DO -->
+<section style="padding: 40px 40px;">
+  <div style="border-top: 1px solid #e2e5ea; padding-top: 48px; display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// what I'm known for</div>
+    <div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div style="border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; padding: 30px 32px;">
+          <div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:18px; margin-bottom: 10px;">AI-first product design</div>
+          <p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">Multiple AI-driven products shipping or in pilot — national AI healthcare (Behinto), an agriculture super-app (Agrino), and AI infrastructure platforms at Sharif AICT.</p>
+        </div>
+        <div style="border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; padding: 30px 32px;">
+          <div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:18px; margin-bottom: 10px;">Complex B2B / enterprise</div>
+          <p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">MDM/UEM, multi-panel healthcare, banking-backed and government-supported platforms — turning tangled systems into airtight, logical flows.</p>
+        </div>
+        <div style="border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; padding: 30px 32px;">
+          <div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:18px; margin-bottom: 10px;">End-to-end 0→1 lead</div>
+          <p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">Repeatedly the first or only designer — building the MVP, the design system, the flows, and the team around them.</p>
+        </div>
+        <div style="border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; padding: 30px 32px;">
+          <div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:18px; margin-bottom: 10px;">Design systems &amp; teams</div>
+          <p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">Token-based systems in light &amp; dark from day one, and design teams — up to 5 designers at peak — who keep the product consistent as it scales.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ENGAGEMENT -->
+<section style="padding: 40px 40px 24px;">
+  <div style="border-top: 1px solid #e2e5ea; padding-top: 48px; display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// working together</div>
+    <div>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid #e2e5ea; border-radius: 8px; background: #fff; overflow: hidden;">
+        <div style="padding: 22px 24px; border-right: 1px solid #eef0f3;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size: 11px; color: #97a0ad; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px;">Location</div>
+          <div style="font-size: 14.5px; line-height: 1.5;">Tehran, Iran</div>
+        </div>
+        <div style="padding: 22px 24px; border-right: 1px solid #eef0f3;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size: 11px; color: #97a0ad; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px;">Working modes</div>
+          <div style="font-size: 14.5px; line-height: 1.5;">Remote worldwide · hybrid in Tehran</div>
+        </div>
+        <div style="padding: 22px 24px; border-right: 1px solid #eef0f3;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size: 11px; color: #97a0ad; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px;">Engagements</div>
+          <div style="font-size: 14.5px; line-height: 1.5;">Contract · full-time · part-time · consulting</div>
+        </div>
+        <div style="padding: 22px 24px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size: 11px; color: #97a0ad; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px;">Languages</div>
+          <div style="font-size: 14.5px; line-height: 1.5;">Farsi &amp; English</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="padding: 48px 40px 96px;">
+  <div style="border-radius: 14px; background: #14171c; color: #f6f7f9; padding: 64px 56px; position: relative; overflow: hidden;">
+    <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
+    <div style="position: relative;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6f7a8a; margin-bottom: 20px;">// let's talk</div>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(28px, 4vw, 46px); line-height: 1.04; letter-spacing: -0.025em; margin: 0 0 20px; max-width: 20ch;">Let's build something clear together.</h2>
+      <p style="font-size: 17px; line-height: 1.6; color: #a7afba; max-width: 52ch; margin: 0 0 36px;">Tell me what you're building — the more ambiguous the problem, the more interested I am.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center;">
+        <a href="mailto:farhadshariatmadari@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: #2f5cf0; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 15px 24px; border-radius: 5px;" style-hover="background:#3f6bff;">farhadshariatmadari@gmail.com <span style="font-size:16px;">→</span></a>
+        <a href="How-I-Work.html" style="display: inline-flex; align-items: center; gap: 10px; color: #f6f7f9; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 15px 24px; border-radius: 5px; border: 1px solid #33383f;" style-hover="border-color:#5a6270;">See how I work</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="border-top: 1px solid #e2e5ea; padding: 48px 40px 56px;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px;">
+    <div style="max-width: 34ch;">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px; margin-bottom: 10px;">Farhad Shariatmadari</div>
+      <p style="font-size: 13px; line-height: 1.6; color: #5a6270; margin: 0;">Lead Product &amp; Experience Designer. Based in Tehran; working remotely with international clients.</p>
+    </div>
+    <div style="display: flex; gap: 56px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <span style="color: #97a0ad; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">Site</span>
+        <a href="Work.html" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>
+        <a href="About.html" style="color: #3a414d;" style-hover="color:#14171c;">About</a>
+        <a href="How-I-Work.html" style="color: #3a414d;" style-hover="color:#14171c;">How I work</a>
+        <a href="Contact.html" style="color: #3a414d;" style-hover="color:#14171c;">Contact</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <span style="color: #97a0ad; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">Reach me</span>
+        <a href="mailto:farhadshariatmadari@gmail.com" style="color: #3a414d;" style-hover="color:#14171c;">Email</a>
+        <a href="tel:+989006665599" style="color: #3a414d;" style-hover="color:#14171c;">+98 900 666 55 99</a>
+        <a href="https://www.linkedin.com/in/farhadshariatmadari/" style="color: #3a414d;" style-hover="color:#14171c;">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 44px; padding-top: 20px; border-top: 1px solid #eef0f3; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+    <span>© 2026 Farhad Shariatmadari</span>
+    <span>Tehran, Iran · Remote worldwide</span>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  colors = ['#4ade80', '#86efac', '#34d399'];
+  parts = [];
+  fluidRef = (el) => { if (!el) return; this.canvas = el; this.ctx = el.getContext('2d'); this.size(); };
+  size = () => {
+    const c = this.canvas; if (!c) return;
+    const dpr = Math.min(2, window.devicePixelRatio || 1);
+    this._dpr = dpr; c.width = innerWidth * dpr; c.height = innerHeight * dpr;
+  };
+  onResize = () => this.size();
+  onMove = (e) => {
+    const dpr = this._dpr || 1;
+    const x = e.clientX * dpr, y = e.clientY * dpr;
+    const lx = this._lx == null ? x : this._lx, ly = this._ly == null ? y : this._ly;
+    const vx = (x - lx) * 0.12, vy = (y - ly) * 0.12;
+    this._lx = x; this._ly = y;
+    const col = this.colors[(Math.random() * this.colors.length) | 0];
+    for (let i = 0; i < 2; i++)
+      this.parts.push({ x, y, vx: vx + (Math.random() - .5) * 1.2, vy: vy + (Math.random() - .5) * 1.2, r: 1 + Math.random() * 1.2, life: 1, col });
+    if (this.parts.length > 240) this.parts.splice(0, this.parts.length - 240);
+  };
+  loop = () => {
+    const c = this.canvas, ctx = this.ctx;
+    if (c && ctx) {
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.fillStyle = 'rgba(0,0,0,0.06)'; ctx.fillRect(0, 0, c.width, c.height);
+      ctx.globalCompositeOperation = 'source-over';
+      const dpr = this._dpr || 1;
+      for (const p of this.parts) {
+        p.x += p.vx; p.y += p.vy;
+        const nx = -p.vy, ny = p.vx; p.vx += nx * 0.02; p.vy += ny * 0.02;
+        p.vx *= 0.94; p.vy *= 0.94; p.life -= 0.012;
+        const r = p.r * (0.6 + p.life * 0.8) * dpr;
+        const a = Math.max(0, p.life) * 0.5;
+        const g = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, r);
+        g.addColorStop(0, this.rgba(p.col, a)); g.addColorStop(1, this.rgba(p.col, 0));
+        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, p.y, r, 0, 7); ctx.fill();
+      }
+      this.parts = this.parts.filter(p => p.life > 0);
+    }
+    this._raf = requestAnimationFrame(this.loop);
+  };
+  onClick = (e) => {
+    const x = e.clientX, y = e.clientY;
+    const col = this.colors[(Math.random() * this.colors.length) | 0];
+    const ring = document.createElement('div');
+    ring.style.cssText = `position:fixed;left:${x}px;top:${y}px;width:16px;height:16px;margin:-8px 0 0 -8px;border:2px solid ${col};border-radius:50%;pointer-events:none;z-index:9999;`;
+    document.body.appendChild(ring);
+    ring.animate([{ transform: 'scale(1)', opacity: .9 }, { transform: 'scale(6)', opacity: 0 }], { duration: 650, easing: 'cubic-bezier(.2,.7,.2,1)' }).onfinish = () => ring.remove();
+    for (let i = 0; i < 8; i++) {
+      const p = document.createElement('div'), a = Math.PI * 2 * i / 8, d = 26 + Math.random() * 20;
+      p.style.cssText = `position:fixed;left:${x}px;top:${y}px;width:6px;height:6px;margin:-3px 0 0 -3px;background:${col};border-radius:50%;pointer-events:none;z-index:9999;`;
+      document.body.appendChild(p);
+      p.animate([{ transform: 'translate(0,0) scale(1)', opacity: 1 }, { transform: `translate(${Math.cos(a) * d}px,${Math.sin(a) * d}px) scale(0)`, opacity: 0 }], { duration: 600, easing: 'cubic-bezier(.2,.7,.2,1)' }).onfinish = () => p.remove();
+    }
+  };
+  componentDidMount() {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    window.addEventListener('pointermove', this.onMove, { passive: true });
+    window.addEventListener('pointerdown', this.onClick, { passive: true });
+    window.addEventListener('resize', this.onResize);
+    this.loop();
+  }
+  componentWillUnmount() {
+    cancelAnimationFrame(this._raf);
+    window.removeEventListener('pointermove', this.onMove);
+    window.removeEventListener('pointerdown', this.onClick);
+    window.removeEventListener('resize', this.onResize);
+  }
+  rgba(hex, a) { const n = parseInt(hex.slice(1), 16); return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`; }
+  /**
+   * The hero sketch lives in the Claude Design project but is too large to come
+   * through DesignSync's 256 KiB read cap, so it may not be on disk. Rather than
+   * render a broken image, fall back to the hatch placeholder the case-study
+   * pages already use. Drop assets/farhad-sketch.png in and this stops firing.
+   */
+  artRef = (el) => {
+    if (!el || this._art === el) return;
+    this._art = el;
+    // an image that already failed before the ref attached never fires 'error'
+    if (el.complete && el.naturalWidth === 0) this.showFallback();
+    el.addEventListener('error', this.showFallback);
+    el.addEventListener('load', () => { if (el.naturalWidth > 0) this.hideFallback(); });
+  };
+
+  artFallbackRef = (el) => {
+    if (!el || this._artFallback === el) return;
+    this._artFallback = el;
+    if (this._art && this._art.complete && this._art.naturalWidth === 0) this.showFallback();
+  };
+
+  showFallback = () => {
+    if (this._art) this._art.hidden = true;
+    if (this._artFallback) this._artFallback.hidden = false;
+  };
+
+  hideFallback = () => {
+    if (this._art) this._art.hidden = false;
+    if (this._artFallback) this._artFallback.hidden = true;
+  };
+
+  renderVals() {
+    return { fluidRef: this.fluidRef, artRef: this.artRef, artFallbackRef: this.artFallbackRef };
+  }
+}
+</script>
+</body>
+</html>

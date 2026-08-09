@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Behinto — National AI Healthcare Assistant · Farhad Shariatmadari</title>
+<meta name="description" content="Case study: designing Iran's first AI healthcare assistant — a national-scale medical companion grounded in officially vetted documents, built to a standard doctors and the Health Ministry can accept.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Behinto — National AI Healthcare Assistant · Farhad Shariatmadari">
+<meta property="og:description" content="Iran's first AI healthcare assistant. A Persian-first, RTL-first design system and an AI interaction model doctors can stand behind.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: #f6f7f9; color: #14171c; font-family: 'IBM Plex Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: #2f5cf0; text-decoration: none; }
+  a:hover { color: #234ad1; }
+  ::selection { background: #2f5cf0; color: #fff; }
+</style>
+<script src="./fx.js"></script>
+</helmet>
+
+<div style="max-width: 1240px; margin: 0 auto;">
+
+<!-- ============ NAV ============ -->
+<header style="position: sticky; top: 0; z-index: 50; background: rgba(246,247,249,.85); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e5ea;">
+  <nav style="display: flex; align-items: center; justify-content: space-between; padding: 18px 40px;">
+    <a href="index.html" style="display: flex; align-items: baseline; gap: 10px; color: #14171c;">
+      <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;">Farhad Shariatmadari</span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad;">/ design</span>
+    </a>
+    <div style="display: flex; align-items: center; gap: 32px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+      <a href="Work.html" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>
+      <a href="About.html" style="color: #3a414d;" style-hover="color:#14171c;">About</a>
+      <a href="How-I-Work.html" style="color: #3a414d;" style-hover="color:#14171c;">How I work</a>
+      <a href="Contact.html" style="background: #14171c; color: #fff; padding: 9px 16px; border-radius: 4px;" style-hover="background:#2f5cf0; color:#fff;">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section style="padding: 56px 40px 72px; background-image: linear-gradient(#eceef2 1px, transparent 1px), linear-gradient(90deg, #eceef2 1px, transparent 1px); background-size: 64px 64px; background-position: -1px -1px;">
+  <a href="Work.html" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5a6270; display: inline-block; margin-bottom: 40px;" style-hover="color:#14171c;">← All work</a>
+  <div style="display: flex; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5a6270; margin-bottom: 24px; flex-wrap: wrap;">
+    <span style="border: 1px solid #d7dbe1; background:#fff; padding: 5px 11px; border-radius: 100px;">AI-first</span>
+    <span style="border: 1px solid #d7dbe1; background:#fff; padding: 5px 11px; border-radius: 100px;">Healthcare</span>
+    <span style="border: 1px solid #d7dbe1; background:#fff; padding: 5px 11px; border-radius: 100px;">RTL design system</span>
+  </div>
+  <h1 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(38px, 5.6vw, 68px); line-height: 0.98; letter-spacing: -0.03em; margin: 0 0 24px; max-width: 18ch; text-wrap: balance;">Behinto</h1>
+  <p style="font-size: clamp(18px, 2vw, 24px); line-height: 1.4; color: #3a414d; max-width: 42ch; margin: 0;">Designing Iran's first AI healthcare assistant — a national-scale medical companion grounded in officially vetted documents doctors can stand behind.</p>
+  <div style="display: inline-flex; align-items: center; gap: 9px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5a6270; margin-top: 28px; border: 1px solid #d7dbe1; background: #fff; padding: 7px 13px; border-radius: 100px;"><span style="width:7px;height:7px;border-radius:50%;background:#e0912f;"></span>In pilot · launching 2026</div>
+</section>
+
+<!-- ============ HERO IMAGE ============ -->
+<section style="padding: 0 40px;">
+  <div style="border: 1px solid #e2e5ea; border-radius: 16px; overflow: hidden; background: #ebedf1; background-image: linear-gradient(#e2e5eb 1px, transparent 1px), linear-gradient(90deg, #e2e5eb 1px, transparent 1px); background-size: 40px 40px; background-position: -1px -1px;">
+    <div style="display: flex; gap: 22px; justify-content: center; align-items: flex-start; flex-wrap: wrap; padding: 52px 40px;">
+      <figure style="margin: 0; width: 272px; max-width: 100%; border-radius: 32px; overflow: hidden; border: 1px solid #dce0e6; box-shadow: 0 24px 60px rgba(20,23,28,.16); background: #fff; transform: translateY(14px);">
+        <img src="assets/behinto-assistant.png" alt="Behinto AI assistant — guided, safe first actions" style="display: block; width: 100%; height: auto;">
+      </figure>
+      <figure style="margin: 0; width: 272px; max-width: 100%; border-radius: 32px; overflow: hidden; border: 1px solid #dce0e6; box-shadow: 0 28px 70px rgba(20,23,28,.20); background: #fff;">
+        <img src="assets/behinto-recommendations.png" alt="Behinto AI screening plan grounded in clinical guidelines" style="display: block; width: 100%; height: auto;">
+      </figure>
+      <figure style="margin: 0; width: 272px; max-width: 100%; border-radius: 32px; overflow: hidden; border: 1px solid #dce0e6; box-shadow: 0 24px 60px rgba(20,23,28,.16); background: #fff; transform: translateY(14px);">
+        <img src="assets/behinto-calendar.png" alt="Behinto health calendar in dark theme" style="display: block; width: 100%; height: auto;">
+      </figure>
+    </div>
+    <div style="border-top: 1px solid #e2e5eb; padding: 14px 24px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #7a8493; background: rgba(255,255,255,.5);">
+      <span>[ behinto · consumer app ]</span>
+      <span>Persian-first · RTL · light &amp; dark themes</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTEXT & ROLE ============ -->
+<section style="padding: 80px 40px 40px;">
+  <div style="display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// context &amp; role</div>
+    <div>
+      <p style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: clamp(20px, 2.4vw, 28px); line-height: 1.4; letter-spacing: -0.015em; margin: 0 0 40px; color: #14171c; max-width: 34ch;">A national, reliable AI healthcare application whose answers are grounded in vetted, current medical documents — built to a standard practicing doctors and the Health Ministry can accept.</p>
+      <p style="font-size: 16px; line-height: 1.7; color: #3a414d; max-width: 62ch; margin: 0;">Clinician-facing workflows cover patient records, appointments, medications, and charting; the consumer-facing side is in progress. The customer is a team of prominent Iranian doctors — the product and the holding company share the name Behinto.</p>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid #e2e5ea; border-radius: 8px; background: #fff; overflow: hidden; margin-top: 32px;">
+        <div style="padding: 20px 22px; border-right: 1px solid #eef0f3;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size: 11px; color: #97a0ad; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">Client</div>
+          <div style="font-size: 14px; line-height: 1.5;">Behinto — team of prominent Iranian doctors</div>
+        </div>
+        <div style="padding: 20px 22px; border-right: 1px solid #eef0f3;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size: 11px; color: #97a0ad; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">Role</div>
+          <div style="font-size: 14px; line-height: 1.5;">Lead Product &amp; Experience Designer (contract)</div>
+        </div>
+        <div style="padding: 20px 22px;">
+          <div style="font-family:'JetBrains Mono',monospace; font-size: 11px; color: #97a0ad; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">Period</div>
+          <div style="font-size: 14px; line-height: 1.5;">~Feb 2026 – present</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROBLEM ============ -->
+<section style="padding: 56px 40px;">
+  <div style="border-top: 1px solid #e2e5ea; padding-top: 48px; display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// problem</div>
+    <div>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 24px; max-width: 24ch;">Generic AI chatbots are unacceptable for medical use.</h2>
+      <p style="font-size: 16px; line-height: 1.7; color: #3a414d; max-width: 62ch; margin: 0;">Behinto's challenge is trust: an AI product whose answers doctors will stand behind — in Persian, for a national audience. That means an interaction model where the source of every answer is legible, and where the interface itself signals reliability rather than the improvisation of a general-purpose chatbot.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ APPROACH ============ -->
+<section style="padding: 56px 40px;">
+  <div style="border-top: 1px solid #e2e5ea; padding-top: 48px; display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// approach</div>
+    <div>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 32px; max-width: 24ch;">Design the trust before designing the chat.</h2>
+      <div style="display: flex; flex-direction: column; gap: 0; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden;">
+        <div style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px 28px; border-bottom: 1px solid #eef0f3;">
+          <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; color: #cdd3db;">01</span>
+          <div><div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size: 17px; margin-bottom: 6px;">Lead all product &amp; experience design</div><p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">From clinical workflows — patient records, appointments, medications, charting — through to the AI interaction model itself.</p></div>
+        </div>
+        <div style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px 28px; border-bottom: 1px solid #eef0f3;">
+          <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; color: #cdd3db;">02</span>
+          <div><div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size: 17px; margin-bottom: 6px;">Build a Persian-first, RTL-first design system</div><p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">From scratch: a two-tier token architecture with 300+ variables, first-class light and dark themes, and WCAG-AA-calibrated color scales.</p></div>
+        </div>
+        <div style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px 28px;">
+          <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; color: #cdd3db;">03</span>
+          <div><div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size: 17px; margin-bottom: 6px;">Make destructive actions feel heavy</div><p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">Deliberately weighty destructive patterns, so clinicians feel the gravity of actions like discharging a patient before they commit to them.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KEY WORK ============ -->
+<section style="padding: 56px 40px;">
+  <div style="border-top: 1px solid #e2e5ea; padding-top: 48px;">
+    <div style="display: grid; grid-template-columns: 200px 1fr; gap: 48px; margin-bottom: 36px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// key work</div>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0; max-width: 26ch;">The AI interaction model, clinical workflows, and the RTL system.</h2>
+    </div>
+    <!-- Block A · AI visit assistant flow -->
+    <div style="display: grid; grid-template-columns: 200px 1fr; gap: 48px; margin-bottom: 28px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">→ AI visit assistant</div>
+      <p style="font-size: 16px; line-height: 1.7; color: #3a414d; max-width: 62ch; margin: 0;">The consultation is recorded with explicit consent, transcribed and diarized on review, then distilled into a structured summary — chief complaint, medications, follow-up — the patient can keep or share. The AI never stands in for the doctor, and every screen says so.</p>
+    </div>
+    <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+      <figure style="flex: 1 1 220px; margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
+        <img src="assets/behinto-visit-record.png" alt="Behinto doctor-visit assistant — start recording with consent" style="display: block; width: 100%; height: auto;">
+        <figcaption style="padding: 16px 20px; border-top: 1px solid #eef0f3;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #97a0ad; display: block; margin-bottom: 5px;">01 · record</span><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">Start the recording — with a clear consent nudge before anything runs.</span></figcaption>
+      </figure>
+      <figure style="flex: 1 1 220px; margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
+        <img src="assets/behinto-summary-progress.png" alt="Behinto summarizing a visit — transcription and key-point extraction" style="display: block; width: 100%; height: auto;">
+        <figcaption style="padding: 16px 20px; border-top: 1px solid #eef0f3;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #97a0ad; display: block; margin-bottom: 5px;">02 · review</span><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">Transcribe, separate speakers, extract the points that matter.</span></figcaption>
+      </figure>
+      <figure style="flex: 1 1 220px; margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
+        <img src="assets/behinto-visit-summary.png" alt="Behinto AI visit summary — chief complaint, medications, follow-up" style="display: block; width: 100%; height: auto;">
+        <figcaption style="padding: 16px 20px; border-top: 1px solid #eef0f3;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #97a0ad; display: block; margin-bottom: 5px;">03 · summarize</span><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">A structured summary saved to the record, with a standing disclaimer.</span></figcaption>
+      </figure>
+    </div>
+
+    <!-- Block B · full patient screens -->
+    <div style="border-top: 1px solid #eef0f3; margin-top: 56px; padding-top: 48px; display: grid; grid-template-columns: 200px 1fr; gap: 48px; margin-bottom: 28px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">→ the full patient app</div>
+      <p style="font-size: 16px; line-height: 1.7; color: #3a414d; max-width: 62ch; margin: 0;">The everyday home surface and the patient profile — vitals, medications, care team, records, and the daily check-in — built Persian-first and RTL-first across first-class light and dark themes on a WCAG-AA-calibrated token system.</p>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; align-items: start;">
+      <figure style="margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
+        <div style="height: 560px; overflow-y: auto; background: #0e0f13;">
+          <img src="assets/behinto-home.png" alt="Behinto patient home — vitals, medications, AI insights, weekly report" style="display: block; width: 100%; height: auto;">
+        </div>
+        <figcaption style="padding: 16px 20px; border-top: 1px solid #eef0f3; display: flex; justify-content: space-between; gap: 12px; align-items: baseline;"><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">Patient home — vitals, meds, and the daily check-in, dark theme.</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #b4bcc7; white-space: nowrap;">scroll ↓</span></figcaption>
+      </figure>
+      <figure style="margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
+        <div style="height: 560px; overflow-y: auto; background: #f6f7f9;">
+          <img src="assets/behinto-profile.png" alt="Behinto patient profile — records, care team, emergency contacts, settings" style="display: block; width: 100%; height: auto;">
+        </div>
+        <figcaption style="padding: 16px 20px; border-top: 1px solid #eef0f3; display: flex; justify-content: space-between; gap: 12px; align-items: baseline;"><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">Patient profile — records, care team, and emergency contacts.</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #b4bcc7; white-space: nowrap;">scroll ↓</span></figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OUTCOMES / STATUS ============ -->
+<section style="padding: 56px 40px;">
+  <div style="border-top: 1px solid #e2e5ea; padding-top: 48px; display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// status</div>
+    <div>
+      <div style="border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; padding: 40px; display: flex; gap: 20px; align-items: flex-start;">
+        <span style="width:11px;height:11px;border-radius:50%;background:#e0912f;margin-top:8px;flex:0 0 auto;"></span>
+        <div>
+          <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 22px; letter-spacing: -0.015em; margin-bottom: 10px;">In pilot, launching 2026</div>
+          <p style="font-size: 15px; line-height: 1.7; color: #3a414d; margin: 0; max-width: 60ch;">Launch is targeted roughly two months out (≈ September 2026). Outcome metrics are launch-pending — this case study will be revisited with numbers once Behinto is live.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NEXT PROJECT ============ -->
+<section style="padding: 40px 40px 96px;">
+  <a href="DigiKala-Mehr.html" style="display: block; border-radius: 14px; background: #14171c; color: #f6f7f9; padding: 56px; position: relative; overflow: hidden;" style-hover="background:#1b1f27;">
+    <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
+    <div style="position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
+      <div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6f7a8a; margin-bottom: 16px;">// next project</div>
+        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(28px, 4vw, 44px); letter-spacing: -0.025em; line-height: 1;">DigiKala Mehr</div>
+        <div style="font-size: 16px; color: #a7afba; margin-top: 12px; max-width: 44ch;">The hardest conversion number in the portfolio — 0.4% to 2.8%, solo.</div>
+      </div>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #f6f7f9; border: 1px solid #33383f; padding: 13px 20px; border-radius: 5px;">View case →</span>
+    </div>
+  </a>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer style="border-top: 1px solid #e2e5ea; padding: 48px 40px 56px;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px;">
+    <div style="max-width: 34ch;">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px; margin-bottom: 10px;">Farhad Shariatmadari</div>
+      <p style="font-size: 13px; line-height: 1.6; color: #5a6270; margin: 0;">Lead Product &amp; Experience Designer. Based in Tehran; working remotely with international clients.</p>
+    </div>
+    <div style="display: flex; gap: 56px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <span style="color: #97a0ad; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">Site</span>
+        <a href="Work.html" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>
+        <a href="About.html" style="color: #3a414d;" style-hover="color:#14171c;">About</a>
+        <a href="How-I-Work.html" style="color: #3a414d;" style-hover="color:#14171c;">How I work</a>
+        <a href="Contact.html" style="color: #3a414d;" style-hover="color:#14171c;">Contact</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <span style="color: #97a0ad; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">Reach me</span>
+        <a href="mailto:farhadshariatmadari@gmail.com" style="color: #3a414d;" style-hover="color:#14171c;">Email</a>
+        <a href="tel:+989006665599" style="color: #3a414d;" style-hover="color:#14171c;">+98 900 666 55 99</a>
+        <a href="https://www.linkedin.com/in/farhadshariatmadari/" style="color: #3a414d;" style-hover="color:#14171c;">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 44px; padding-top: 20px; border-top: 1px solid #eef0f3; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+    <span>© 2026 Farhad Shariatmadari</span>
+    <span>Tehran, Iran · Remote worldwide</span>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+</body>
+</html>

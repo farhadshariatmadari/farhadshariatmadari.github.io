@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>How I work — Farhad Shariatmadari</title>
+<meta name="description" content="A four-step process: understand the problem, build the foundation, design the flows, lead and deliver. Built so even fully outsourced dev teams can implement without ambiguity.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; background: #f6f7f9; color: #14171c; font-family: 'IBM Plex Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+  a { color: #2f5cf0; text-decoration: none; }
+  a:hover { color: #234ad1; }
+  ::selection { background: #2f5cf0; color: #fff; }
+</style>
+<script src="./fx.js"></script>
+</helmet>
+
+<div style="max-width: 1240px; margin: 0 auto;">
+
+<header style="position: sticky; top: 0; z-index: 50; background: rgba(246,247,249,.85); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e5ea;">
+  <nav style="display: flex; align-items: center; justify-content: space-between; padding: 18px 40px;">
+    <a href="index.html" style="display: flex; align-items: baseline; gap: 10px; color: #14171c;">
+      <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;">Farhad Shariatmadari</span>
+      <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad;">/ design</span>
+    </a>
+    <div style="display: flex; align-items: center; gap: 32px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+      <a href="Work.html" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>
+      <a href="About.html" style="color: #3a414d;" style-hover="color:#14171c;">About</a>
+      <a href="How-I-Work.html" style="color: #14171c;" style-hover="color:#14171c;">How I work</a>
+      <a href="Contact.html" style="background: #14171c; color: #fff; padding: 9px 16px; border-radius: 4px;" style-hover="background:#2f5cf0; color:#fff;">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<!-- PAGE HEADER · prism grid -->
+<section style="position: relative; overflow: hidden; padding: 88px 40px 56px;">
+  <div ref="{{ gridRef }}" style="position: absolute; inset: 0; z-index: 0;"></div>
+  <div style="position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(246,247,249,.86) 0%, rgba(246,247,249,.5) 55%, rgba(246,247,249,0) 100%);"></div>
+  <div style="position: relative; z-index: 2; pointer-events: none;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad; margin-bottom: 20px;">// how I work</div>
+    <h1 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(36px, 5.4vw, 64px); line-height: 1.0; letter-spacing: -0.03em; margin: 0 0 24px; max-width: 18ch; text-wrap: balance;">Problem first. Foundation second. Flows that leave no gaps.</h1>
+    <p style="font-size: clamp(16px, 1.5vw, 19px); line-height: 1.6; color: #3a414d; max-width: 62ch; margin: 0;">A repeatable four-step process, refined across enterprise, healthcare, and AI products — designed so even a fully outsourced dev team can build the work without a single logical gap.</p>
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #b4bcc7; margin-top: 22px;">↑ hover the grid</div>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section style="padding: 24px 40px 8px;">
+  <div style="display: flex; flex-direction: column; gap: 20px;">
+
+    <div style="display: grid; grid-template-columns: 320px 1fr; gap: 0; border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; overflow: hidden;">
+      <div style="padding: 40px 40px; border-right: 1px solid #eef0f3; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; background: #fbfcfd;">
+        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 64px; line-height: 1; letter-spacing: -0.03em; color: #cdd3db;">01</div>
+        <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 26px; letter-spacing: -0.02em; margin: 0; max-width: 12ch;">Understand the problem</h2>
+      </div>
+      <div style="padding: 40px 44px;">
+        <p style="font-size: 16px; line-height: 1.7; color: #3a414d; margin: 0 0 22px; max-width: 58ch;">Problems arrive from everywhere — market data, stakeholder needs, user research. My first job is to actually understand them. I'm most comfortable when the problem is unknown or badly defined, because that's where most of my projects start.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5a6270;">
+          <span style="border: 1px solid #e2e5ea; padding: 6px 12px; border-radius: 100px;">Stakeholder sessions</span>
+          <span style="border: 1px solid #e2e5ea; padding: 6px 12px; border-radius: 100px;">Market research</span>
+          <span style="border: 1px solid #e2e5ea; padding: 6px 12px; border-radius: 100px;">User interviews</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 320px 1fr; gap: 0; border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; overflow: hidden;">
+      <div style="padding: 40px 40px; border-right: 1px solid #eef0f3; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; background: #fbfcfd;">
+        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 64px; line-height: 1; letter-spacing: -0.03em; color: #cdd3db;">02</div>
+        <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 26px; letter-spacing: -0.02em; margin: 0; max-width: 12ch;">Build the foundation</h2>
+      </div>
+      <div style="padding: 40px 44px;">
+        <p style="font-size: 16px; line-height: 1.7; color: #3a414d; margin: 0 0 22px; max-width: 58ch;">Before the screens, I architect a token-based design system — light and dark, accessible, and built to scale — so every screen after it is faster to make and consistent by default. It's the structure that holds the product as it grows.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5a6270;">
+          <span style="border: 1px solid #e2e5ea; padding: 6px 12px; border-radius: 100px;">Semantic tokens</span>
+          <span style="border: 1px solid #e2e5ea; padding: 6px 12px; border-radius: 100px;">Light + dark, day one</span>
+          <span style="border: 1px solid #e2e5ea; padding: 6px 12px; border-radius: 100px;">WCAG-calibrated color</span>
+          <span style="border: 1px solid #e2e5ea; padding: 6px 12px; border-radius: 100px;">Component libraries</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 320px 1fr; gap: 0; border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; overflow: hidden;">
+      <div style="padding: 40px 40px; border-right: 1px solid #eef0f3; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; background: #fbfcfd;">
+        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 64px; line-height: 1; letter-spacing: -0.03em; color: #cdd3db;">03</div>
+        <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 26px; letter-spacing: -0.02em; margin: 0; max-width: 12ch;">Design the flows</h2>
+      </div>
+      <div style="padding: 40px 44px;">
+        <p style="font-size: 16px; line-height: 1.7; color: #3a414d; margin: 0 0 22px; max-width: 58ch;">End-to-end user flows with airtight logic — designed in step with the development cycle, so even fully outsourced dev teams can implement them without ambiguity. Every state is specified: error, empty, loading, and edge cases.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5a6270;">
+          <span style="border: 1px solid #e2e5ea; padding: 6px 12px; border-radius: 100px;">End-to-end flows</span>
+          <span style="border: 1px solid #e2e5ea; padding: 6px 12px; border-radius: 100px;">Every state specified</span>
+          <span style="border: 1px solid #e2e5ea; padding: 6px 12px; border-radius: 100px;">Dev-ready handoff</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 320px 1fr; gap: 0; border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; overflow: hidden;">
+      <div style="padding: 40px 40px; border-right: 1px solid #eef0f3; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; background: #fbfcfd;">
+        <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 64px; line-height: 1; letter-spacing: -0.03em; color: #cdd3db;">04</div>
+        <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 26px; letter-spacing: -0.02em; margin: 0; max-width: 12ch;">Lead and deliver</h2>
+      </div>
+      <div style="padding: 40px 44px;">
+        <p style="font-size: 16px; line-height: 1.7; color: #3a414d; margin: 0 0 22px; max-width: 58ch;">I research a feature, ideate fast, then either finalize it solo or hand structured tasks to designers on my team. I mentor, review, and stay accountable for the final quality all the way through launch.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5a6270;">
+          <span style="border: 1px solid #e2e5ea; padding: 6px 12px; border-radius: 100px;">Fast ideation</span>
+          <span style="border: 1px solid #e2e5ea; padding: 6px 12px; border-radius: 100px;">Structured delegation</span>
+          <span style="border: 1px solid #e2e5ea; padding: 6px 12px; border-radius: 100px;">Review &amp; mentorship</span>
+          <span style="border: 1px solid #e2e5ea; padding: 6px 12px; border-radius: 100px;">Accountable to launch</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRINCIPLE STRIP -->
+<section style="padding: 56px 40px 24px;">
+  <div style="border-top: 1px solid #e2e5ea; padding-top: 48px; display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+    <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// the throughline</div>
+    <blockquote style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: clamp(22px, 2.8vw, 32px); line-height: 1.35; letter-spacing: -0.015em; color: #14171c; max-width: 32ch;">The signature move: turning complex, ambiguous systems into simple flows so logically complete that the team building them never has to guess.</blockquote>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="padding: 48px 40px 96px;">
+  <div style="border-radius: 14px; background: #14171c; color: #f6f7f9; padding: 64px 56px; position: relative; overflow: hidden;">
+    <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
+    <div style="position: relative;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6f7a8a; margin-bottom: 20px;">// let's talk</div>
+      <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(28px, 4vw, 46px); line-height: 1.04; letter-spacing: -0.025em; margin: 0 0 20px; max-width: 22ch;">Have a problem that isn't clear yet?</h2>
+      <p style="font-size: 17px; line-height: 1.6; color: #a7afba; max-width: 52ch; margin: 0 0 36px;">That's exactly where I like to start. Tell me what you're building.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center;">
+        <a href="Contact.html" style="display: inline-flex; align-items: center; gap: 10px; background: #2f5cf0; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 15px 24px; border-radius: 5px;" style-hover="background:#3f6bff;">Start a conversation <span style="font-size:16px;">→</span></a>
+        <a href="Work.html" style="display: inline-flex; align-items: center; gap: 10px; color: #f6f7f9; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 15px 24px; border-radius: 5px; border: 1px solid #33383f;" style-hover="border-color:#5a6270;">See the work</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="border-top: 1px solid #e2e5ea; padding: 48px 40px 56px;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px;">
+    <div style="max-width: 34ch;">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 16px; margin-bottom: 10px;">Farhad Shariatmadari</div>
+      <p style="font-size: 13px; line-height: 1.6; color: #5a6270; margin: 0;">Lead Product &amp; Experience Designer. Based in Tehran; working remotely with international clients.</p>
+    </div>
+    <div style="display: flex; gap: 56px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <span style="color: #97a0ad; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">Site</span>
+        <a href="Work.html" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>
+        <a href="About.html" style="color: #3a414d;" style-hover="color:#14171c;">About</a>
+        <a href="How-I-Work.html" style="color: #3a414d;" style-hover="color:#14171c;">How I work</a>
+        <a href="Contact.html" style="color: #3a414d;" style-hover="color:#14171c;">Contact</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <span style="color: #97a0ad; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">Reach me</span>
+        <a href="mailto:farhadshariatmadari@gmail.com" style="color: #3a414d;" style-hover="color:#14171c;">Email</a>
+        <a href="tel:+989006665599" style="color: #3a414d;" style-hover="color:#14171c;">+98 900 666 55 99</a>
+        <a href="https://www.linkedin.com/in/farhadshariatmadari/" style="color: #3a414d;" style-hover="color:#14171c;">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+  <div style="margin-top: 44px; padding-top: 20px; border-top: 1px solid #eef0f3; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+    <span>© 2026 Farhad Shariatmadari</span>
+    <span>Tehran, Iran · Remote worldwide</span>
+  </div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  colors = ['#2f5cf0', '#22a06b', '#e0912f', '#7a5cf0', '#e0397f'];
+  cell = 64;
+  gridRef = (el) => {
+    if (!el) return;
+    this.grid = el;
+    el.style.display = 'grid';
+    requestAnimationFrame(this.build);
+    if (!this._bound) {
+      this._bound = true;
+      el.addEventListener('mouseover', this.onHover);
+      window.addEventListener('resize', this.onResize);
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        this._iv = setInterval(this.ambient, 900);
+      }
+    }
+  };
+  build = () => {
+    const el = this.grid;
+    if (!el) return;
+    const w = el.clientWidth, h = el.clientHeight;
+    if (!w || !h) { requestAnimationFrame(this.build); return; }
+    const cols = Math.ceil(w / this.cell) + 1;
+    const rows = Math.ceil(h / this.cell) + 1;
+    el.style.gridTemplateColumns = `repeat(${cols}, ${this.cell}px)`;
+    el.style.gridAutoRows = `${this.cell}px`;
+    let html = '';
+    for (let i = 0; i < cols * rows; i++) html += '<div class="pg-cell" style="border-right:1px solid #eceef2;border-bottom:1px solid #eceef2;transition:background .9s ease;"></div>';
+    el.innerHTML = html;
+  };
+  flash = (c, a) => {
+    if (!c) return;
+    const col = this.colors[(Math.random() * this.colors.length) | 0];
+    c.style.transition = 'none';
+    c.style.background = this.rgba(col, a);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      c.style.transition = 'background 1s ease';
+      c.style.background = 'transparent';
+    }));
+  };
+  onHover = (e) => {
+    const c = e.target;
+    if (c && c.classList && c.classList.contains('pg-cell')) this.flash(c, 0.55);
+  };
+  ambient = () => {
+    const el = this.grid;
+    if (!el || !el.children.length) return;
+    this.flash(el.children[(Math.random() * el.children.length) | 0], 0.26);
+  };
+  onResize = () => { clearTimeout(this._t); this._t = setTimeout(this.build, 200); };
+  rgba(hex, a) {
+    const n = parseInt(hex.slice(1), 16);
+    return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
+  }
+  componentWillUnmount() {
+    clearInterval(this._iv);
+    window.removeEventListener('resize', this.onResize);
+  }
+  renderVals() { return { gridRef: this.gridRef }; }
+}
+</script>
+</body>
+</html>
