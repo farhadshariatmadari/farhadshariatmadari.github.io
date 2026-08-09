@@ -38,6 +38,7 @@
   }
 </style>
 <script src="./prism-grid.js"></script>
+<script src="./pointer-highlight.js"></script>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 </helmet>
 
@@ -71,7 +72,7 @@
   <div class="about-hero-inner" style="display: flex; gap: 40px; align-items: center; width: 100%;">
     <div class="about-hero-text">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad; margin-bottom: 20px;">// about</div>
-      <h1 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(34px, 5vw, 60px); line-height: 1.02; letter-spacing: -0.03em; margin: 0 0 24px; max-width: 17ch; text-wrap: balance;">A designer who thinks like the engineer building the thing.</h1>
+      <h1 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(34px, 5vw, 60px); line-height: 1.02; letter-spacing: -0.03em; margin: 0 0 24px; max-width: 17ch; text-wrap: balance;">A designer who thinks like <span class="ph">the engineer<span class="ph-fx" data-pointer-highlight data-ph-delay="520"></span></span> building the thing.</h1>
       <p style="font-size: clamp(16px, 1.5vw, 19px); line-height: 1.6; color: #3a414d; max-width: 52ch; margin: 0 0 40px;">Lead Product &amp; Experience Designer with 7–8 years shipping complex B2B platforms and AI-driven consumer products. I've led design for an enterprise MDM platform recognized at Gitex, scaled a family-safety app from 500 to 500,000 downloads, and am currently designing Iran's first AI healthcare assistant and first agriculture super-app.</p>
     </div>
     <img class="about-hero-art" ref="{{ artRef }}" src="assets/farhad-sketch.png" alt="Construction sketch of Farhad Shariatmadari with UI proportion guides">

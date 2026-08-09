@@ -85,6 +85,55 @@ Things worth knowing before changing it:
   Its text is already `z-index: 2`, the sketch `z-index: 1`.
 - The 9 case-study pages still use the old static grid background.
 
+## The pointer highlight (`pointer-highlight.js`)
+
+A vanilla port of Aceternity's `<PointerHighlight>`: a rectangle draws itself
+around one word while a blue cursor arrow slides to its bottom-right corner —
+900ms ease-in-out, fired once when the word scrolls into view. Standalone rather
+than page logic, for the same reason the prism grid is.
+
+**It is deliberately rationed. Five words on four pages:**
+
+| Page | Word |
+|---|---|
+| `index.html` hero h1 | *actually use* |
+| `index.html` projects h2 | *proof* |
+| `Work.html` h1 | *shipped* |
+| `About.html` h1 | *the engineer* |
+| `How-I-Work.html` h1 | *no gaps* |
+
+The device stops reading as emphasis the moment it appears twice in one eyeful.
+Adding a sixth should mean retiring one.
+
+`Contact.html` has none on purpose: its h1 already runs the character scramble,
+which rewrites `el.textContent` — that would delete injected children — and two
+effects in one headline is noise. The 9 case-study pages don't load the script.
+
+Markup:
+
+```html
+… people can <span class="ph-keep"><span class="ph">actually use<span
+   class="ph-fx" data-pointer-highlight data-ph-delay="1250"></span></span>.</span>
+```
+
+- The box and pointer are injected into `.ph-fx`, which React renders empty and
+  therefore never reconciles. Same trick as the prism grid.
+- **`.ph-keep` is not optional where punctuation follows.** `.ph` is
+  `inline-block`, which opens a line-break opportunity on both sides of it, and
+  a trailing `.` will orphan onto the next line by itself. Skip `.ph-keep` only
+  when the next character is a space.
+- **`.ph` is `white-space: nowrap`, so the phrase can never exceed the heading's
+  `max-width: Nch`** or it overflows the column. That is why About says *the
+  engineer* (12ch inside 17ch) and not *thinks like the engineer* (24ch).
+- Horizontal padding is a deliberate `-.055em`, not the reference's larger
+  value: a highlighted word at the start of a line pushes the box past the
+  page's left alignment edge, and that reads as a misalignment.
+- `data-ph-delay` (ms) holds the draw back so it lands after a heading's own
+  entrance animation. The home hero uses 1250ms because its h1 lines blur in on
+  a `.42s` stagger.
+- Under `prefers-reduced-motion` the box appears at full size with no animation.
+  Nothing is hidden, only the motion is dropped.
+
 ## The home page card stack (`index.html`)
 
 A port of the React/GSAP "CardSwap" component to the x-dc runtime. Nine project
