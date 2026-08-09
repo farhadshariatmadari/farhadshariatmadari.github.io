@@ -124,8 +124,9 @@
   /* narrow: the 3D fan can't fit a phone, so it collapses to a clean single-card
      rotator (measure() zeroes the offsets) and the index list carries navigation */
   @media (max-width: 620px) {
-    /* stage clears the card plus the 8-step fan (8 × 5px vertical) */
-    .cs-stage { width: 100%; height: 452px; }
+    /* clears the card, the 8-step fan (8 × 5px vertical) and the 23px the card
+       shadow reaches below the deck — at 452px the stage sheared the shadow off */
+    .cs-stage { width: 100%; height: 472px; }
     /* leave room for the 8-step fan (8 × 6px) so the deck never leaves the stage */
     .cs-card { width: calc(100% - 48px); height: 404px; }
     .cs-card-shot { height: 108px; }
@@ -566,6 +567,7 @@ class Component extends DCLogic {
 
     this.measure();
     this.place(false);
+    this.centre();
     this.markActive();
     this.resume();
   };
@@ -586,13 +588,56 @@ class Component extends DCLogic {
       : { dist: 20, vdist: 18, skew: 2, drop: 520 };
   };
 
+  /**
+   * How far the card shadow reaches below a card: offsetY 26 - spread 30 +
+   * half of the 54px blur, from `box-shadow: 0 26px 54px -30px` on .cs-card.
+   * The stage clips at its own edge, so the fan has to sit at least this far
+   * off the floor or the shadow is sheared into a hard line. Keep in step with
+   * that rule.
+   */
+  shadowReach = 23;
+
   /** Re-centre the track on the fan's bounding box so it never drifts off stage. */
   measure = () => {
     if (!this._track || !this._cards) return;
     const m = this.metrics();
     const n = this._cards.length - 1;
-    this._track.style.transform =
-      'translate(' + (-n * m.dist) / 2 + 'px,' + (n * m.vdist) / 2 + 'px)';
+    this._tx = (-n * m.dist) / 2;
+    this._ty = (n * m.vdist) / 2;
+    this._track.style.transform = 'translate(' + this._tx + 'px,' + this._ty + 'px)';
+  };
+
+  /**
+   * Centre the fan's *rendered* box in the stage. Run after place(), once the
+   * cards are seated and their boxes are final.
+   *
+   * measure() centres the card centres, which is not the same thing: perspective
+   * shrinks the cards further back and the 2° skew makes the front one taller,
+   * so the fan settles low — it used to leave 52px of slack above and 4px below,
+   * and the stage sheared 19px off the front card's shadow.
+   *
+   * Correcting it here rather than with a constant keeps it right at both
+   * breakpoints, where the fan step, skew and card size all differ.
+   */
+  centre = () => {
+    if (!this._stage || !this._cards || !this._cards.length || this._ty == null) return;
+    const s = this._stage.getBoundingClientRect();
+    let top = Infinity, bottom = -Infinity;
+    this._cards.forEach((c) => {
+      const r = c.getBoundingClientRect();
+      if (r.top < top) top = r.top;
+      if (r.bottom > bottom) bottom = r.bottom;
+    });
+    const above = top - s.top;
+    const below = s.bottom - bottom;
+
+    let up = (above - below) / 2;             // balance the slack...
+    up = Math.max(up, this.shadowReach - below); // ...but never starve the shadow
+    up = Math.min(up, above);                 // ...and never lift a card off the top
+    if (!isFinite(up) || Math.abs(up) < 0.5) return;
+
+    this._ty -= up;
+    this._track.style.transform = 'translate(' + this._tx + 'px,' + this._ty + 'px)';
   };
 
   onResize = () => {
@@ -601,6 +646,7 @@ class Component extends DCLogic {
       if (this._tl) { this._tl.kill(); this._tl = null; }
       this.measure();
       this.place(false);
+      this.centre();
     }, 180);
   };
 

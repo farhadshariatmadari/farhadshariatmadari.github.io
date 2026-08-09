@@ -103,6 +103,16 @@ Four landmines already fixed here — don't reintroduce them:
 4. **Responsive column counts must match the visible children**, or leftovers
    wrap onto an implicit row. `measure()` also recomputes the fan geometry per
    breakpoint; it collapses to a shallow fan on narrow screens.
+5. **The stage has to leave 23px under the deck for the card shadow**, which is
+   what `box-shadow: 0 26px 54px -30px` reaches below a card (offset − spread +
+   half the blur). `measure()` centres the card *centres*, which is not the same
+   as centring the fan: perspective shrinks the cards further back and the 2°
+   skew makes the front one taller, so the deck settles low. It used to leave
+   52px of slack above and 4px below, and the stage sheared the shadow into a
+   hard line. `centre()` fixes it up after `place()` by measuring the fan's real
+   box — call it wherever `place(false)` is called. Don't "fix" this by dropping
+   the `overflow: hidden` in landmine 3; the shadow and the falling card both
+   need that edge, just at different distances.
 
 ## Logo and favicon
 
