@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 61 84" role="img" aria-label="Farhad Shariatmadari">
+  <title>Farhad Shariatmadari</title>
+  <!--
+    The F mark: two thick round-capped strokes — stem + top arm, and a shorter
+    middle arm — with a dark wedge where they cross.
+
+    The wedge is drawn as the middle arm re-stroked through a mask of the main
+    shape, rather than mix-blend-mode:multiply. Multiply of two blues keeps the
+    blue channel high and lands on a bright indigo, not the near-navy in the
+    source art; masking also renders identically at favicon sizes and inside
+    <img>, where blend modes and isolation are less dependable.
+  -->
+  <defs>
+    <!-- bright blue at the top-right tip, falling to lavender at the stem foot -->
+    <linearGradient id="fm-main" x1="61" y1="0" x2="4" y2="84" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4F68F3"/>
+      <stop offset="0.42" stop-color="#4740DE"/>
+      <stop offset="1" stop-color="#BCA8F6"/>
+    </linearGradient>
+    <linearGradient id="fm-arm" x1="10" y1="33" x2="48" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#C6B6F9"/>
+      <stop offset="1" stop-color="#9B85F2"/>
+    </linearGradient>
+    <linearGradient id="fm-cross" x1="14" y1="33" x2="40" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2B2472"/>
+      <stop offset="1" stop-color="#171337"/>
+    </linearGradient>
+
+    <path id="fm-stem" d="M13.5 70.5V13.5H47.5"/>
+    <path id="fm-bar" d="M13.5 46H34"/>
+
+    <!-- userSpaceOnUse is required: the masked element is a horizontal line whose
+         geometry bbox has zero height, which collapses a default objectBoundingBox
+         mask region to nothing -->
+    <mask id="fm-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="61" height="84">
+      <rect width="61" height="84" fill="#000"/>
+      <use href="#fm-stem" fill="none" stroke="#fff" stroke-width="27"
+           stroke-linecap="round" stroke-linejoin="round"/>
+    </mask>
+  </defs>
+
+  <g fill="none" stroke-width="27" stroke-linecap="round" stroke-linejoin="round">
+    <use href="#fm-stem" stroke="url(#fm-main)"/>
+    <use href="#fm-bar" stroke="url(#fm-arm)"/>
+    <!-- only the part of the middle arm that sits on the main shape -->
+    <g mask="url(#fm-mask)">
+      <use href="#fm-bar" stroke="url(#fm-cross)"/>
+    </g>
+  </g>
+</svg>

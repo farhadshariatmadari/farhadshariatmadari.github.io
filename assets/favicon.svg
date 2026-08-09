@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Farhad Shariatmadari">
+  <title>Farhad Shariatmadari</title>
+  <!--
+    Favicon: the mark on the dark rounded square from the icon set, so it holds
+    its shape against both light and dark browser chrome. Geometry is the same
+    61x84 construction as logo-mark.svg, scaled into the tile.
+  -->
+  <defs>
+    <linearGradient id="fv-main" x1="61" y1="0" x2="4" y2="84" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5B73F6"/>
+      <stop offset="0.42" stop-color="#4740DE"/>
+      <stop offset="1" stop-color="#BCA8F6"/>
+    </linearGradient>
+    <linearGradient id="fv-arm" x1="10" y1="33" x2="48" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#C6B6F9"/>
+      <stop offset="1" stop-color="#9B85F2"/>
+    </linearGradient>
+    <linearGradient id="fv-cross" x1="14" y1="33" x2="40" y2="60" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2B2472"/>
+      <stop offset="1" stop-color="#171337"/>
+    </linearGradient>
+
+    <path id="fv-stem" d="M13.5 70.5V13.5H47.5"/>
+    <path id="fv-bar" d="M13.5 46H34"/>
+
+    <mask id="fv-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="61" height="84">
+      <rect width="61" height="84" fill="#000"/>
+      <use href="#fv-stem" fill="none" stroke="#fff" stroke-width="27"
+           stroke-linecap="round" stroke-linejoin="round"/>
+    </mask>
+  </defs>
+
+  <rect width="32" height="32" rx="7" fill="#14161C"/>
+  <g transform="translate(9.1 6.5) scale(0.2262)"
+     fill="none" stroke-width="27" stroke-linecap="round" stroke-linejoin="round">
+    <use href="#fv-stem" stroke="url(#fv-main)"/>
+    <use href="#fv-bar" stroke="url(#fv-arm)"/>
+    <g mask="url(#fv-mask)">
+      <use href="#fv-bar" stroke="url(#fv-cross)"/>
+    </g>
+  </g>
+</svg>

@@ -104,6 +104,41 @@ Four landmines already fixed here — don't reintroduce them:
    wrap onto an implicit row. `measure()` also recomputes the fan geometry per
    breakpoint; it collapses to a shallow fan on narrow screens.
 
+## Logo and favicon
+
+Two hand-built SVGs in `assets/`:
+
+- `logo-mark.svg` — the F mark on a transparent ground, used in the nav (19×26)
+  and footer (16×22) of all 14 pages.
+- `favicon.svg` — the same mark on the dark rounded tile, linked from every
+  `<helmet>` as `rel="icon" type="image/svg+xml"`.
+
+**These were reconstructed as vector from a flattened logo sheet, not exported
+from the original source.** They are a close match, not a byte-exact copy — if
+the real vector ever turns up, replacing these two files updates the whole site,
+since nothing else references the artwork.
+
+Construction, shared by both files: a 61×84 user space, two round-capped strokes
+of width 27 — `M13.5 70.5V13.5H47.5` for the stem and top arm, `M13.5 46H34` for
+the middle arm — over a blue→lavender diagonal gradient.
+
+Two things to preserve if you edit them:
+
+- The dark wedge where the strokes cross is the middle arm **re-stroked through a
+  mask of the main shape**, not `mix-blend-mode: multiply`. Multiplying two blues
+  keeps the blue channel high and lands on a bright indigo rather than the near
+  navy in the source art; masking also survives `<img>` and favicon rendering,
+  where blend modes and isolation are less dependable.
+- That mask needs `maskUnits="userSpaceOnUse"` with an explicit region. The
+  masked element is a horizontal line, so its geometry bbox has zero height and
+  a default `objectBoundingBox` region collapses to nothing — the wedge silently
+  disappears.
+
+Still missing, because this machine has no rasteriser (no rsvg/imagemagick/inkscape):
+`apple-touch-icon.png` (180×180) and an Open Graph share image (1200×630). Both
+must be PNG — SVG is not accepted for either. `index.html` has `og:title` and
+`og:description` but no `og:image`.
+
 ## Images
 
 24 PNGs in `assets/`, already optimised (14.1 MB → 2.9 MB). If you add more:
