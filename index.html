@@ -43,6 +43,13 @@
     .float-panel, .flow-line, .shimmer-btn::after { animation: none; }
   }
 
+  /* ============ testimonial avatars ============ */
+  /* The initials disc is the base layer and the photo covers it, so a missing
+     file degrades to initials instead of a broken image. See avatarRef. */
+  .tst-av { position: relative; overflow: hidden; width: 42px; height: 42px; border-radius: 50%; color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; flex: 0 0 auto; }
+  .tst-av img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tst-av img[hidden] { display: none; }
+
   /* ============ project card swap ============ */
   .cs-top { display: grid; grid-template-columns: minmax(0, 1fr) 600px; gap: 48px; align-items: center; }
   .cs-intro { min-width: 0; }
@@ -431,7 +438,7 @@
     <figure style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: 34px 36px 30px; margin: 0; display: flex; flex-direction: column;">
       <blockquote style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 19px; line-height: 1.45; letter-spacing: -0.01em; margin: 0 0 auto; color: #14171c;">“Farhad has a rare combination of strong design skills, product thinking, and technical understanding. He doesn't just make things look good — he asks the right questions, challenges assumptions, and keeps the user experience at the center of every decision.”</blockquote>
       <figcaption style="display: flex; align-items: center; gap: 13px; margin-top: 26px;">
-        <div style="width: 42px; height: 42px; border-radius: 50%; background: #2f5cf0; color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; flex: 0 0 auto;">ST</div>
+        <div class="tst-av" style="background: #2f5cf0;">ST<img ref="{{ avatarRef }}" src="assets/testimonial-soheil-tehranipour.jpg" alt="" width="42" height="42" loading="lazy" decoding="async"></div>
         <div style="font-size: 13px; line-height: 1.4;">
           <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: #14171c; font-size: 14.5px;">Soheil Tehranipour</div>
           <div style="color: #5a6270; font-size: 12.5px;">CEO, Saean Ertebat (SENA) · LLM Technical Lead, National AI Platform (Sharif University)</div>
@@ -442,7 +449,7 @@
     <figure style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: 34px 36px 30px; margin: 0; display: flex; flex-direction: column;">
       <blockquote style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 19px; line-height: 1.45; letter-spacing: -0.01em; margin: 0 0 auto; color: #14171c;">“An exceptional product designer with deep expertise in enterprise design and design-strategy leadership. I was consistently impressed by his attention to detail, thoughtful approach, outstanding communication, and his ability to leverage AI effectively throughout the design process.”</blockquote>
       <figcaption style="display: flex; align-items: center; gap: 13px; margin-top: 26px;">
-        <div style="width: 42px; height: 42px; border-radius: 50%; background: #22a06b; color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; flex: 0 0 auto;">MM</div>
+        <div class="tst-av" style="background: #22a06b;">MM<img ref="{{ avatarRef }}" src="assets/testimonial-mohammad-maher.jpg" alt="" width="42" height="42" loading="lazy" decoding="async"></div>
         <div style="font-size: 13px; line-height: 1.4;">
           <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: #14171c; font-size: 14.5px;">Mohammad Maher</div>
           <div style="color: #5a6270; font-size: 12.5px;">Design Director · ex-Head of Design, Digikala · managed Farhad directly</div>
@@ -453,7 +460,7 @@
     <figure style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: 34px 36px 30px; margin: 0; display: flex; flex-direction: column;">
       <blockquote style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 19px; line-height: 1.45; letter-spacing: -0.01em; margin: 0 0 auto; color: #14171c;">“Farhad was our Product Design Lead at Trio — in practice, closer to a product manager with world-class UI/UX skills. Enterprise B2B is genuinely hard to design for; he researched deeply, simplified relentlessly, and shipped interfaces that made a complicated product feel manageable. I'd work with him again without hesitation.”</blockquote>
       <figcaption style="display: flex; align-items: center; gap: 13px; margin-top: 26px;">
-        <div style="width: 42px; height: 42px; border-radius: 50%; background: #14171c; color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; flex: 0 0 auto;">MA</div>
+        <div class="tst-av" style="background: #14171c;">MA<img ref="{{ avatarRef }}" src="assets/testimonial-mohammadreza-azhari.jpg" alt="" width="42" height="42" loading="lazy" decoding="async"></div>
         <div style="font-size: 13px; line-height: 1.4;">
           <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: #14171c; font-size: 14.5px;">MohammadReza Azhari</div>
           <div style="color: #5a6270; font-size: 12.5px;">Product leader · managed Farhad directly at Trio</div>
@@ -464,7 +471,7 @@
     <figure style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: 34px 36px 30px; margin: 0; display: flex; flex-direction: column;">
       <blockquote style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 19px; line-height: 1.45; letter-spacing: -0.01em; margin: 0 0 auto; color: #14171c;">“An exceptional professional and talented designer who excels at collaborating with development teams to deliver products seamlessly. His expertise and proactive approach ensure outstanding results and a smooth product launch.”</blockquote>
       <figcaption style="display: flex; align-items: center; gap: 13px; margin-top: 26px;">
-        <div style="width: 42px; height: 42px; border-radius: 50%; background: #e0912f; color: #fff; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 15px; flex: 0 0 auto;">MK</div>
+        <div class="tst-av" style="background: #e0912f;">MK<img ref="{{ avatarRef }}" src="assets/testimonial-masoud-kaviani.jpg" alt="" width="42" height="42" loading="lazy" decoding="async"></div>
         <div style="font-size: 13px; line-height: 1.4;">
           <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; color: #14171c; font-size: 14.5px;">Masoud Kaviani</div>
           <div style="color: #5a6270; font-size: 12.5px;">Senior Data Scientist, Filimo/Aparat · AI Tech Lead, Sharif University</div>
@@ -778,8 +785,27 @@ class Component extends DCLogic {
     if (this._tl) this._tl.kill();
   }
 
+  /**
+   * Testimonial avatars. The photo sits on top of the initials disc, so a
+   * missing or failed file leaves the initials showing rather than a broken
+   * image icon — same idea as the hero sketch fallback on About.html.
+   *
+   * One ref serves all four images, so the per-image state lives on the
+   * element. Purely imperative: no setState, which would restart the GSAP
+   * card stack above.
+   */
+  avatarRef = (el) => {
+    if (!el || el.__av) return;
+    el.__av = true;
+    var drop = function () { el.hidden = true; };
+    // an image that already failed before the ref attached never fires 'error'
+    if (el.complete && el.naturalWidth === 0) drop();
+    el.addEventListener('error', drop);
+    el.addEventListener('load', function () { el.hidden = el.naturalWidth === 0; });
+  };
+
   renderVals() {
-    return { stageRef: this.stageRef, listRef: this.listRef };
+    return { stageRef: this.stageRef, listRef: this.listRef, avatarRef: this.avatarRef };
   }
 }
 </script>

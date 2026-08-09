@@ -218,6 +218,33 @@ the file returns.
 Five projects have **no screenshots at all** (Safes, Medio, Agrino, Vendora,
 Sharif AICT) and use the hatch placeholder — see `assets/MISSING-ASSETS.md`.
 
+### Testimonial avatars
+
+The four testimonial cards on `index.html` expect these files, and **none of
+them are on disk yet**:
+
+| File | Person |
+|---|---|
+| `assets/testimonial-soheil-tehranipour.jpg` | Soheil Tehranipour |
+| `assets/testimonial-mohammad-maher.jpg` | Mohammad Maher |
+| `assets/testimonial-mohammadreza-azhari.jpg` | MohammadReza Azhari |
+| `assets/testimonial-masoud-kaviani.jpg` | Masoud Kaviani |
+
+Until they land the cards show the coloured initials disc they always had —
+`.tst-av` stacks the photo *on top of* the initials, and `avatarRef` hides the
+`<img>` on `error`, so a missing file degrades to initials rather than a broken
+image icon. Both states are verified. Dropping the files in is the whole fix;
+no markup change.
+
+They are square crops rendered at 42×42, so 168px (4×) is plenty:
+
+```bash
+sips -s format jpeg -Z 168 -s formatOptions 80 source.png --out assets/testimonial-name.jpg
+```
+
+`alt=""` is deliberate: the person's name sits next to the avatar as text, so
+the photo is decorative and a screen reader repeating the name is noise.
+
 ## Never publish
 
 `.gitignore` keeps these local. The repo is **public**, so keep it that way:
