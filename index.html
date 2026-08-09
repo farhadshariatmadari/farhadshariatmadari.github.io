@@ -10,14 +10,15 @@
 <helmet>
 <link rel="canonical" href="https://farhadshariatmadari.github.io/">
 <title>Farhad Shariatmadari — Lead Product &amp; Experience Designer</title>
-<meta name="description" content="Lead Product & Experience Designer with 7–8 years shipping complex B2B platforms and AI-driven products across Iran, the UAE, and Greece. Available for contract, full-time, and consulting.">
+<meta name="description" content="Lead Product & Experience Designer, eight years in. Device fleets, hospital operations, AI infrastructure and payment flows across Iran, the UAE, and Greece. Available for contract, full-time, and consulting.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Farhad Shariatmadari — Lead Product & Experience Designer">
-<meta property="og:description" content="I turn complex, ambiguous systems into products people can actually use. Enterprise, healthcare, and AI-first product design.">
+<meta property="og:description" content="Eight years designing software most designers avoid: device fleets, hospital operations, AI infrastructure, payment flows. Usually the first version anyone has built.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="responsive.css">
 <style>
   *, *::before, *::after { box-sizing: border-box; }
   body { margin: 0; background: #f6f7f9; color: #14171c; font-family: 'IBM Plex Sans', sans-serif; -webkit-font-smoothing: antialiased; }
@@ -29,19 +30,50 @@
   @keyframes riseIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
   @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
   @keyframes spotDrift { 0% { transform: translate(-6%, -4%); } 50% { transform: translate(8%, 6%); } 100% { transform: translate(-6%, -4%); } }
-  @keyframes dashFlow { to { stroke-dashoffset: -28; } }
-  @keyframes nodePulse { 0%,100% { opacity: .35; transform: scale(1); } 50% { opacity: 1; transform: scale(1.25); } }
-  @keyframes chipGlow { 0%,100% { box-shadow: 0 0 0 0 rgba(47,92,240,.0); } 50% { box-shadow: 0 0 0 6px rgba(47,92,240,.10); } }
   @keyframes shimmer { 0% { transform: translateX(-140%); } 60%,100% { transform: translateX(260%); } }
   .anim { opacity: 0; animation: blurIn .7s cubic-bezier(.2,.72,.2,1) both; }
   .rise { opacity: 0; animation: riseIn .7s cubic-bezier(.2,.72,.2,1) both; }
   .shimmer-btn { position: relative; overflow: hidden; }
   .shimmer-btn::after { content: ""; position: absolute; top: 0; left: 0; width: 40%; height: 100%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent); transform: translateX(-140%); animation: shimmer 4.5s ease-in-out 1.2s infinite; }
-  .flow-line { stroke-dasharray: 6 8; animation: dashFlow 1.1s linear infinite; }
   .float-panel { animation: floatY 7s ease-in-out infinite; }
   @media (prefers-reduced-motion: reduce) {
     .anim, .rise { animation: none; opacity: 1; }
-    .float-panel, .flow-line, .shimmer-btn::after { animation: none; }
+    .float-panel, .shimmer-btn::after { animation: none; }
+  }
+
+  /* ============ hero work reel ============ */
+  /* Four real case-study screenshots cross-fading in the hero panel, driven
+     entirely by CSS keyframes. Deliberately NOT page logic: the Component class
+     on this page owns the GSAP card stack, and a setState re-render would wipe
+     the transforms it writes straight to the DOM. CSS needs no re-render, so the
+     two never touch. React renders these nodes once and reconciles nothing. */
+  .hr-frame { position: relative; height: 296px; overflow: hidden; background: #eef1f5; }
+  .hr-slide { position: absolute; inset: 0; opacity: 0; animation: hrFade 20s linear infinite; }
+  .hr-slide img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+  /* Phone shots are ~1:2.3 and would be cropped to a letterbox strip by the same
+     frame the 16:9 desktop shots fill. They get a device column instead: fixed
+     width, top-aligned, and clipped by the frame — so it reads as a handset
+     rising into view rather than a mis-cropped screenshot. */
+  .hr-slide.is-phone { display: flex; justify-content: center; align-items: flex-start; padding-top: 26px; background: linear-gradient(158deg, #eef1f6 0%, #e3e7ee 100%); }
+  .hr-slide.is-phone img { width: 150px; height: auto; border-radius: 15px; border: 1px solid rgba(20,23,28,.10); box-shadow: 0 20px 38px -20px rgba(20,23,28,.45); }
+  .hr-cap { position: relative; height: 66px; border-top: 1px solid #eef0f3; background: #fff; }
+  .hr-cap > div { position: absolute; inset: 0; padding: 13px 16px; opacity: 0; animation: hrFade 20s linear infinite; }
+  .hr-cap b { display: block; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14.5px; letter-spacing: -.01em; }
+  .hr-cap small { display: block; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: .03em; color: #97a0ad; margin-top: 6px; }
+  .hr-dots { margin-left: auto; display: flex; gap: 5px; }
+  .hr-dots i { width: 13px; height: 3px; border-radius: 2px; background: #e2e5ea; animation: hrDot 20s linear infinite; }
+  /* one 20s cycle, four 5s slots — 1.5% of 20s is a 300ms cross-fade */
+  @keyframes hrFade { 0% { opacity: 0 } 1.5% { opacity: 1 } 25% { opacity: 1 } 26.5% { opacity: 0 } 100% { opacity: 0 } }
+  @keyframes hrDot { 0% { background: #e2e5ea } 1.5% { background: #2f5cf0 } 25% { background: #2f5cf0 } 26.5% { background: #e2e5ea } 100% { background: #e2e5ea } }
+  .hr-slide:nth-child(2), .hr-cap > div:nth-child(2), .hr-dots i:nth-child(2) { animation-delay: 5s; }
+  .hr-slide:nth-child(3), .hr-cap > div:nth-child(3), .hr-dots i:nth-child(3) { animation-delay: 10s; }
+  .hr-slide:nth-child(4), .hr-cap > div:nth-child(4), .hr-dots i:nth-child(4) { animation-delay: 15s; }
+  @media (max-width: 560px) { .hr-frame { height: 236px; } .hr-slide.is-phone img { width: 128px; } }
+  @media (prefers-reduced-motion: reduce) {
+    /* hold the first project rather than hiding three — nothing is lost, only motion */
+    .hr-slide, .hr-cap > div, .hr-dots i { animation: none; }
+    .hr-slide:first-child, .hr-cap > div:first-child { opacity: 1; }
+    .hr-dots i:first-child { background: #2f5cf0; }
   }
 
   /* ============ testimonial avatars ============ */
@@ -130,8 +162,15 @@
     .cs-row-tag { display: none; }
   }
   /* narrow: the 3D fan can't fit a phone, so it collapses to a clean single-card
-     rotator (measure() zeroes the offsets) and the index list carries navigation */
-  @media (max-width: 620px) {
+     rotator (measure() zeroes the offsets) and the index list carries navigation.
+
+     660 rather than 620, and it must stay in step with `NARROW` in the logic
+     class below. Two reasons for the number: .cs-stage-wrap is a flex container,
+     so a 600px stage is flex-shrunk once the wrap drops under 600 — which starts
+     at about 631px of viewport — and a shrunken stage still holding the desktop
+     card leaves under 23px below the deck, shearing the shadow. Switching at 660
+     hands the narrow layout over before that can happen. */
+  @media (max-width: 660px) {
     /* clears the card, the 8-step fan (8 × 5px vertical) and the 23px the card
        shadow reaches below the deck — at 452px the stage sheared the shadow off */
     .cs-stage { width: 100%; height: 472px; }
@@ -142,6 +181,12 @@
     .cs-card-body h3 { font-size: 19px; }
     .cs-card-body p { font-size: 12.5px; }
     .cs-card-stat { font-size: 25px; margin-bottom: 14px; }
+  }
+  /* The index list keeps its own 620 breakpoint. It shares nothing with the deck
+     but the section it sits in, and at 621–660 there is still room for the
+     metric column — the deck moving up to 660 is about the fan fitting the
+     stage, not about the list running out of width. */
+  @media (max-width: 620px) {
     .cs-row { grid-template-columns: 30px minmax(0, 1fr) 22px; }
     .cs-row-metric { display: none; }
   }
@@ -159,15 +204,15 @@
 
 <!-- ============ NAV ============ -->
 <header style="position: sticky; top: 0; z-index: 50; background: rgba(246,247,249,.85); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e5ea;">
-  <nav style="display: flex; align-items: center; justify-content: space-between; padding: 18px 40px;">
-    <a href="./" style="display: flex; align-items: center; gap: 11px; color: #14171c;">
+  <nav class="r-nav" style="display: flex; align-items: center; justify-content: space-between; padding: 18px clamp(22px, 3.2vw, 40px);">
+    <a class="r-brand" href="./" style="display: flex; align-items: center; gap: 11px; color: #14171c;">
       <img src="assets/logo-mark.svg" alt="" width="19" height="26" style="display: block; flex: none;">
-      <span style="display: flex; align-items: baseline; gap: 10px;">
-        <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;">Farhad Shariatmadari</span>
-        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad;">/ design</span>
+      <span class="r-brand-txt" style="display: flex; align-items: baseline; gap: 10px;">
+        <span class="r-brand-name" style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;">Farhad Shariatmadari</span>
+        <span class="r-brand-tag" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad;">/ design</span>
       </span>
     </a>
-    <div style="display: flex; align-items: center; gap: 32px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+    <div class="r-navlinks" style="display: flex; align-items: center; gap: clamp(18px, 2.56vw, 32px); font-family: 'JetBrains Mono', monospace; font-size: 13px;">
       <a href="Work" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>
       <a href="About" style="color: #3a414d;" style-hover="color:#14171c;">About</a>
       <a href="How-I-Work" style="color: #3a414d;" style-hover="color:#14171c;">How I work</a>
@@ -177,74 +222,55 @@
 </header>
 
 <!-- ============ HERO · prism grid ============ -->
-<section style="position: relative; overflow: hidden; padding: 96px 40px 84px;">
+<section style="position: relative; overflow: hidden; padding: clamp(53px, 7.68vw, 96px) clamp(22px, 3.2vw, 40px) clamp(46px, 6.72vw, 84px);">
   <div data-prism-grid class="pg-host"></div>
   <!-- spotlight sits after the grid so it glows over it (both z-index 0) -->
   <div style="position: absolute; inset: -20% -10%; z-index: 0; pointer-events: none; background: radial-gradient(closest-side, rgba(47,92,240,.14), rgba(47,92,240,0) 70%); filter: blur(10px); animation: spotDrift 16s ease-in-out infinite;"></div>
   <div class="pg-scrim"></div>
-  <div class="pg-over" style="display: flex; gap: 48px; align-items: center; flex-wrap: wrap;">
+  <div class="pg-over" style="display: flex; gap: clamp(26px, 3.84vw, 48px); align-items: center; flex-wrap: wrap;">
   <div style="flex: 1 1 460px; min-width: min(100%, 440px);">
   <div class="rise" style="animation-delay:.05s; display: inline-flex; align-items: center; gap: 9px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5a6270; border: 1px solid #d7dbe1; background: #fff; padding: 6px 12px; border-radius: 100px; margin-bottom: 32px;">
     <span style="width: 7px; height: 7px; border-radius: 50%; background: #22a06b; animation: pulseDot 2.4s infinite;"></span>
     Available for contract, full-time &amp; consulting
   </div>
-  <h1 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(40px, 6.4vw, 80px); line-height: 0.98; letter-spacing: -0.03em; margin: 0 0 28px; max-width: 15ch; text-wrap: balance;"><span class="anim" style="display:block; animation-delay:.12s;">I turn complex,</span><span class="anim" style="display:block; animation-delay:.22s;">ambiguous systems</span><span class="anim" style="display:block; animation-delay:.32s;">into products people</span><span class="anim" style="display:block; animation-delay:.42s;">can <span class="ph-keep"><span class="ph">actually use<span class="ph-fx" data-pointer-highlight data-ph-delay="1250"></span></span>.</span></span></h1>
-  <p class="anim" style="animation-delay:.52s; font-size: clamp(16px, 1.6vw, 20px); line-height: 1.6; color: #3a414d; max-width: 56ch; margin: 0 0 40px;">Lead Product &amp; Experience Designer, 7–8 years in. I design enterprise platforms, healthcare systems, and AI products across Iran, the UAE, and Greece — several the first of their kind in their market.</p>
+  <!-- Each line is its own block, so the size ceiling has to be small enough that
+       the longest of them still fits the 652px column — otherwise the lines wrap
+       inside themselves and the four-line break becomes a ragged six. -->
+  <h1 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(38px, 5.6vw, 70px); line-height: 0.98; letter-spacing: -0.03em; margin: 0 0 28px; max-width: 20ch;"><span class="anim" style="display:block; animation-delay:.12s;">Eight years</span><span class="anim" style="display:block; animation-delay:.22s;">designing software</span><span class="anim" style="display:block; animation-delay:.32s;">most designers</span><span class="anim" style="display:block; animation-delay:.42s;"><span class="ph-keep"><span class="ph ph-flush">avoid<span class="ph-fx" data-pointer-highlight data-ph-delay="1250"></span></span>.</span></span></h1>
+  <p class="anim" style="animation-delay:.52s; font-size: clamp(16px, 1.6vw, 20px); line-height: 1.6; color: #3a414d; max-width: 56ch; margin: 0 0 40px;">Lead Product &amp; Experience Designer. Device fleets, hospital operations, AI infrastructure, payment flows — unglamorous, high-stakes, and usually the first version anyone has built. Iran, the UAE, and Greece.</p>
   <div class="rise" style="animation-delay:.62s; display: flex; flex-wrap: wrap; gap: 14px; align-items: center;">
     <a href="Contact" class="shimmer-btn" style="display: inline-flex; align-items: center; gap: 10px; background: #2f5cf0; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 15px 24px; border-radius: 5px;" style-hover="background:#234ad1;">Start a conversation <span style="font-size:16px;">→</span></a>
     <a href="Work" style="display: inline-flex; align-items: center; gap: 10px; color: #14171c; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 15px 24px; border-radius: 5px; border: 1px solid #d7dbe1; background: #fff;" style-hover="border-color:#14171c;">See the work</a>
   </div>
   </div>
 
-  <!-- animated system schematic -->
+  <!-- work reel: four real case-study screenshots, cross-fading. This replaced a
+       fictional "system.map" node diagram — on a portfolio the hero panel is the
+       one place that can show the actual work instead of illustrating the idea of
+       it. Slide order and captions must stay in step with .hr-cap and .hr-dots.
+       Assets are the hero-*.png variants (920px / 420px), not the full-resolution
+       case-study PNGs, which together weigh 595 KB above the fold. -->
   <div class="rise" style="animation-delay:.3s; flex: 0 1 460px; min-width: min(100%, 320px);">
     <div class="float-panel" style="border: 1px solid #e2e5ea; border-radius: 12px; background: rgba(255,255,255,.72); backdrop-filter: blur(6px); box-shadow: 0 30px 60px -40px rgba(20,23,28,.32); overflow: hidden;">
       <div style="display: flex; align-items: center; gap: 8px; padding: 11px 16px; border-bottom: 1px solid #eef0f3;">
         <span style="width:9px;height:9px;border-radius:50%;background:#e2e5ea;"></span>
         <span style="width:9px;height:9px;border-radius:50%;background:#e2e5ea;"></span>
         <span style="width:9px;height:9px;border-radius:50%;background:#e2e5ea;"></span>
-        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#97a0ad; margin-left:6px;">system.map</span>
-        <span style="margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:10px; color:#2f5cf0; letter-spacing:.08em;">LIVE</span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#97a0ad; margin-left:6px;">selected.work</span>
+        <span class="hr-dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
       </div>
-      <svg viewBox="0 0 460 360" width="100%" style="display:block;" role="img" aria-label="Diagram: tangled inputs resolving through design into clean product screens">
-        <!-- chaos: crossing gray links -->
-        <g stroke="#d5dae1" stroke-width="1.4" fill="none">
-          <path d="M40 60 L150 180"/><path d="M44 150 L150 172"/><path d="M36 232 L150 190"/><path d="M70 300 L150 200"/><path d="M52 60 L44 150"/><path d="M44 150 L36 232"/><path d="M36 232 L70 300"/><path d="M52 60 L36 232"/>
-        </g>
-        <!-- chaos nodes -->
-        <g fill="#aeb6c1">
-          <circle cx="40" cy="60" r="5"/><circle cx="44" cy="150" r="5"/><circle cx="36" cy="232" r="5"/><circle cx="70" cy="300" r="5"/><circle cx="52" cy="60" r="3"/>
-        </g>
-        <!-- flow: design -> product (animated) -->
-        <g fill="none" stroke="#2f5cf0" stroke-width="2">
-          <path class="flow-line" d="M150 186 C 210 186, 240 96, 300 96"/>
-          <path class="flow-line" style="animation-delay:.25s" d="M150 186 C 220 186, 250 186, 300 186"/>
-          <path class="flow-line" style="animation-delay:.5s" d="M150 186 C 210 186, 240 276, 300 276"/>
-        </g>
-        <!-- center design chip -->
-        <g>
-          <rect x="110" y="160" width="80" height="52" rx="11" fill="#14171c"/>
-          <rect x="110" y="160" width="80" height="52" rx="11" fill="none" stroke="#2f5cf0" stroke-width="1.5" opacity=".5"/>
-          <rect x="126" y="178" width="14" height="14" rx="3" fill="#2f5cf0"/>
-          <rect x="146" y="178" width="20" height="4" rx="2" fill="#4a5566"/>
-          <rect x="146" y="186" width="14" height="4" rx="2" fill="#3a4353"/>
-        </g>
-        <!-- ordered product rows -->
-        <g>
-          <rect x="300" y="72" width="140" height="48" rx="9" fill="#fff" stroke="#e2e5ea"/>
-          <circle cx="320" cy="96" r="6" fill="#2f5cf0"/><rect x="336" y="88" width="78" height="5" rx="2.5" fill="#cfd5dd"/><rect x="336" y="100" width="52" height="5" rx="2.5" fill="#e3e7ec"/>
-          <rect x="300" y="162" width="140" height="48" rx="9" fill="#fff" stroke="#e2e5ea"/>
-          <circle cx="320" cy="186" r="6" fill="#22a06b"/><rect x="336" y="178" width="78" height="5" rx="2.5" fill="#cfd5dd"/><rect x="336" y="190" width="52" height="5" rx="2.5" fill="#e3e7ec"/>
-          <rect x="300" y="252" width="140" height="48" rx="9" fill="#fff" stroke="#e2e5ea"/>
-          <circle cx="320" cy="276" r="6" fill="#e0912f"/><rect x="336" y="268" width="78" height="5" rx="2.5" fill="#cfd5dd"/><rect x="336" y="280" width="52" height="5" rx="2.5" fill="#e3e7ec"/>
-        </g>
-        <!-- traveling pulses -->
-        <g fill="#2f5cf0">
-          <circle r="3.5"><animateMotion dur="2.4s" repeatCount="indefinite" path="M150 186 C 210 186, 240 96, 300 96"/></circle>
-          <circle r="3.5"><animateMotion dur="2.4s" begin=".6s" repeatCount="indefinite" path="M150 186 C 220 186, 250 186, 300 186"/></circle>
-          <circle r="3.5"><animateMotion dur="2.4s" begin="1.2s" repeatCount="indefinite" path="M150 186 C 210 186, 240 276, 300 276"/></circle>
-        </g>
-      </svg>
+      <div class="hr-frame">
+        <div class="hr-slide"><img src="assets/hero-trio.png" alt="Trio device inventory, listing enrolled Android, iOS and macOS devices" width="920" height="520"></div>
+        <div class="hr-slide is-phone"><img src="assets/hero-behinto.png" alt="Behinto AI screening plan, in Persian" width="420" height="956" loading="lazy"></div>
+        <div class="hr-slide"><img src="assets/hero-mehr.png" alt="A DigiKala Mehr charity project page" width="920" height="519" loading="lazy"></div>
+        <div class="hr-slide is-phone"><img src="assets/hero-zeero.png" alt="Zeero map with nearby scooters and a reservation sheet" width="420" height="903" loading="lazy"></div>
+      </div>
+      <div class="hr-cap">
+        <div><b>Trio — enterprise device management</b><small>MVP shipped solo in 4 months · 4.9★ on G2</small></div>
+        <div><b>Behinto — AI healthcare assistant</b><small>Iran's first · Persian-first, RTL-first system</small></div>
+        <div><b>DigiKala Mehr — charity commerce</b><small>0.4% → 2.8% purchase conversion · 7× lift</small></div>
+        <div><b>Zeero — e-bike &amp; scooter sharing</b><small>3× service area · +8% first-ride conversion</small></div>
+      </div>
     </div>
   </div>
 
@@ -252,25 +278,25 @@
 </section>
 
 <!-- ============ STATS BAR ============ -->
-<section style="padding: 0 40px;">
-  <div style="border: 1px solid #e2e5ea; border-radius: 8px; background: #fff; display: grid; grid-template-columns: repeat(5, 1fr); overflow: hidden;">
-    <div style="padding: 28px 24px; border-right: 1px solid #eef0f3;">
-      <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; line-height: 1;">7–8</div>
+<section style="padding: 0 clamp(22px, 3.2vw, 40px);">
+  <div class="r-strip r-c5" style="border: 1px solid #e2e5ea; border-radius: 8px; background: #fff; display: grid; grid-template-columns: repeat(5, 1fr); overflow: hidden;">
+    <div style="padding: clamp(16px, 2.24vw, 28px) 24px; border-right: 1px solid #eef0f3;">
+      <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; line-height: 1;">8</div>
       <div style="font-size: 12.5px; color: #5a6270; line-height: 1.45; margin-top: 8px;">years of product design experience</div>
     </div>
-    <div style="padding: 28px 24px; border-right: 1px solid #eef0f3;">
+    <div style="padding: clamp(16px, 2.24vw, 28px) 24px; border-right: 1px solid #eef0f3;">
       <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; line-height: 1;">500K+</div>
       <div style="font-size: 12.5px; color: #5a6270; line-height: 1.45; margin-top: 8px;">downloads for Safes, up from 500</div>
     </div>
-    <div style="padding: 28px 24px; border-right: 1px solid #eef0f3;">
+    <div style="padding: clamp(16px, 2.24vw, 28px) 24px; border-right: 1px solid #eef0f3;">
       <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; line-height: 1; color: #2f5cf0;">7×</div>
       <div style="font-size: 12.5px; color: #5a6270; line-height: 1.45; margin-top: 8px;">conversion lift on DigiKala Mehr</div>
     </div>
-    <div style="padding: 28px 24px; border-right: 1px solid #eef0f3;">
+    <div style="padding: clamp(16px, 2.24vw, 28px) 24px; border-right: 1px solid #eef0f3;">
       <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; line-height: 1;">3</div>
       <div style="font-size: 12.5px; color: #5a6270; line-height: 1.45; margin-top: 8px;">first-of-their-kind products in Iran</div>
     </div>
-    <div style="padding: 28px 24px;">
+    <div style="padding: clamp(16px, 2.24vw, 28px) 24px;">
       <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; line-height: 1;">3</div>
       <div style="font-size: 12.5px; color: #5a6270; line-height: 1.45; margin-top: 8px;">markets shipped: Iran, UAE, Greece</div>
     </div>
@@ -278,7 +304,7 @@
 </section>
 
 <!-- ============ FEATURED WORK · CARD SWAP ============ -->
-<section style="padding: 88px 40px 40px;">
+<section style="padding: clamp(48px, 7.04vw, 88px) clamp(22px, 3.2vw, 40px) clamp(22px, 3.2vw, 40px);">
 
   <div class="cs-top">
     <div class="cs-intro">
@@ -412,9 +438,9 @@
 </section>
 
 <!-- ============ LOGO BAR ============ -->
-<section style="padding: 64px 40px;">
+<section style="padding: clamp(35px, 5.12vw, 64px) clamp(22px, 3.2vw, 40px);">
   <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad; margin-bottom: 28px; text-align: center;">Trusted with the work at</div>
-  <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px 44px; font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 20px; color: #8b93a0;">
+  <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px clamp(24px, 3.52vw, 44px); font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 20px; color: #8b93a0;">
     <span>Digikala</span>
     <span>Keshavarzi Bank</span>
     <span>Sharif University · AICT</span>
@@ -425,7 +451,7 @@
 </section>
 
 <!-- ============ TESTIMONIALS ============ -->
-<section style="padding: 40px 40px 88px;">
+<section style="padding: clamp(22px, 3.2vw, 40px) clamp(22px, 3.2vw, 40px) clamp(48px, 7.04vw, 88px);">
   <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 40px; flex-wrap: wrap;">
     <div>
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad; margin-bottom: 12px;">// what people say</div>
@@ -434,9 +460,9 @@
     <a href="https://www.linkedin.com/in/farhadshariatmadari/" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; white-space: nowrap;">Recommendations on LinkedIn →</a>
   </div>
 
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+  <div class="r-g2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
 
-    <figure style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: 34px 36px 30px; margin: 0; display: flex; flex-direction: column;">
+    <figure style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: clamp(19px, 2.72vw, 34px) clamp(20px, 2.88vw, 36px) clamp(16px, 2.4vw, 30px); margin: 0; display: flex; flex-direction: column;">
       <blockquote style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 19px; line-height: 1.45; letter-spacing: -0.01em; margin: 0 0 auto; color: #14171c;">“Farhad has a rare combination of strong design skills, product thinking, and technical understanding. He doesn't just make things look good — he asks the right questions, challenges assumptions, and keeps the user experience at the center of every decision.”</blockquote>
       <figcaption style="display: flex; align-items: center; gap: 13px; margin-top: 26px;">
         <div class="tst-av" style="background: #2f5cf0;">ST<img ref="{{ avatarRef }}" src="assets/testimonial-soheil-tehranipour.jpg" alt="" width="42" height="42" loading="lazy" decoding="async"></div>
@@ -447,7 +473,7 @@
       </figcaption>
     </figure>
 
-    <figure style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: 34px 36px 30px; margin: 0; display: flex; flex-direction: column;">
+    <figure style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: clamp(19px, 2.72vw, 34px) clamp(20px, 2.88vw, 36px) clamp(16px, 2.4vw, 30px); margin: 0; display: flex; flex-direction: column;">
       <blockquote style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 19px; line-height: 1.45; letter-spacing: -0.01em; margin: 0 0 auto; color: #14171c;">“An exceptional product designer with deep expertise in enterprise design and design-strategy leadership. I was consistently impressed by his attention to detail, thoughtful approach, outstanding communication, and his ability to leverage AI effectively throughout the design process.”</blockquote>
       <figcaption style="display: flex; align-items: center; gap: 13px; margin-top: 26px;">
         <div class="tst-av" style="background: #22a06b;">MM<img ref="{{ avatarRef }}" src="assets/testimonial-mohammad-maher.jpg" alt="" width="42" height="42" loading="lazy" decoding="async"></div>
@@ -458,7 +484,7 @@
       </figcaption>
     </figure>
 
-    <figure style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: 34px 36px 30px; margin: 0; display: flex; flex-direction: column;">
+    <figure style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: clamp(19px, 2.72vw, 34px) clamp(20px, 2.88vw, 36px) clamp(16px, 2.4vw, 30px); margin: 0; display: flex; flex-direction: column;">
       <blockquote style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 19px; line-height: 1.45; letter-spacing: -0.01em; margin: 0 0 auto; color: #14171c;">“Farhad was our Product Design Lead at Trio — in practice, closer to a product manager with world-class UI/UX skills. Enterprise B2B is genuinely hard to design for; he researched deeply, simplified relentlessly, and shipped interfaces that made a complicated product feel manageable. I'd work with him again without hesitation.”</blockquote>
       <figcaption style="display: flex; align-items: center; gap: 13px; margin-top: 26px;">
         <div class="tst-av" style="background: #14171c;">MA<img ref="{{ avatarRef }}" src="assets/testimonial-mohammadreza-azhari.jpg" alt="" width="42" height="42" loading="lazy" decoding="async"></div>
@@ -469,7 +495,7 @@
       </figcaption>
     </figure>
 
-    <figure style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: 34px 36px 30px; margin: 0; display: flex; flex-direction: column;">
+    <figure style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: clamp(19px, 2.72vw, 34px) clamp(20px, 2.88vw, 36px) clamp(16px, 2.4vw, 30px); margin: 0; display: flex; flex-direction: column;">
       <blockquote style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 19px; line-height: 1.45; letter-spacing: -0.01em; margin: 0 0 auto; color: #14171c;">“An exceptional professional and talented designer who excels at collaborating with development teams to deliver products seamlessly. His expertise and proactive approach ensure outstanding results and a smooth product launch.”</blockquote>
       <figcaption style="display: flex; align-items: center; gap: 13px; margin-top: 26px;">
         <div class="tst-av" style="background: #e0912f;">MK<img ref="{{ avatarRef }}" src="assets/testimonial-masoud-kaviani.jpg" alt="" width="42" height="42" loading="lazy" decoding="async"></div>
@@ -484,15 +510,15 @@
 </section>
 
 <!-- ============ CTA ============ -->
-<section style="padding: 0 40px 96px;">
-  <div style="border-radius: 14px; background: #14171c; color: #f6f7f9; padding: 72px 56px; position: relative; overflow: hidden;">
+<section style="padding: 0 clamp(22px, 3.2vw, 40px) clamp(53px, 7.68vw, 96px);">
+  <div style="border-radius: 14px; background: #14171c; color: #f6f7f9; padding: clamp(40px, 5.76vw, 72px) clamp(31px, 4.48vw, 56px); position: relative; overflow: hidden;">
     <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
     <div style="position: relative;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6f7a8a; margin-bottom: 20px;">// let's talk</div>
       <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(30px, 4.4vw, 52px); line-height: 1.02; letter-spacing: -0.025em; margin: 0 0 20px; max-width: 18ch;">Have a complex problem that needs a clear product?</h2>
       <p style="font-size: 17px; line-height: 1.6; color: #a7afba; max-width: 52ch; margin: 0 0 36px;">I work remotely with international clients and hybrid in Tehran — contract, full-time, or consulting. Tell me what you're building.</p>
       <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center;">
-        <a href="mailto:farhadshariatmadari@gmail.com" style="display: inline-flex; align-items: center; gap: 10px; background: #2f5cf0; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 15px 24px; border-radius: 5px;" style-hover="background:#3f6bff;">farhadshariatmadari@gmail.com <span style="font-size:16px;">→</span></a>
+        <a href="mailto:farhadshariatmadari@gmail.com" class="r-mailbtn" style="display: inline-flex; align-items: center; gap: 10px; background: #2f5cf0; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 15px 24px; border-radius: 5px;" style-hover="background:#3f6bff;"><span class="r-mailbtn-t">farhadshariatmadari<wbr>@gmail.com</span> <span style="font-size:16px;">→</span></a>
         <a href="https://www.linkedin.com/in/farhadshariatmadari/" style="display: inline-flex; align-items: center; gap: 10px; color: #f6f7f9; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 15px 24px; border-radius: 5px; border: 1px solid #33383f;" style-hover="border-color:#5a6270;">LinkedIn</a>
       </div>
     </div>
@@ -500,8 +526,8 @@
 </section>
 
 <!-- ============ FOOTER ============ -->
-<footer style="border-top: 1px solid #e2e5ea; padding: 48px 40px 56px;">
-  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px;">
+<footer style="border-top: 1px solid #e2e5ea; padding: clamp(26px, 3.84vw, 48px) clamp(22px, 3.2vw, 40px) clamp(31px, 4.48vw, 56px);">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: clamp(18px, 2.56vw, 32px);">
     <div style="max-width: 34ch;">
       <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
         <img src="assets/logo-mark.svg" alt="" width="16" height="22" style="display: block; flex: none;">
@@ -509,7 +535,7 @@
       </div>
       <p style="font-size: 13px; line-height: 1.6; color: #5a6270; margin: 0;">Lead Product &amp; Experience Designer. Based in Tehran; working remotely with international clients.</p>
     </div>
-    <div style="display: flex; gap: 56px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+    <div style="display: flex; gap: clamp(31px, 4.48vw, 56px); font-family: 'JetBrains Mono', monospace; font-size: 13px;">
       <div style="display: flex; flex-direction: column; gap: 12px;">
         <span style="color: #97a0ad; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">Site</span>
         <a href="Work" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>
@@ -605,17 +631,34 @@ class Component extends DCLogic {
   };
 
   /**
-   * Fan geometry for the current stage width, derived fresh on each use so a
+   * The one breakpoint the deck has. Both halves of the layout read it: the
+   * stylesheet's `@media (max-width: 660px)` block sizes the stage and card,
+   * and metrics() below picks the fan that fits inside them. Change one and
+   * you must change the other — see metrics().
+   */
+  NARROW = '(max-width: 660px)';
+
+  /**
+   * Fan geometry for the current breakpoint, derived fresh on each use so a
    * resize can never leave stale offsets behind.
    *
    * Narrow screens get a shallow fan: enough offset to separate the cards'
    * shadows (nine identical shadows at offset 0 pile into a dark halo) while
    * still fitting the stage, and zero skew because slanted body copy is
    * unreadable at that size.
+   *
+   * This asks the *same media query the CSS uses* rather than thresholding the
+   * stage width itself, because those two drifted apart and the deck broke in
+   * the gap. The CSS shrank the card and the stage at 620px of viewport; this
+   * kept handing back the deep fan until the stage measured under 470px, which
+   * is about 514px of viewport. In the ~100px band between them a 160×144 fan
+   * was laid out inside a 516×472 stage and `overflow: hidden` sheared the deck
+   * on all four sides — the front card lost its left edge and the shadow was
+   * cut off square. Two thresholds for one decision is what caused that, so
+   * there is now only one.
    */
   metrics = () => {
-    const w = (this._stage && this._stage.clientWidth) || 560;
-    return w < 470
+    return window.matchMedia(this.NARROW).matches
       ? { dist: 6, vdist: 5, skew: 0, drop: 340 }
       : { dist: 20, vdist: 18, skew: 2, drop: 520 };
   };

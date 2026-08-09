@@ -18,6 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="responsive.css">
 <style>
   *, *::before, *::after { box-sizing: border-box; }
   body { margin: 0; background: #f6f7f9; color: #14171c; font-family: 'IBM Plex Sans', sans-serif; -webkit-font-smoothing: antialiased; }
@@ -32,15 +33,15 @@
 
 <!-- ============ NAV ============ -->
 <header style="position: sticky; top: 0; z-index: 50; background: rgba(246,247,249,.85); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e5ea;">
-  <nav style="display: flex; align-items: center; justify-content: space-between; padding: 18px 40px;">
-    <a href="./" style="display: flex; align-items: center; gap: 11px; color: #14171c;">
+  <nav class="r-nav" style="display: flex; align-items: center; justify-content: space-between; padding: 18px clamp(22px, 3.2vw, 40px);">
+    <a class="r-brand" href="./" style="display: flex; align-items: center; gap: 11px; color: #14171c;">
       <img src="assets/logo-mark.svg" alt="" width="19" height="26" style="display: block; flex: none;">
-      <span style="display: flex; align-items: baseline; gap: 10px;">
-        <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;">Farhad Shariatmadari</span>
-        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad;">/ design</span>
+      <span class="r-brand-txt" style="display: flex; align-items: baseline; gap: 10px;">
+        <span class="r-brand-name" style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;">Farhad Shariatmadari</span>
+        <span class="r-brand-tag" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad;">/ design</span>
       </span>
     </a>
-    <div style="display: flex; align-items: center; gap: 32px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+    <div class="r-navlinks" style="display: flex; align-items: center; gap: clamp(18px, 2.56vw, 32px); font-family: 'JetBrains Mono', monospace; font-size: 13px;">
       <a href="Work" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>
       <a href="About" style="color: #3a414d;" style-hover="color:#14171c;">About</a>
       <a href="How-I-Work" style="color: #3a414d;" style-hover="color:#14171c;">How I work</a>
@@ -50,7 +51,7 @@
 </header>
 
 <!-- ============ HERO ============ -->
-<section style="padding: 56px 40px 72px; background-image: linear-gradient(#eceef2 1px, transparent 1px), linear-gradient(90deg, #eceef2 1px, transparent 1px); background-size: 64px 64px; background-position: -1px -1px;">
+<section style="padding: clamp(31px, 4.48vw, 56px) clamp(22px, 3.2vw, 40px) clamp(40px, 5.76vw, 72px); background-image: linear-gradient(#eceef2 1px, transparent 1px), linear-gradient(90deg, #eceef2 1px, transparent 1px); background-size: 64px 64px; background-position: -1px -1px;">
   <a href="Work" style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5a6270; display: inline-block; margin-bottom: 40px;" style-hover="color:#14171c;">← All work</a>
   <div style="display: flex; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5a6270; margin-bottom: 24px; flex-wrap: wrap;">
     <span style="border: 1px solid #d7dbe1; background:#fff; padding: 5px 11px; border-radius: 100px;">E-commerce</span>
@@ -62,7 +63,7 @@
 </section>
 
 <!-- ============ HERO IMAGE ============ -->
-<section style="padding: 0 40px;">
+<section style="padding: 0 clamp(22px, 3.2vw, 40px);">
   <div style="border: 1px solid #e2e5ea; border-radius: 12px; overflow: hidden; background: #fff;">
     <div style="display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid #eef0f3;">
       <span style="width:11px;height:11px;border-radius:50%;background:#e2e5ea;"></span>
@@ -77,13 +78,13 @@
 </section>
 
 <!-- ============ CONTEXT & ROLE ============ -->
-<section style="padding: 80px 40px 40px;">
-  <div style="display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+<section style="padding: clamp(44px, 6.4vw, 80px) clamp(22px, 3.2vw, 40px) clamp(22px, 3.2vw, 40px);">
+  <div class="r-side" style="display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px);">
     <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// context &amp; role</div>
     <div>
       <p style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: clamp(20px, 2.4vw, 28px); line-height: 1.4; letter-spacing: -0.015em; margin: 0 0 40px; color: #14171c; max-width: 38ch;">An end-to-end e-commerce site-maker — merchant panels for products, collections, customers, and orders — built in-house from scratch, with crypto-commerce support.</p>
       <p style="font-size: 16px; line-height: 1.7; color: #3a414d; max-width: 62ch; margin: 0;">Backed by the Greek government with the explicit goal of becoming Greece's homegrown Shopify alternative. I lead product design across the merchant-facing panels: table views, record management, forms, and bulk actions — the operational heart of a commerce back office.</p>
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid #e2e5ea; border-radius: 8px; background: #fff; overflow: hidden; margin-top: 32px;">
+      <div class="r-strip r-c3" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid #e2e5ea; border-radius: 8px; background: #fff; overflow: hidden; margin-top: 32px;">
         <div style="padding: 20px 22px; border-right: 1px solid #eef0f3;">
           <div style="font-family:'JetBrains Mono',monospace; font-size: 11px; color: #97a0ad; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">Company</div>
           <div style="font-size: 14px; line-height: 1.5;">Circle One</div>
@@ -102,8 +103,8 @@
 </section>
 
 <!-- ============ PROBLEM ============ -->
-<section style="padding: 56px 40px;">
-  <div style="border-top: 1px solid #e2e5ea; padding-top: 48px; display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+<section style="padding: clamp(31px, 4.48vw, 56px) clamp(22px, 3.2vw, 40px);">
+  <div class="r-side" style="border-top: 1px solid #e2e5ea; padding-top: clamp(26px, 3.84vw, 48px); display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px);">
     <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// problem</div>
     <div>
       <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 24px; max-width: 28ch;">Replace Shopify — build the back office it took years to earn.</h2>
@@ -113,21 +114,21 @@
 </section>
 
 <!-- ============ APPROACH ============ -->
-<section style="padding: 56px 40px;">
-  <div style="border-top: 1px solid #e2e5ea; padding-top: 48px; display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+<section style="padding: clamp(31px, 4.48vw, 56px) clamp(22px, 3.2vw, 40px);">
+  <div class="r-side" style="border-top: 1px solid #e2e5ea; padding-top: clamp(26px, 3.84vw, 48px); display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px);">
     <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// approach</div>
     <div>
       <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 32px; max-width: 30ch;">A mature two-tier system, wired straight to code.</h2>
       <div style="display: flex; flex-direction: column; gap: 0; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden;">
-        <div style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px 28px; border-bottom: 1px solid #eef0f3;">
+        <div class="r-num" style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px clamp(16px, 2.24vw, 28px); border-bottom: 1px solid #eef0f3;">
           <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; color: #cdd3db;">01</span>
           <div><div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size: 17px; margin-bottom: 6px;">Lead the merchant-facing panels</div><p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">Table views, record management, forms, and bulk actions — the operational heart of a commerce back office.</p></div>
         </div>
-        <div style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px 28px; border-bottom: 1px solid #eef0f3;">
+        <div class="r-num" style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px clamp(16px, 2.24vw, 28px); border-bottom: 1px solid #eef0f3;">
           <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; color: #cdd3db;">02</span>
           <div><div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size: 17px; margin-bottom: 6px;">Own a mature two-tier design system</div><p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">A foundation library plus a custom component layer — 55+ production components, four theme modes (light/dark × two bases), a 1,500+ icon set, and full crypto asset libraries.</p></div>
         </div>
-        <div style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px 28px;">
+        <div class="r-num" style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px clamp(16px, 2.24vw, 28px);">
           <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; color: #cdd3db;">03</span>
           <div><div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size: 17px; margin-bottom: 6px;">Handoff through Figma → GitHub, Code Connect live</div><p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">Design tokens map 1:1 to the Tailwind / shadcn code implementation, with Code Connect in active use.</p></div>
         </div>
@@ -137,13 +138,13 @@
 </section>
 
 <!-- ============ KEY WORK ============ -->
-<section style="padding: 56px 40px;">
-  <div style="border-top: 1px solid #e2e5ea; padding-top: 48px;">
-    <div style="display: grid; grid-template-columns: 200px 1fr; gap: 48px; margin-bottom: 36px;">
+<section style="padding: clamp(31px, 4.48vw, 56px) clamp(22px, 3.2vw, 40px);">
+  <div style="border-top: 1px solid #e2e5ea; padding-top: clamp(26px, 3.84vw, 48px);">
+    <div class="r-side" style="display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px); margin-bottom: 36px;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// key work</div>
       <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0; max-width: 26ch;">Merchant panels, the system, and the crypto libraries.</h2>
     </div>
-    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+    <div class="r-g2" style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
       <div style="border: 1px solid #e2e5ea; border-radius: 10px; overflow: hidden; background: #fff;">
         <div style="aspect-ratio: 16/10; background: repeating-linear-gradient(135deg, #eef1f5 0 12px, #f5f7fa 12px 24px); display: flex; align-items: center; justify-content: center;"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#b4bcc7;letter-spacing:0.12em;">[ orders &amp; products · table views ]</span></div>
         <div style="padding: 18px 22px; font-size: 13px; color: #5a6270; border-top: 1px solid #eef0f3;">Dense table views and bulk actions.</div>
@@ -153,7 +154,7 @@
         <div style="padding: 18px 22px; font-size: 13px; color: #5a6270; border-top: 1px solid #eef0f3;">Record management &amp; forms.</div>
       </div>
     </div>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+    <div class="r-g2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
       <div style="border: 1px solid #e2e5ea; border-radius: 10px; overflow: hidden; background: #fff;">
         <div style="aspect-ratio: 16/10; background: repeating-linear-gradient(135deg, #eef1f5 0 12px, #f5f7fa 12px 24px); display: flex; align-items: center; justify-content: center;"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#b4bcc7;letter-spacing:0.12em;">[ 55+ components · 4 theme modes ]</span></div>
         <div style="padding: 18px 22px; font-size: 13px; color: #5a6270; border-top: 1px solid #eef0f3;">The two-tier design system.</div>
@@ -167,10 +168,10 @@
 </section>
 
 <!-- ============ SYSTEM AT A GLANCE ============ -->
-<section style="padding: 56px 40px;">
-  <div style="border-top: 1px solid #e2e5ea; padding-top: 48px; display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+<section style="padding: clamp(31px, 4.48vw, 56px) clamp(22px, 3.2vw, 40px);">
+  <div class="r-side" style="border-top: 1px solid #e2e5ea; padding-top: clamp(26px, 3.84vw, 48px); display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px);">
     <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// system at a glance</div>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+    <div class="r-g3" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
       <div style="border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; padding: 26px;"><div style="font-family:'Space Grotesk',sans-serif; font-weight: 700; font-size: 30px; letter-spacing: -0.02em;">55+</div><div style="font-size: 12.5px; color: #5a6270; margin-top: 8px; line-height: 1.5;">production components</div></div>
       <div style="border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; padding: 26px;"><div style="font-family:'Space Grotesk',sans-serif; font-weight: 700; font-size: 30px; letter-spacing: -0.02em;">4</div><div style="font-size: 12.5px; color: #5a6270; margin-top: 8px; line-height: 1.5;">theme modes (light/dark × two bases)</div></div>
       <div style="border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; padding: 26px;"><div style="font-family:'Space Grotesk',sans-serif; font-weight: 700; font-size: 30px; letter-spacing: -0.02em;">1,500+</div><div style="font-size: 12.5px; color: #5a6270; margin-top: 8px; line-height: 1.5;">icons in the set</div></div>
@@ -182,8 +183,8 @@
 </section>
 
 <!-- ============ NEXT PROJECT ============ -->
-<section style="padding: 40px 40px 96px;">
-  <a href="Sharif-AICT" style="display: block; border-radius: 14px; background: #14171c; color: #f6f7f9; padding: 56px; position: relative; overflow: hidden;" style-hover="background:#1b1f27;">
+<section style="padding: clamp(22px, 3.2vw, 40px) clamp(22px, 3.2vw, 40px) clamp(53px, 7.68vw, 96px);">
+  <a href="Sharif-AICT" style="display: block; border-radius: 14px; background: #14171c; color: #f6f7f9; padding: clamp(31px, 4.48vw, 56px); position: relative; overflow: hidden;" style-hover="background:#1b1f27;">
     <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
     <div style="position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
       <div>
@@ -197,8 +198,8 @@
 </section>
 
 <!-- ============ FOOTER ============ -->
-<footer style="border-top: 1px solid #e2e5ea; padding: 48px 40px 56px;">
-  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px;">
+<footer style="border-top: 1px solid #e2e5ea; padding: clamp(26px, 3.84vw, 48px) clamp(22px, 3.2vw, 40px) clamp(31px, 4.48vw, 56px);">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: clamp(18px, 2.56vw, 32px);">
     <div style="max-width: 34ch;">
       <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
         <img src="assets/logo-mark.svg" alt="" width="16" height="22" style="display: block; flex: none;">
@@ -206,7 +207,7 @@
       </div>
       <p style="font-size: 13px; line-height: 1.6; color: #5a6270; margin: 0;">Lead Product &amp; Experience Designer. Based in Tehran; working remotely with international clients.</p>
     </div>
-    <div style="display: flex; gap: 56px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+    <div style="display: flex; gap: clamp(31px, 4.48vw, 56px); font-family: 'JetBrains Mono', monospace; font-size: 13px;">
       <div style="display: flex; flex-direction: column; gap: 12px;">
         <span style="color: #97a0ad; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">Site</span>
         <a href="Work" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>

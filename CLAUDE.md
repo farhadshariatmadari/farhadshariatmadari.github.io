@@ -76,6 +76,70 @@ Consequences to keep in mind:
   ripple canvas), `About.html` (image fallback). `How-I-Work.html` no longer has
   a logic class at all — a page with no `data-dc-script` block is fine.
 
+## Responsive layout (`responsive.css` + `tools/responsive-classes.py`)
+
+All 14 pages are responsive down to 320px. Because the export puts layout in
+inline `style="…"` attributes — which no media query can reach and no selector
+can outrank — this works in two halves:
+
+- **Spacing is fluid, not stepped.** The script rewrites every large inline
+  padding and gap into `clamp()`: `40px` becomes `clamp(22px, 3.2vw, 40px)`.
+  The vw coefficient is `value / 12.5`, so the original value is restored at a
+  1250px viewport, just past the 1240px page container — **desktop renders
+  pixel-identical to before**. Below the thresholds (28px padding, 32px gap)
+  values are left alone; that spacing is detail, and shrinking it only pushes
+  text into borders.
+- **Grids get a class, and `responsive.css` collapses them.** The class is
+  derived from the grid's own declaration, so it describes what the thing is:
+
+  | inline `grid-template-columns` | class | collapses to 1 col at |
+  |---|---|---|
+  | `200px 1fr` | `.r-side` | 860px |
+  | `60px 1fr` | `.r-num` | never — narrows to `44px 1fr` at 560px |
+  | anything with `gap: 0` | `.r-strip` + `.r-cN` | c2 860 · c3 720 · c4/c5 560 |
+  | anything with a real gap | `.r-gN` | g2 720 · g3/g4 560 (via 2 cols at 860) |
+
+Every `!important` in `responsive.css` is load-bearing — it is the only way to
+beat an inline declaration. Don't tidy them away.
+
+**Re-run the script after any Claude Design re-export.** It is idempotent, so
+running it twice does nothing:
+
+```bash
+python3 tools/responsive-classes.py          # --check to preview
+```
+
+Four things that are easy to get wrong here:
+
+- **A `.r-strip` cell is divided by `border-right` on every child but the last.**
+  Once stacked, those verticals mean nothing and there is nothing between the
+  rows, so each collapse tier re-hangs the dividers as `border-bottom`. That
+  repair has to sit *in the same media query that collapses that tier* — which
+  is why it looks duplicated. It isn't.
+- **`overflow-wrap: break-word` does not prevent overflow on its own.** It
+  breaks a word only once the box is already too narrow; it does **not** lower
+  the element's min-content width, and `min-width: auto` floors every flex/grid
+  item at min-content. `farhadshariatmadari@gmail.com` therefore held its
+  column open at 346px inside a 276px screen. Only `overflow-wrap: anywhere`
+  lowers min-content — it is set on `mailto:`/`tel:`/`http` links, and because
+  the property inherits, stating it there fixes the whole ancestor chain.
+- **`repeat(auto-fit, minmax(300px, 1fr))` is not actually fluid.** 300px is a
+  hard floor, so under ~340px the last remaining column is wider than the
+  screen. The script rewrites the floor to `min(300px, 100%)`.
+- **`overflow-wrap: anywhere` is wrong inside a button.** It is right for a link
+  in a column of text, but in the home page's dark CTA it broke the address
+  mid-word — `farhadshariatmada / ri@gmail.com` — which reads as a rendering
+  fault rather than a wrap. That button's label is therefore wrapped in
+  `.r-mailbtn-t`, which sets `overflow-wrap: normal` and carries an explicit
+  `<wbr>` before the `@`, so the one place it may break is the one a reader
+  expects. Turning `anywhere` off restores a min-content width of the longest
+  run (19 chars), which only fits at 320px once `.r-mailbtn` pulls its padding
+  and font size in under 430px. Both halves are needed; neither works alone.
+- **The nav sheds parts rather than wrapping**: `/ design` goes at 860, the name
+  shrinks at 720, and below 560 only the logo mark is left. A wrapped nav makes
+  the sticky header ~95px tall, which is 12% of a phone viewport, permanently.
+  If you restore the name on phones, you are choosing that trade knowingly.
+
 ## The prism grid (`prism-grid.js`)
 
 The live hero background on all five main pages (home, Work, About, How I work,
@@ -106,6 +170,15 @@ Things worth knowing before changing it:
 - `About.html` deliberately has no `.pg-over` wrapper: `.about-hero-inner` would
   become the containing block for the absolutely-positioned sketch and shift it.
   Its text is already `z-index: 2`, the sketch `z-index: 1`.
+- **Below 860px the scrim becomes a flat `rgba(246,247,249,.8)` veil.** The
+  desktop scrim is a 90° gradient that clears to fully transparent on the right,
+  which is safe only because the hero copy is a column on the left and never
+  reaches that end. One column wide, the text runs the full width and its line
+  ends land exactly where the veil has gone — so a flashing cell reads straight
+  through the words. `.8` is the density the copy already sits on at desktop.
+  That media query lives in the CSS string in `prism-grid.js`, not in
+  `responsive.css`, so it is guaranteed to come after the base `.pg-scrim` rule
+  in the same stylesheet rather than racing it in the cascade.
 - The 9 case-study pages still use the old static grid background.
 
 ## The pointer highlight (`pointer-highlight.js`)
@@ -119,7 +192,7 @@ than page logic, for the same reason the prism grid is.
 
 | Page | Word |
 |---|---|
-| `index.html` hero h1 | *actually use* |
+| `index.html` hero h1 | *avoid* |
 | `index.html` projects h2 | *proof* |
 | `Work.html` h1 | *shipped* |
 | `About.html` h1 | *the engineer* |
@@ -135,7 +208,7 @@ effects in one headline is noise. The 9 case-study pages don't load the script.
 Markup:
 
 ```html
-… people can <span class="ph-keep"><span class="ph">actually use<span
+… most designers <span class="ph-keep"><span class="ph ph-flush">avoid<span
    class="ph-fx" data-pointer-highlight data-ph-delay="1250"></span></span>.</span>
 ```
 
@@ -151,11 +224,44 @@ Markup:
 - Horizontal padding is a deliberate `-.055em`, not the reference's larger
   value: a highlighted word at the start of a line pushes the box past the
   page's left alignment edge, and that reads as a misalignment.
+- **When the word genuinely does start a line, add `.ph-flush`** — no padding
+  value hides the overhang there, so `.ph-flush` drops the left inset to `0` and
+  the box's left edge lands exactly on the text edge, flush with the h1, subhead
+  and buttons below it. The right side keeps its `-.055em`; only the aligned
+  edge is snapped. The home hero needs this because *avoid* is the whole of its
+  last line — without it the box sat 3.8px left of every other element.
 - `data-ph-delay` (ms) holds the draw back so it lands after a heading's own
   entrance animation. The home hero uses 1250ms because its h1 lines blur in on
   a `.42s` stagger.
 - Under `prefers-reduced-motion` the box appears at full size with no animation.
   Nothing is hidden, only the motion is dropped.
+
+## The hero work reel (`index.html`)
+
+The panel beside the home-page headline cross-fades four real case-study
+screenshots — Trio, Behinto, DigiKala Mehr, Zeero — each with the project name
+and its actual metric underneath. It replaced a `system.map` SVG that drew a
+tangle of nodes resolving into three placeholder card rows: a picture of the
+*idea* of design, on the one page whose whole job is showing the work.
+
+- **It is pure CSS, and that is the point.** `index.html`'s Component class owns
+  the GSAP card stack, and a `setState` re-render wipes transforms written
+  straight to the DOM (see the card-stack landmines below). A keyframe animation
+  needs no re-render, so the two never interact. Don't "improve" this into a JS
+  carousel with state.
+- One 20s cycle, four 5s slots, `1.5%` of it a 300ms cross-fade. **Slides,
+  captions and dots are three separate lists sharing one set of `nth-child`
+  delays** — reorder one and you must reorder all three.
+- **The desktop and phone shots need different framing.** The 16:9 dashboard
+  shots fill the frame with `object-fit: cover`. The phone shots are ~1:2.3 and
+  the same treatment crops them to a meaningless letterbox strip, so `.is-phone`
+  gives them a fixed-width device column instead, top-aligned and clipped by the
+  frame — it reads as a handset rising into view.
+- Assets are the four **`hero-*.png`** variants, not the full-resolution
+  case-study PNGs those are cut from. At full size they are 595 KB above the
+  fold; downsized to 920px (desktop) and 420px (phone) they are 175 KB.
+- Under `prefers-reduced-motion` it holds the first project rather than hiding
+  three. Nothing is lost, only the motion.
 
 ## The home page card stack (`index.html`)
 
@@ -175,6 +281,19 @@ Four landmines already fixed here — don't reintroduce them:
 4. **Responsive column counts must match the visible children**, or leftovers
    wrap onto an implicit row. `measure()` also recomputes the fan geometry per
    breakpoint; it collapses to a shallow fan on narrow screens.
+   **The deck has exactly one breakpoint and both halves must read it.** The
+   stylesheet's `@media (max-width: 660px)` sizes the stage and card; `metrics()`
+   picks the fan via `window.matchMedia(this.NARROW)` on the *same* query. They
+   were once two separate numbers — CSS switched at a 620px viewport, `metrics()`
+   at a 470px *stage* (≈514px of viewport) — and in the ~100px gap a 160×144 fan
+   was laid out inside a 516×472 stage. `overflow: hidden` then sheared the deck
+   on all four sides: the front card lost its left edge and the shadow was cut
+   off square. If you move one, move the other.
+   660 rather than 620 because `.cs-stage-wrap` is a flex container, so the
+   600px stage is flex-shrunk once the wrap falls under 600 (from ~631px of
+   viewport), and a shrunken stage still holding the desktop card leaves under
+   23px below the deck. The project index keeps its own 620 breakpoint in a
+   separate block — it shares nothing with the deck but the section.
 5. **The stage has to leave 23px under the deck for the card shadow**, which is
    what `box-shadow: 0 26px 54px -30px` reaches below a card (offset − spread +
    half the blur). `measure()` centres the card *centres*, which is not the same
@@ -235,7 +354,8 @@ must be PNG — SVG is not accepted for either. `index.html` has `og:title` and
 ## Images
 
 24 screenshot PNGs in `assets/`, already optimised (14.1 MB → 2.9 MB), plus the
-four testimonial avatar JPEGs below. If you add more screenshots:
+four testimonial avatar JPEGs below and the four `hero-*.png` reel variants. If
+you add more screenshots:
 
 ```bash
 sips --resampleWidth 2320 file.png            # only if wider than 2320
@@ -245,6 +365,18 @@ oxipng -o 2 --strip safe file.png
 
 2320px is 2× the 1160px max render width, so it stays retina-sharp. **Always
 eyeball the result** — pngquant is lossy and photo-heavy screenshots can band.
+
+The hero reel is the one place that does *not* use the 2320px originals — they
+render at 460px there and four of them above the fold is 595 KB. Its variants are
+cut from the same sources at 920px (desktop shots) and 420px (phone shots), same
+pngquant/oxipng pass, 175 KB for all four:
+
+| Reel asset | Cut from |
+|---|---|
+| `hero-trio.png` | `trio-devices.png` |
+| `hero-behinto.png` | `behinto-recommendations.png` |
+| `hero-mehr.png` | `mehr-project-desktop.png` |
+| `hero-zeero.png` | `zeero-map-reserve.png` |
 
 `About.html` has an automatic fallback: if `assets/farhad-sketch.png` is missing
 the page shows a placeholder instead of a broken image, and restores itself when

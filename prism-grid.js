@@ -36,7 +36,14 @@
     '.pg-cell{border-right:1px solid ' + LINE + ';border-bottom:1px solid ' + LINE + ';transition:background .9s ease;}' +
     '.pg-scrim{position:absolute;inset:0;z-index:1;pointer-events:none;' +
       'background:linear-gradient(90deg,rgba(246,247,249,.86) 0%,rgba(246,247,249,.5) 55%,rgba(246,247,249,0) 100%);}' +
-    '.pg-over{position:relative;z-index:2;}';
+    '.pg-over{position:relative;z-index:2;}' +
+    // The scrim above fades out to the right because on a wide screen the hero
+    // copy is a column on the left: it never reaches the clear end. Once the
+    // layout is one column the text runs the full width and its line ends sit
+    // exactly where the veil has gone, so a flashing cell lands behind the
+    // words. Narrow screens get an even veil at the density the copy already
+    // sits on at desktop (.86 at the text's left edge, .5 at its right).
+    '@media (max-width:860px){.pg-scrim{background:rgba(246,247,249,.8);}}';
 
   function injectCss() {
     if (document.getElementById('pg-css')) return;

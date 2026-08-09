@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="responsive.css">
 <style>
   *, *::before, *::after { box-sizing: border-box; }
   body { margin: 0; background: #f6f7f9; color: #14171c; font-family: 'IBM Plex Sans', sans-serif; -webkit-font-smoothing: antialiased; }
@@ -37,15 +38,15 @@
 <div style="max-width: 1240px; margin: 0 auto;">
 
 <header style="position: sticky; top: 0; z-index: 50; background: rgba(246,247,249,.85); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e5ea;">
-  <nav style="display: flex; align-items: center; justify-content: space-between; padding: 18px 40px;">
-    <a href="./" style="display: flex; align-items: center; gap: 11px; color: #14171c;">
+  <nav class="r-nav" style="display: flex; align-items: center; justify-content: space-between; padding: 18px clamp(22px, 3.2vw, 40px);">
+    <a class="r-brand" href="./" style="display: flex; align-items: center; gap: 11px; color: #14171c;">
       <img src="assets/logo-mark.svg" alt="" width="19" height="26" style="display: block; flex: none;">
-      <span style="display: flex; align-items: baseline; gap: 10px;">
-        <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;">Farhad Shariatmadari</span>
-        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad;">/ design</span>
+      <span class="r-brand-txt" style="display: flex; align-items: baseline; gap: 10px;">
+        <span class="r-brand-name" style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;">Farhad Shariatmadari</span>
+        <span class="r-brand-tag" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad;">/ design</span>
       </span>
     </a>
-    <div style="display: flex; align-items: center; gap: 32px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+    <div class="r-navlinks" style="display: flex; align-items: center; gap: clamp(18px, 2.56vw, 32px); font-family: 'JetBrains Mono', monospace; font-size: 13px;">
       <a href="Work" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>
       <a href="About" style="color: #3a414d;" style-hover="color:#14171c;">About</a>
       <a href="How-I-Work" style="color: #3a414d;" style-hover="color:#14171c;">How I work</a>
@@ -55,7 +56,7 @@
 </header>
 
 <!-- HEADER · prism grid -->
-<section style="position: relative; overflow: hidden; padding: 88px 40px 40px;">
+<section style="position: relative; overflow: hidden; padding: clamp(48px, 7.04vw, 88px) clamp(22px, 3.2vw, 40px) clamp(22px, 3.2vw, 40px);">
   <div data-prism-grid class="pg-host"></div>
   <div class="pg-scrim"></div>
   <div class="pg-over">
@@ -69,8 +70,8 @@
 </section>
 
 <!-- BODY -->
-<section style="padding: 32px 40px 24px;">
-  <div style="display: grid; grid-template-columns: 1fr 1.1fr; gap: 24px; align-items: start;">
+<section style="padding: clamp(18px, 2.56vw, 32px) clamp(22px, 3.2vw, 40px) 24px;">
+  <div class="r-g2" style="display: grid; grid-template-columns: 1fr 1.1fr; gap: 24px; align-items: start;">
 
     <!-- METHODS -->
     <div style="display: flex; flex-direction: column; gap: 12px;">
@@ -82,7 +83,7 @@
         <span style="font-family: 'JetBrains Mono', monospace; color: #2f5cf0; font-size: 18px;">→</span>
       </a>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+      <div class="r-g2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
         <a href="tel:+989006665599" style="border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; padding: 22px 24px; color: #14171c;" style-hover="border-color:#c0c6cf;">
           <div class="lbl">Phone</div>
           <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 16px;">+98 900 666 55 99</div>
@@ -102,7 +103,7 @@
       </a>
 
       <div style="border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr;">
+        <div class="r-strip r-c2" style="display: grid; grid-template-columns: 1fr 1fr;">
           <div style="padding: 20px 24px; border-right: 1px solid #eef0f3; border-bottom: 1px solid #eef0f3;"><div class="lbl">Location</div><div style="font-size: 14.5px;">Tehran, Iran</div></div>
           <div style="padding: 20px 24px; border-bottom: 1px solid #eef0f3;"><div class="lbl">Working modes</div><div style="font-size: 14.5px;">Remote worldwide · hybrid Tehran</div></div>
           <div style="padding: 20px 24px; border-right: 1px solid #eef0f3;"><div class="lbl">Engagements</div><div style="font-size: 14.5px;">Contract · full-time · part-time · consulting</div></div>
@@ -112,7 +113,7 @@
     </div>
 
     <!-- FORM -->
-    <div style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: 32px 34px;">
+    <div style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: clamp(18px, 2.56vw, 32px) clamp(19px, 2.72vw, 34px);">
       <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
         <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px 4px;">
           <div style="width: 48px; height: 48px; border-radius: 50%; background: #eaf6f0; color: #22a06b; display: flex; align-items: center; justify-content: center; font-size: 24px;">✓</div>
@@ -123,7 +124,7 @@
       </sc-if>
       <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
         <div style="display: flex; flex-direction: column; gap: 18px;">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
+          <div class="r-g2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
             <div><label class="lbl" for="cn">Your name</label><input id="cn" class="field" type="text" placeholder="Jane Doe" value="{{ name }}" onInput="{{ onName }}"></div>
             <div><label class="lbl" for="ce">Email</label><input id="ce" class="field" type="email" placeholder="jane@company.com" value="{{ email }}" onInput="{{ onEmail }}"></div>
           </div>
@@ -138,8 +139,8 @@
   </div>
 </section>
 
-<footer style="border-top: 1px solid #e2e5ea; padding: 48px 40px 56px; margin-top: 40px;">
-  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px;">
+<footer style="border-top: 1px solid #e2e5ea; padding: clamp(26px, 3.84vw, 48px) clamp(22px, 3.2vw, 40px) clamp(31px, 4.48vw, 56px); margin-top: 40px;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: clamp(18px, 2.56vw, 32px);">
     <div style="max-width: 34ch;">
       <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
         <img src="assets/logo-mark.svg" alt="" width="16" height="22" style="display: block; flex: none;">
@@ -147,7 +148,7 @@
       </div>
       <p style="font-size: 13px; line-height: 1.6; color: #5a6270; margin: 0;">Lead Product &amp; Experience Designer. Based in Tehran; working remotely with international clients.</p>
     </div>
-    <div style="display: flex; gap: 56px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+    <div style="display: flex; gap: clamp(31px, 4.48vw, 56px); font-family: 'JetBrains Mono', monospace; font-size: 13px;">
       <div style="display: flex; flex-direction: column; gap: 12px;">
         <span style="color: #97a0ad; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">Site</span>
         <a href="Work" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>

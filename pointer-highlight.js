@@ -58,6 +58,11 @@
     // pushes the box past the page's left alignment edge, and that reads as a
     // misalignment long before it reads as padding
     '.ph-fx{position:absolute;inset:-.06em -.055em;z-index:0;display:block;pointer-events:none;}' +
+    // ...and when the word does start a line there is no amount of padding that
+    // hides it, so `.ph-flush` drops the left inset entirely: the box's left
+    // edge sits on the text edge, flush with the h1, subhead and buttons below.
+    // The right side keeps its breathing room — only the aligned edge is snapped.
+    '.ph-flush>.ph-fx{left:0;}' +
     '.ph-box{position:absolute;left:0;top:0;width:0;height:0;border:1px solid ' + INK + ';' +
       'transition:width ' + DRAW + 'ms ' + EASE + ',height ' + DRAW + 'ms ' + EASE + ';}' +
     '.ph-ptr{position:absolute;left:0;top:0;width:' + PTR + 'px;height:' + PTR + 'px;opacity:0;' +

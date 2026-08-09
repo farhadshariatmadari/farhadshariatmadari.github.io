@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="responsive.css">
 <style>
   *, *::before, *::after { box-sizing: border-box; }
   body { margin: 0; background: #f6f7f9; color: #14171c; font-family: 'IBM Plex Sans', sans-serif; -webkit-font-smoothing: antialiased; }
@@ -46,15 +47,15 @@
 <div style="max-width: 1240px; margin: 0 auto;">
 
 <header style="position: sticky; top: 0; z-index: 50; background: rgba(246,247,249,.85); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e5ea;">
-  <nav style="display: flex; align-items: center; justify-content: space-between; padding: 18px 40px;">
-    <a href="./" style="display: flex; align-items: center; gap: 11px; color: #14171c;">
+  <nav class="r-nav" style="display: flex; align-items: center; justify-content: space-between; padding: 18px clamp(22px, 3.2vw, 40px);">
+    <a class="r-brand" href="./" style="display: flex; align-items: center; gap: 11px; color: #14171c;">
       <img src="assets/logo-mark.svg" alt="" width="19" height="26" style="display: block; flex: none;">
-      <span style="display: flex; align-items: baseline; gap: 10px;">
-        <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;">Farhad Shariatmadari</span>
-        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad;">/ design</span>
+      <span class="r-brand-txt" style="display: flex; align-items: baseline; gap: 10px;">
+        <span class="r-brand-name" style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;">Farhad Shariatmadari</span>
+        <span class="r-brand-tag" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad;">/ design</span>
       </span>
     </a>
-    <div style="display: flex; align-items: center; gap: 32px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+    <div class="r-navlinks" style="display: flex; align-items: center; gap: clamp(18px, 2.56vw, 32px); font-family: 'JetBrains Mono', monospace; font-size: 13px;">
       <a href="Work" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>
       <a href="About" style="color: #14171c;" style-hover="color:#14171c;">About</a>
       <a href="How-I-Work" style="color: #3a414d;" style-hover="color:#14171c;">How I work</a>
@@ -64,17 +65,17 @@
 </header>
 
 <!-- INTRO · prism grid -->
-<section class="about-hero" style="padding: 80px 40px 0;">
+<section class="about-hero" style="padding: clamp(44px, 6.4vw, 80px) clamp(22px, 3.2vw, 40px) 0;">
   <div data-prism-grid class="pg-host"></div>
   <div class="pg-scrim"></div>
   <!-- no .pg-over wrapper here: .about-hero-inner is the containing block the
        absolutely-positioned sketch would re-anchor to. The text is already
        z-index 2 and the sketch z-index 1, so they clear the grid as-is. -->
-  <div class="about-hero-inner" style="display: flex; gap: 40px; align-items: center; width: 100%;">
+  <div class="about-hero-inner" style="display: flex; gap: clamp(22px, 3.2vw, 40px); align-items: center; width: 100%;">
     <div class="about-hero-text">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad; margin-bottom: 20px;">// about</div>
       <h1 style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: clamp(34px, 5vw, 60px); line-height: 1.02; letter-spacing: -0.03em; margin: 0 0 24px; max-width: 17ch; text-wrap: balance;">A designer who thinks like <span class="ph">the engineer<span class="ph-fx" data-pointer-highlight data-ph-delay="520"></span></span> building the thing.</h1>
-      <p style="font-size: clamp(16px, 1.5vw, 19px); line-height: 1.6; color: #3a414d; max-width: 52ch; margin: 0 0 40px;">Lead Product &amp; Experience Designer with 7–8 years shipping complex B2B platforms and AI-driven consumer products. I've led design for an enterprise MDM platform recognized at Gitex, scaled a family-safety app from 500 to 500,000 downloads, and am currently designing Iran's first AI healthcare assistant and first agriculture super-app.</p>
+      <p style="font-size: clamp(16px, 1.5vw, 19px); line-height: 1.6; color: #3a414d; max-width: 52ch; margin: 0 0 40px;">Lead Product &amp; Experience Designer with eight years shipping complex B2B platforms and AI-driven consumer products. I've led design for an enterprise MDM platform recognized at Gitex, scaled a family-safety app from 500 to 500,000 downloads, and am currently designing Iran's first AI healthcare assistant and first agriculture super-app.</p>
     </div>
     <img class="about-hero-art" ref="{{ artRef }}" src="assets/farhad-sketch.png" alt="Construction sketch of Farhad Shariatmadari with UI proportion guides">
     <!-- shown only if the sketch is missing; swaps itself out once the file lands -->
@@ -85,8 +86,8 @@
 </section>
 
 <!-- STORY -->
-<section style="padding: 72px 40px 40px;">
-  <div style="display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+<section style="padding: clamp(40px, 5.76vw, 72px) clamp(22px, 3.2vw, 40px) clamp(22px, 3.2vw, 40px);">
+  <div class="r-side" style="display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px);">
     <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// the story</div>
     <div style="max-width: 64ch;">
       <p style="font-size: 17px; line-height: 1.75; color: #3a414d; margin: 0 0 22px;">I discovered user experience in my first year studying Computer Science at Amirkabir University of Technology, started taking on small projects in my second year, and was working in companies by my third. That engineering foundation still shows: I design flows with the logic of someone who understands how systems are built — which is why outsourced and distributed dev teams can implement my work without logical gaps.</p>
@@ -96,32 +97,32 @@
 </section>
 
 <!-- PHILOSOPHY -->
-<section style="padding: 40px 40px;">
-  <div style="border-top: 1px solid #e2e5ea; padding-top: 48px; display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+<section style="padding: clamp(22px, 3.2vw, 40px) clamp(22px, 3.2vw, 40px);">
+  <div class="r-side" style="border-top: 1px solid #e2e5ea; padding-top: clamp(26px, 3.84vw, 48px); display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px);">
     <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// philosophy</div>
     <blockquote style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: clamp(22px, 2.8vw, 32px); line-height: 1.35; letter-spacing: -0.015em; color: #14171c; max-width: 30ch;">“I start with the problem, never the solution. My first job is to actually understand it — then I build the foundation, a design system that can hold the product as it grows. Only then do I design the flows, in step with the development cycle, so nothing ships with a logical gap in it.”</blockquote>
   </div>
 </section>
 
 <!-- WHAT I DO -->
-<section style="padding: 40px 40px;">
-  <div style="border-top: 1px solid #e2e5ea; padding-top: 48px; display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+<section style="padding: clamp(22px, 3.2vw, 40px) clamp(22px, 3.2vw, 40px);">
+  <div class="r-side" style="border-top: 1px solid #e2e5ea; padding-top: clamp(26px, 3.84vw, 48px); display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px);">
     <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// what I'm known for</div>
     <div>
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-        <div style="border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; padding: 30px 32px;">
+      <div class="r-g2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <div style="border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; padding: clamp(16px, 2.4vw, 30px) clamp(18px, 2.56vw, 32px);">
           <div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:18px; margin-bottom: 10px;">AI-first product design</div>
           <p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">Multiple AI-driven products shipping or in pilot — national AI healthcare (Behinto), an agriculture super-app (Agrino), and AI infrastructure platforms at Sharif AICT.</p>
         </div>
-        <div style="border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; padding: 30px 32px;">
+        <div style="border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; padding: clamp(16px, 2.4vw, 30px) clamp(18px, 2.56vw, 32px);">
           <div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:18px; margin-bottom: 10px;">Complex B2B / enterprise</div>
           <p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">MDM/UEM, multi-panel healthcare, banking-backed and government-supported platforms — turning tangled systems into airtight, logical flows.</p>
         </div>
-        <div style="border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; padding: 30px 32px;">
+        <div style="border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; padding: clamp(16px, 2.4vw, 30px) clamp(18px, 2.56vw, 32px);">
           <div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:18px; margin-bottom: 10px;">End-to-end 0→1 lead</div>
           <p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">Repeatedly the first or only designer — building the MVP, the design system, the flows, and the team around them.</p>
         </div>
-        <div style="border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; padding: 30px 32px;">
+        <div style="border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; padding: clamp(16px, 2.4vw, 30px) clamp(18px, 2.56vw, 32px);">
           <div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:18px; margin-bottom: 10px;">Design systems &amp; teams</div>
           <p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">Token-based systems in light &amp; dark from day one, and design teams — up to 5 designers at peak — who keep the product consistent as it scales.</p>
         </div>
@@ -131,11 +132,11 @@
 </section>
 
 <!-- ENGAGEMENT -->
-<section style="padding: 40px 40px 24px;">
-  <div style="border-top: 1px solid #e2e5ea; padding-top: 48px; display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+<section style="padding: clamp(22px, 3.2vw, 40px) clamp(22px, 3.2vw, 40px) 24px;">
+  <div class="r-side" style="border-top: 1px solid #e2e5ea; padding-top: clamp(26px, 3.84vw, 48px); display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px);">
     <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// working together</div>
     <div>
-      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid #e2e5ea; border-radius: 8px; background: #fff; overflow: hidden;">
+      <div class="r-strip r-c4" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid #e2e5ea; border-radius: 8px; background: #fff; overflow: hidden;">
         <div style="padding: 22px 24px; border-right: 1px solid #eef0f3;">
           <div style="font-family:'JetBrains Mono',monospace; font-size: 11px; color: #97a0ad; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px;">Location</div>
           <div style="font-size: 14.5px; line-height: 1.5;">Tehran, Iran</div>
@@ -158,8 +159,8 @@
 </section>
 
 <!-- CTA -->
-<section style="padding: 48px 40px 96px;">
-  <div style="border-radius: 14px; background: #14171c; color: #f6f7f9; padding: 64px 56px; position: relative; overflow: hidden;">
+<section style="padding: clamp(26px, 3.84vw, 48px) clamp(22px, 3.2vw, 40px) clamp(53px, 7.68vw, 96px);">
+  <div style="border-radius: 14px; background: #14171c; color: #f6f7f9; padding: clamp(35px, 5.12vw, 64px) clamp(31px, 4.48vw, 56px); position: relative; overflow: hidden;">
     <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
     <div style="position: relative;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6f7a8a; margin-bottom: 20px;">// let's talk</div>
@@ -173,8 +174,8 @@
   </div>
 </section>
 
-<footer style="border-top: 1px solid #e2e5ea; padding: 48px 40px 56px;">
-  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px;">
+<footer style="border-top: 1px solid #e2e5ea; padding: clamp(26px, 3.84vw, 48px) clamp(22px, 3.2vw, 40px) clamp(31px, 4.48vw, 56px);">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: clamp(18px, 2.56vw, 32px);">
     <div style="max-width: 34ch;">
       <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
         <img src="assets/logo-mark.svg" alt="" width="16" height="22" style="display: block; flex: none;">
@@ -182,7 +183,7 @@
       </div>
       <p style="font-size: 13px; line-height: 1.6; color: #5a6270; margin: 0;">Lead Product &amp; Experience Designer. Based in Tehran; working remotely with international clients.</p>
     </div>
-    <div style="display: flex; gap: 56px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+    <div style="display: flex; gap: clamp(31px, 4.48vw, 56px); font-family: 'JetBrains Mono', monospace; font-size: 13px;">
       <div style="display: flex; flex-direction: column; gap: 12px;">
         <span style="color: #97a0ad; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">Site</span>
         <a href="Work" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>

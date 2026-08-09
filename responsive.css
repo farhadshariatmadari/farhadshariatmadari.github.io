@@ -1,0 +1,157 @@
+/* ============================================================================
+   responsive.css — tablet and phone layout for all 14 pages.
+
+   WHY THIS FILE EXISTS, AND WHY IT SHOUTS !important
+
+   These pages are Claude Design exports: almost all layout lives in inline
+   `style="…"` attributes. An inline declaration outranks every selector in a
+   stylesheet, so a plain `.r-g2 { grid-template-columns: 1fr }` loses to the
+   `grid-template-columns: 1fr 1fr` sitting on the element. `!important` is the
+   only thing that wins. Every `!important` below is deliberate and load-bearing
+   — not defensive habit. Don't "clean them up".
+
+   The classes are not hand-written. tools/responsive-classes.py derives them
+   from the inline styles themselves and injects them. Re-run it after any
+   Claude Design re-export — see the header comment in that file.
+
+   Paddings are NOT handled here. The same script rewrites large inline padding
+   values into clamp(), so gutters and card padding shrink continuously instead
+   of stepping at a breakpoint. That is why you will not find a `.r-gutter` rule:
+   there is nothing left for it to do.
+
+   Breakpoints — 1024 / 860 / 720 / 560. Four, reused everywhere, so a layout
+   change lands on a line every other page already shares.
+   ============================================================================ */
+
+
+/* ---------------------------------------------------------------- global --- */
+
+/* A 2320px screenshot in a 335px column must not push the page sideways. */
+img, svg, canvas, video { max-width: 100%; }
+
+/* farhadshariatmadari@gmail.com is 29 characters with nowhere to break. In the
+   dark CTA button at 375px it overhangs the card without this. */
+body { overflow-wrap: break-word; }
+
+/* …but `break-word` only breaks a word once the box is already too narrow — it
+   does NOT lower the element's min-content width, and `min-width: auto` on a
+   flex/grid item floors that item at min-content. So on Contact the email
+   address held its own column open at 346px inside a 276px screen and pushed
+   the page sideways. `anywhere` is the one value that does lower min-content,
+   which lets every ancestor shrink; because overflow-wrap inherits, stating it
+   on the link fixes the whole chain above it. Scoped to links whose href is a
+   machine string, since those are the only places a 29-character unbreakable
+   run shows up. */
+a[href^="mailto:"], a[href^="tel:"], a[href^="http"] { overflow-wrap: anywhere; }
+
+/* `anywhere` is right for a link sitting in a column of text, but wrong inside a
+   button, where it breaks the address mid-word — `farhadshariatmada /
+   ri@gmail.com`, which reads as a rendering fault rather than a wrap. The home
+   page's CTA therefore carries an explicit <wbr> before the domain and turns
+   `anywhere` back off, so the one place it may break is the place a reader
+   expects: farhadshariatmadari / @gmail.com.
+
+   Turning it off restores a min-content width of the longest run — 19 chars, so
+   ~148px at 13px — which the button has room for at 320px only once its padding
+   comes in. Both halves are needed; neither works alone. */
+.r-mailbtn-t { overflow-wrap: normal; }
+@media (max-width: 430px) {
+  .r-mailbtn { gap: 8px !important; padding: 14px 16px !important; font-size: 13px !important; }
+}
+
+
+/* ------------------------------------------------------------------- nav --- */
+/* The header is one flex row: [mark + name + "/ design"] … [4 links].
+   At full size that row is ~600px of content, so it sheds parts on the way
+   down rather than wrapping — a wrapped nav makes the sticky header ~95px
+   tall, which is 12% of a phone viewport, permanently. */
+
+@media (max-width: 1024px) {
+  .r-navlinks { gap: 22px !important; }
+}
+
+@media (max-width: 860px) {
+  .r-brand-tag { display: none !important; }   /* "/ design" */
+  .r-navlinks  { gap: 18px !important; }
+}
+
+@media (max-width: 720px) {
+  .r-brand      { gap: 9px !important; }
+  .r-brand-name { font-size: 15px !important; }
+  .r-navlinks   { gap: 14px !important; font-size: 12px !important; }
+  /* the Contact button is always the last link */
+  .r-navlinks > a:last-child { padding: 7px 12px !important; }
+}
+
+/* Below ~520px the wordmark and four links cannot share a line at any readable
+   size, so the name gives way to the mark alone. The name is still the first
+   thing in the footer and in every page title. */
+@media (max-width: 560px) {
+  .r-brand-txt { display: none !important; }
+  .r-navlinks  { gap: 13px !important; }
+}
+
+
+/* ----------------------------------------------------------------- grids --- */
+/* Two families:
+     .r-side / .r-num / .r-gN  — grids with a gap, cards floating apart
+     .r-strip + .r-cN          — one bordered box divided into cells, gap: 0
+
+   A strip's cells are separated by `border-right` on every child but the last.
+   Once the strip stacks, those verticals are meaningless and there is nothing
+   between the rows, so each collapse tier below re-hangs the dividers as
+   `border-bottom`. That repair has to live in the same media query that does
+   the collapsing — which is why it is repeated rather than factored out. */
+
+@media (max-width: 1024px) {
+  /* home stats bar: 5 across is unreadable before it is narrow */
+  .r-strip.r-c5     { grid-template-columns: repeat(3, 1fr) !important; }
+  .r-strip.r-c5 > * { border-bottom: 1px solid #eef0f3 !important; }
+}
+
+@media (max-width: 860px) {
+  /* "// section label" beside its content — the label goes on top */
+  .r-side { grid-template-columns: 1fr !important; gap: 14px !important; }
+
+  /* How I Work's step cards (320px label | body) and Work's flagship card */
+  .r-strip.r-c2 { grid-template-columns: 1fr !important; }
+  .r-strip.r-c2 > * {
+    border-right: 0 !important; border-left: 0 !important;
+    border-bottom: 1px solid #eef0f3 !important;
+  }
+  .r-strip.r-c2 > *:last-child { border-bottom: 0 !important; }
+
+  .r-strip.r-c4     { grid-template-columns: repeat(2, 1fr) !important; }
+  .r-strip.r-c4 > * { border-bottom: 1px solid #eef0f3 !important; }
+
+  .r-g3, .r-g4 { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+@media (max-width: 720px) {
+  /* the 3-up fact strips at the top of every case study */
+  .r-strip.r-c3 { grid-template-columns: 1fr !important; }
+  .r-strip.r-c3 > * {
+    border-right: 0 !important; border-left: 0 !important;
+    border-bottom: 1px solid #eef0f3 !important;
+  }
+  .r-strip.r-c3 > *:last-child { border-bottom: 0 !important; }
+
+  .r-g2 { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 560px) {
+  .r-strip.r-c4, .r-strip.r-c5 { grid-template-columns: 1fr !important; }
+  .r-strip.r-c4 > *, .r-strip.r-c5 > * {
+    border-right: 0 !important; border-left: 0 !important;
+    border-bottom: 1px solid #eef0f3 !important;
+  }
+  .r-strip.r-c4 > *:last-child,
+  .r-strip.r-c5 > *:last-child { border-bottom: 0 !important; }
+
+  .r-g3, .r-g4 { grid-template-columns: 1fr !important; }
+
+  /* numbered steps: the "01" gutter keeps its column, just a narrower one —
+     stacking the numeral above its own paragraph reads as a heading, not a
+     marker, and doubles the height of every list on the site. */
+  .r-num { grid-template-columns: 44px 1fr !important; gap: 12px !important; }
+}

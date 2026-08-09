@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="responsive.css">
 <style>
   *, *::before, *::after { box-sizing: border-box; }
   body { margin: 0; background: #f6f7f9; color: #14171c; font-family: 'IBM Plex Sans', sans-serif; -webkit-font-smoothing: antialiased; }
@@ -30,15 +31,15 @@
 <div style="max-width: 1240px; margin: 0 auto;">
 
 <header style="position: sticky; top: 0; z-index: 50; background: rgba(246,247,249,.85); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e5ea;">
-  <nav style="display: flex; align-items: center; justify-content: space-between; padding: 18px 40px;">
-    <a href="./" style="display: flex; align-items: center; gap: 11px; color: #14171c;">
+  <nav class="r-nav" style="display: flex; align-items: center; justify-content: space-between; padding: 18px clamp(22px, 3.2vw, 40px);">
+    <a class="r-brand" href="./" style="display: flex; align-items: center; gap: 11px; color: #14171c;">
       <img src="assets/logo-mark.svg" alt="" width="19" height="26" style="display: block; flex: none;">
-      <span style="display: flex; align-items: baseline; gap: 10px;">
-        <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;">Farhad Shariatmadari</span>
-        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad;">/ design</span>
+      <span class="r-brand-txt" style="display: flex; align-items: baseline; gap: 10px;">
+        <span class="r-brand-name" style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;">Farhad Shariatmadari</span>
+        <span class="r-brand-tag" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad;">/ design</span>
       </span>
     </a>
-    <div style="display: flex; align-items: center; gap: 32px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+    <div class="r-navlinks" style="display: flex; align-items: center; gap: clamp(18px, 2.56vw, 32px); font-family: 'JetBrains Mono', monospace; font-size: 13px;">
       <a href="Work" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>
       <a href="About" style="color: #3a414d;" style-hover="color:#14171c;">About</a>
       <a href="How-I-Work" style="color: #14171c;" style-hover="color:#14171c;">How I work</a>
@@ -48,7 +49,7 @@
 </header>
 
 <!-- PAGE HEADER · prism grid -->
-<section style="position: relative; overflow: hidden; padding: 88px 40px 56px;">
+<section style="position: relative; overflow: hidden; padding: clamp(48px, 7.04vw, 88px) clamp(22px, 3.2vw, 40px) clamp(31px, 4.48vw, 56px);">
   <div data-prism-grid class="pg-host"></div>
   <div class="pg-scrim"></div>
   <div class="pg-over">
@@ -60,15 +61,15 @@
 </section>
 
 <!-- STEPS -->
-<section style="padding: 24px 40px 8px;">
+<section style="padding: 24px clamp(22px, 3.2vw, 40px) 8px;">
   <div style="display: flex; flex-direction: column; gap: 20px;">
 
-    <div style="display: grid; grid-template-columns: 320px 1fr; gap: 0; border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; overflow: hidden;">
-      <div style="padding: 40px 40px; border-right: 1px solid #eef0f3; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; background: #fbfcfd;">
+    <div class="r-strip r-c2" style="display: grid; grid-template-columns: 320px 1fr; gap: 0; border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; overflow: hidden;">
+      <div style="padding: clamp(22px, 3.2vw, 40px) clamp(22px, 3.2vw, 40px); border-right: 1px solid #eef0f3; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; background: #fbfcfd;">
         <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 64px; line-height: 1; letter-spacing: -0.03em; color: #cdd3db;">01</div>
         <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 26px; letter-spacing: -0.02em; margin: 0; max-width: 12ch;">Understand the problem</h2>
       </div>
-      <div style="padding: 40px 44px;">
+      <div style="padding: clamp(22px, 3.2vw, 40px) clamp(24px, 3.52vw, 44px);">
         <p style="font-size: 16px; line-height: 1.7; color: #3a414d; margin: 0 0 22px; max-width: 58ch;">Problems arrive from everywhere — market data, stakeholder needs, user research. My first job is to actually understand them. I'm most comfortable when the problem is unknown or badly defined, because that's where most of my projects start.</p>
         <div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5a6270;">
           <span style="border: 1px solid #e2e5ea; padding: 6px 12px; border-radius: 100px;">Stakeholder sessions</span>
@@ -78,12 +79,12 @@
       </div>
     </div>
 
-    <div style="display: grid; grid-template-columns: 320px 1fr; gap: 0; border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; overflow: hidden;">
-      <div style="padding: 40px 40px; border-right: 1px solid #eef0f3; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; background: #fbfcfd;">
+    <div class="r-strip r-c2" style="display: grid; grid-template-columns: 320px 1fr; gap: 0; border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; overflow: hidden;">
+      <div style="padding: clamp(22px, 3.2vw, 40px) clamp(22px, 3.2vw, 40px); border-right: 1px solid #eef0f3; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; background: #fbfcfd;">
         <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 64px; line-height: 1; letter-spacing: -0.03em; color: #cdd3db;">02</div>
         <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 26px; letter-spacing: -0.02em; margin: 0; max-width: 12ch;">Build the foundation</h2>
       </div>
-      <div style="padding: 40px 44px;">
+      <div style="padding: clamp(22px, 3.2vw, 40px) clamp(24px, 3.52vw, 44px);">
         <p style="font-size: 16px; line-height: 1.7; color: #3a414d; margin: 0 0 22px; max-width: 58ch;">Before the screens, I architect a token-based design system — light and dark, accessible, and built to scale — so every screen after it is faster to make and consistent by default. It's the structure that holds the product as it grows.</p>
         <div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5a6270;">
           <span style="border: 1px solid #e2e5ea; padding: 6px 12px; border-radius: 100px;">Semantic tokens</span>
@@ -94,12 +95,12 @@
       </div>
     </div>
 
-    <div style="display: grid; grid-template-columns: 320px 1fr; gap: 0; border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; overflow: hidden;">
-      <div style="padding: 40px 40px; border-right: 1px solid #eef0f3; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; background: #fbfcfd;">
+    <div class="r-strip r-c2" style="display: grid; grid-template-columns: 320px 1fr; gap: 0; border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; overflow: hidden;">
+      <div style="padding: clamp(22px, 3.2vw, 40px) clamp(22px, 3.2vw, 40px); border-right: 1px solid #eef0f3; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; background: #fbfcfd;">
         <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 64px; line-height: 1; letter-spacing: -0.03em; color: #cdd3db;">03</div>
         <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 26px; letter-spacing: -0.02em; margin: 0; max-width: 12ch;">Design the flows</h2>
       </div>
-      <div style="padding: 40px 44px;">
+      <div style="padding: clamp(22px, 3.2vw, 40px) clamp(24px, 3.52vw, 44px);">
         <p style="font-size: 16px; line-height: 1.7; color: #3a414d; margin: 0 0 22px; max-width: 58ch;">End-to-end user flows with airtight logic — designed in step with the development cycle, so even fully outsourced dev teams can implement them without ambiguity. Every state is specified: error, empty, loading, and edge cases.</p>
         <div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5a6270;">
           <span style="border: 1px solid #e2e5ea; padding: 6px 12px; border-radius: 100px;">End-to-end flows</span>
@@ -109,12 +110,12 @@
       </div>
     </div>
 
-    <div style="display: grid; grid-template-columns: 320px 1fr; gap: 0; border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; overflow: hidden;">
-      <div style="padding: 40px 40px; border-right: 1px solid #eef0f3; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; background: #fbfcfd;">
+    <div class="r-strip r-c2" style="display: grid; grid-template-columns: 320px 1fr; gap: 0; border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; overflow: hidden;">
+      <div style="padding: clamp(22px, 3.2vw, 40px) clamp(22px, 3.2vw, 40px); border-right: 1px solid #eef0f3; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; background: #fbfcfd;">
         <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 64px; line-height: 1; letter-spacing: -0.03em; color: #cdd3db;">04</div>
         <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 26px; letter-spacing: -0.02em; margin: 0; max-width: 12ch;">Lead and deliver</h2>
       </div>
-      <div style="padding: 40px 44px;">
+      <div style="padding: clamp(22px, 3.2vw, 40px) clamp(24px, 3.52vw, 44px);">
         <p style="font-size: 16px; line-height: 1.7; color: #3a414d; margin: 0 0 22px; max-width: 58ch;">I research a feature, ideate fast, then either finalize it solo or hand structured tasks to designers on my team. I mentor, review, and stay accountable for the final quality all the way through launch.</p>
         <div style="display: flex; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5a6270;">
           <span style="border: 1px solid #e2e5ea; padding: 6px 12px; border-radius: 100px;">Fast ideation</span>
@@ -129,16 +130,16 @@
 </section>
 
 <!-- PRINCIPLE STRIP -->
-<section style="padding: 56px 40px 24px;">
-  <div style="border-top: 1px solid #e2e5ea; padding-top: 48px; display: grid; grid-template-columns: 200px 1fr; gap: 48px;">
+<section style="padding: clamp(31px, 4.48vw, 56px) clamp(22px, 3.2vw, 40px) 24px;">
+  <div class="r-side" style="border-top: 1px solid #e2e5ea; padding-top: clamp(26px, 3.84vw, 48px); display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px);">
     <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// the throughline</div>
     <blockquote style="margin: 0; font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: clamp(22px, 2.8vw, 32px); line-height: 1.35; letter-spacing: -0.015em; color: #14171c; max-width: 32ch;">The signature move: turning complex, ambiguous systems into simple flows so logically complete that the team building them never has to guess.</blockquote>
   </div>
 </section>
 
 <!-- CTA -->
-<section style="padding: 48px 40px 96px;">
-  <div style="border-radius: 14px; background: #14171c; color: #f6f7f9; padding: 64px 56px; position: relative; overflow: hidden;">
+<section style="padding: clamp(26px, 3.84vw, 48px) clamp(22px, 3.2vw, 40px) clamp(53px, 7.68vw, 96px);">
+  <div style="border-radius: 14px; background: #14171c; color: #f6f7f9; padding: clamp(35px, 5.12vw, 64px) clamp(31px, 4.48vw, 56px); position: relative; overflow: hidden;">
     <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
     <div style="position: relative;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6f7a8a; margin-bottom: 20px;">// let's talk</div>
@@ -152,8 +153,8 @@
   </div>
 </section>
 
-<footer style="border-top: 1px solid #e2e5ea; padding: 48px 40px 56px;">
-  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px;">
+<footer style="border-top: 1px solid #e2e5ea; padding: clamp(26px, 3.84vw, 48px) clamp(22px, 3.2vw, 40px) clamp(31px, 4.48vw, 56px);">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: clamp(18px, 2.56vw, 32px);">
     <div style="max-width: 34ch;">
       <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
         <img src="assets/logo-mark.svg" alt="" width="16" height="22" style="display: block; flex: none;">
@@ -161,7 +162,7 @@
       </div>
       <p style="font-size: 13px; line-height: 1.6; color: #5a6270; margin: 0;">Lead Product &amp; Experience Designer. Based in Tehran; working remotely with international clients.</p>
     </div>
-    <div style="display: flex; gap: 56px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+    <div style="display: flex; gap: clamp(31px, 4.48vw, 56px); font-family: 'JetBrains Mono', monospace; font-size: 13px;">
       <div style="display: flex; flex-direction: column; gap: 12px;">
         <span style="color: #97a0ad; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">Site</span>
         <a href="Work" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>

@@ -15,6 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="responsive.css">
 <style>
   *, *::before, *::after { box-sizing: border-box; }
   body { margin: 0; background: #f6f7f9; color: #14171c; font-family: 'IBM Plex Sans', sans-serif; -webkit-font-smoothing: antialiased; }
@@ -30,15 +31,15 @@
 <div style="max-width: 1240px; margin: 0 auto;">
 
 <header style="position: sticky; top: 0; z-index: 50; background: rgba(246,247,249,.85); backdrop-filter: blur(12px); border-bottom: 1px solid #e2e5ea;">
-  <nav style="display: flex; align-items: center; justify-content: space-between; padding: 18px 40px;">
-    <a href="./" style="display: flex; align-items: center; gap: 11px; color: #14171c;">
+  <nav class="r-nav" style="display: flex; align-items: center; justify-content: space-between; padding: 18px clamp(22px, 3.2vw, 40px);">
+    <a class="r-brand" href="./" style="display: flex; align-items: center; gap: 11px; color: #14171c;">
       <img src="assets/logo-mark.svg" alt="" width="19" height="26" style="display: block; flex: none;">
-      <span style="display: flex; align-items: baseline; gap: 10px;">
-        <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;">Farhad Shariatmadari</span>
-        <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad;">/ design</span>
+      <span class="r-brand-txt" style="display: flex; align-items: baseline; gap: 10px;">
+        <span class="r-brand-name" style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 17px; letter-spacing: -0.01em;">Farhad Shariatmadari</span>
+        <span class="r-brand-tag" style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #97a0ad;">/ design</span>
       </span>
     </a>
-    <div style="display: flex; align-items: center; gap: 32px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+    <div class="r-navlinks" style="display: flex; align-items: center; gap: clamp(18px, 2.56vw, 32px); font-family: 'JetBrains Mono', monospace; font-size: 13px;">
       <a href="Work" style="color: #14171c;" style-hover="color:#14171c;">Work</a>
       <a href="About" style="color: #3a414d;" style-hover="color:#14171c;">About</a>
       <a href="How-I-Work" style="color: #3a414d;" style-hover="color:#14171c;">How I work</a>
@@ -48,7 +49,7 @@
 </header>
 
 <!-- PAGE HEADER · prism grid -->
-<section style="position: relative; overflow: hidden; padding: 88px 40px 56px;">
+<section style="position: relative; overflow: hidden; padding: clamp(48px, 7.04vw, 88px) clamp(22px, 3.2vw, 40px) clamp(31px, 4.48vw, 56px);">
   <div data-prism-grid class="pg-host"></div>
   <div class="pg-scrim"></div>
   <div class="pg-over">
@@ -63,9 +64,9 @@
 </section>
 
 <!-- FLAGSHIP: TRIO -->
-<section style="padding: 8px 40px 0;">
-  <a href="Trio" style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 0; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden; color: #14171c;" style-hover="border-color:#c0c6cf;">
-    <div style="padding: 44px 44px 40px; display: flex; flex-direction: column;">
+<section style="padding: 8px clamp(22px, 3.2vw, 40px) 0;">
+  <a class="r-strip r-c2" href="Trio" style="display: grid; grid-template-columns: 1.1fr 1fr; gap: 0; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden; color: #14171c;" style-hover="border-color:#c0c6cf;">
+    <div style="padding: clamp(24px, 3.52vw, 44px) clamp(24px, 3.52vw, 44px) clamp(22px, 3.2vw, 40px); display: flex; flex-direction: column;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
         <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #b4bcc7;">01</span>
         <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #2f5cf0; letter-spacing: 0.08em; text-transform: uppercase;">Flagship</span>
@@ -89,59 +90,59 @@
 </section>
 
 <!-- PROJECT GRID -->
-<section style="padding: 20px 40px 40px;">
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+<section style="padding: 20px clamp(22px, 3.2vw, 40px) clamp(22px, 3.2vw, 40px);">
+  <div class="r-g2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
 
-    <a href="DigiKala-Mehr" style="display: flex; flex-direction: column; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden; color: #14171c; padding: 34px 36px 30px;" style-hover="border-color:#c0c6cf;">
+    <a href="DigiKala-Mehr" style="display: flex; flex-direction: column; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden; color: #14171c; padding: clamp(19px, 2.72vw, 34px) clamp(20px, 2.88vw, 36px) clamp(16px, 2.4vw, 30px);" style-hover="border-color:#c0c6cf;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px;"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#b4bcc7;">02</span><div style="display: flex; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5a6270;"><span style="border:1px solid #e2e5ea; padding: 4px 9px; border-radius: 100px;">Charity commerce</span><span style="border:1px solid #e2e5ea; padding: 4px 9px; border-radius: 100px;">Digikala</span></div></div>
       <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 23px; letter-spacing: -0.02em; margin: 0 0 12px;">DigiKala Mehr</h2>
       <p style="font-size: 14px; line-height: 1.6; color: #3a414d; margin: 0 0 auto;">Sole designer at Iran's largest e-commerce company — grew charity purchase conversion from 0.4% to 2.8%, double the sitewide average.</p>
       <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; color: #2f5cf0; margin-top: 26px;">0.4% → 2.8% <span style="font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:400; color:#97a0ad; letter-spacing:0;">7× ✅</span></div>
     </a>
 
-    <a href="Behinto" style="display: flex; flex-direction: column; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden; color: #14171c; padding: 34px 36px 30px;" style-hover="border-color:#c0c6cf;">
+    <a href="Behinto" style="display: flex; flex-direction: column; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden; color: #14171c; padding: clamp(19px, 2.72vw, 34px) clamp(20px, 2.88vw, 36px) clamp(16px, 2.4vw, 30px);" style-hover="border-color:#c0c6cf;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px;"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#b4bcc7;">03</span><div style="display: flex; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5a6270;"><span style="border:1px solid #e2e5ea; padding: 4px 9px; border-radius: 100px;">AI-first</span><span style="border:1px solid #e2e5ea; padding: 4px 9px; border-radius: 100px;">Healthcare</span></div></div>
       <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 23px; letter-spacing: -0.02em; margin: 0 0 12px;">Behinto</h2>
       <p style="font-size: 14px; line-height: 1.6; color: #3a414d; margin: 0 0 auto;">Designing Iran's first national AI healthcare assistant — a medical companion grounded in officially vetted documents doctors can stand behind.</p>
       <div style="display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5a6270; margin-top: 26px; border: 1px solid #e2e5ea; padding: 6px 12px; border-radius: 100px; align-self: flex-start;"><span style="width:6px;height:6px;border-radius:50%;background:#e0912f;"></span>In pilot · launching 2026</div>
     </a>
 
-    <a href="Medio" style="display: flex; flex-direction: column; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden; color: #14171c; padding: 34px 36px 30px;" style-hover="border-color:#c0c6cf;">
+    <a href="Medio" style="display: flex; flex-direction: column; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden; color: #14171c; padding: clamp(19px, 2.72vw, 34px) clamp(20px, 2.88vw, 36px) clamp(16px, 2.4vw, 30px);" style-hover="border-color:#c0c6cf;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px;"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#b4bcc7;">04</span><div style="display: flex; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5a6270;"><span style="border:1px solid #e2e5ea; padding: 4px 9px; border-radius: 100px;">Healthcare</span><span style="border:1px solid #e2e5ea; padding: 4px 9px; border-radius: 100px;">Multi-panel</span></div></div>
       <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 23px; letter-spacing: -0.02em; margin: 0 0 12px;">Medio</h2>
       <p style="font-size: 14px; line-height: 1.6; color: #3a414d; margin: 0 0 auto;">A four-panel healthcare system — patient, physician, medical centre, backoffice — coherent enough for a fully outsourced team to build without logical gaps.</p>
       <div style="display: flex; gap: 18px; margin-top: 26px; align-items: center;"><div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size: 22px; letter-spacing:-0.02em;">360+</div><div style="font-family:'JetBrains Mono',monospace; font-size: 11px; color: #97a0ad; line-height:1.4;">semantic color tokens,<br>full light / dark</div></div>
     </a>
 
-    <a href="Safes" style="display: flex; flex-direction: column; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden; color: #14171c; padding: 34px 36px 30px;" style-hover="border-color:#c0c6cf;">
+    <a href="Safes" style="display: flex; flex-direction: column; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden; color: #14171c; padding: clamp(19px, 2.72vw, 34px) clamp(20px, 2.88vw, 36px) clamp(16px, 2.4vw, 30px);" style-hover="border-color:#c0c6cf;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px;"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#b4bcc7;">05</span><div style="display: flex; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5a6270;"><span style="border:1px solid #e2e5ea; padding: 4px 9px; border-radius: 100px;">Consumer</span><span style="border:1px solid #e2e5ea; padding: 4px 9px; border-radius: 100px;">Family safety</span></div></div>
       <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 23px; letter-spacing: -0.02em; margin: 0 0 12px;">Safes</h2>
       <p style="font-size: 14px; line-height: 1.6; color: #3a414d; margin: 0 0 auto;">Took a parental-control app from 500 to 500,000 downloads in four months — with ready-to-use profile roles that removed manual setup.</p>
       <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; margin-top: 26px;">500 → 500K <span style="font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:400; color:#97a0ad; letter-spacing:0;">✅</span></div>
     </a>
 
-    <a href="Agrino" style="display: flex; flex-direction: column; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden; color: #14171c; padding: 34px 36px 30px;" style-hover="border-color:#c0c6cf;">
+    <a href="Agrino" style="display: flex; flex-direction: column; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden; color: #14171c; padding: clamp(19px, 2.72vw, 34px) clamp(20px, 2.88vw, 36px) clamp(16px, 2.4vw, 30px);" style-hover="border-color:#c0c6cf;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px;"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#b4bcc7;">06</span><div style="display: flex; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5a6270;"><span style="border:1px solid #e2e5ea; padding: 4px 9px; border-radius: 100px;">AI</span><span style="border:1px solid #e2e5ea; padding: 4px 9px; border-radius: 100px;">Agriculture</span></div></div>
       <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 23px; letter-spacing: -0.02em; margin: 0 0 12px;">Agrino</h2>
       <p style="font-size: 14px; line-height: 1.6; color: #3a414d; margin: 0 0 auto;">Iran's first agriculture super-app — a chat-centric AI product for farmers, backed by Keshavarzi Bank.</p>
       <div style="display: inline-flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #5a6270; margin-top: 26px; border: 1px solid #e2e5ea; padding: 6px 12px; border-radius: 100px; align-self: flex-start;"><span style="width:6px;height:6px;border-radius:50%;background:#e0912f;"></span>Foundations shipped · launching 2026</div>
     </a>
 
-    <a href="Zeero" style="display: flex; flex-direction: column; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden; color: #14171c; padding: 34px 36px 30px;" style-hover="border-color:#c0c6cf;">
+    <a href="Zeero" style="display: flex; flex-direction: column; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden; color: #14171c; padding: clamp(19px, 2.72vw, 34px) clamp(20px, 2.88vw, 36px) clamp(16px, 2.4vw, 30px);" style-hover="border-color:#c0c6cf;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px;"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#b4bcc7;">07</span><div style="display: flex; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5a6270;"><span style="border:1px solid #e2e5ea; padding: 4px 9px; border-radius: 100px;">Mobility</span><span style="border:1px solid #e2e5ea; padding: 4px 9px; border-radius: 100px;">Sharing</span></div></div>
       <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 23px; letter-spacing: -0.02em; margin: 0 0 12px;">Zeero</h2>
       <p style="font-size: 14px; line-height: 1.6; color: #3a414d; margin: 0 0 auto;">Redesigned Iran's first e-bike & scooter sharing service across mobile and web — reservation and ride flows rebuilt with a scalable design system.</p>
       <div style="display: flex; gap: 24px; margin-top: 26px; font-family: 'JetBrains Mono', monospace;"><div><div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px; letter-spacing:-0.02em;">3×</div><div style="font-size:11px; color:#97a0ad; margin-top:3px;">service area</div></div><div><div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:20px; letter-spacing:-0.02em;">+8%</div><div style="font-size:11px; color:#97a0ad; margin-top:3px;">first-ride</div></div></div>
     </a>
 
-    <a href="Vendora" style="display: flex; flex-direction: column; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden; color: #14171c; padding: 34px 36px 30px;" style-hover="border-color:#c0c6cf;">
+    <a href="Vendora" style="display: flex; flex-direction: column; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden; color: #14171c; padding: clamp(19px, 2.72vw, 34px) clamp(20px, 2.88vw, 36px) clamp(16px, 2.4vw, 30px);" style-hover="border-color:#c0c6cf;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px;"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#b4bcc7;">08</span><div style="display: flex; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5a6270;"><span style="border:1px solid #e2e5ea; padding: 4px 9px; border-radius: 100px;">E-commerce</span><span style="border:1px solid #e2e5ea; padding: 4px 9px; border-radius: 100px;">Greece</span></div></div>
       <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 23px; letter-spacing: -0.02em; margin: 0 0 12px;">Vendora</h2>
       <p style="font-size: 14px; line-height: 1.6; color: #3a414d; margin: 0 0 auto;">Lead designer of a government-backed, Shopify-class commerce platform built to become Greece's homegrown alternative — merchant panels, crypto commerce, mature design system.</p>
       <div style="display: flex; gap: 18px; margin-top: 26px; align-items: center;"><div style="font-family:'Space Grotesk',sans-serif; font-weight:700; font-size: 22px; letter-spacing:-0.02em;">55+</div><div style="font-family:'JetBrains Mono',monospace; font-size: 11px; color: #97a0ad; line-height:1.4;">production components,<br>4 theme modes</div></div>
     </a>
 
-    <a href="Sharif-AICT" style="display: flex; flex-direction: column; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden; color: #14171c; padding: 34px 36px 30px;" style-hover="border-color:#c0c6cf;">
+    <a href="Sharif-AICT" style="display: flex; flex-direction: column; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden; color: #14171c; padding: clamp(19px, 2.72vw, 34px) clamp(20px, 2.88vw, 36px) clamp(16px, 2.4vw, 30px);" style-hover="border-color:#c0c6cf;">
       <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px;"><span style="font-family:'JetBrains Mono',monospace;font-size:12px;color:#b4bcc7;">09</span><div style="display: flex; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #5a6270;"><span style="border:1px solid #e2e5ea; padding: 4px 9px; border-radius: 100px;">Research</span><span style="border:1px solid #e2e5ea; padding: 4px 9px; border-radius: 100px;">AI infrastructure</span></div></div>
       <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 23px; letter-spacing: -0.02em; margin: 0 0 12px;">Sharif University · AICT</h2>
       <p style="font-size: 14px; line-height: 1.6; color: #3a414d; margin: 0 0 auto;">Design strategy and a unified design system across multiple admin panels for complex AI infrastructure platforms at the Advanced ICT Research Institute.</p>
@@ -152,8 +153,8 @@
 </section>
 
 <!-- CTA -->
-<section style="padding: 40px 40px 96px;">
-  <div style="border-radius: 14px; background: #14171c; color: #f6f7f9; padding: 64px 56px; position: relative; overflow: hidden;">
+<section style="padding: clamp(22px, 3.2vw, 40px) clamp(22px, 3.2vw, 40px) clamp(53px, 7.68vw, 96px);">
+  <div style="border-radius: 14px; background: #14171c; color: #f6f7f9; padding: clamp(35px, 5.12vw, 64px) clamp(31px, 4.48vw, 56px); position: relative; overflow: hidden;">
     <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
     <div style="position: relative;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6f7a8a; margin-bottom: 20px;">// let's talk</div>
@@ -164,8 +165,8 @@
   </div>
 </section>
 
-<footer style="border-top: 1px solid #e2e5ea; padding: 48px 40px 56px;">
-  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px;">
+<footer style="border-top: 1px solid #e2e5ea; padding: clamp(26px, 3.84vw, 48px) clamp(22px, 3.2vw, 40px) clamp(31px, 4.48vw, 56px);">
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: clamp(18px, 2.56vw, 32px);">
     <div style="max-width: 34ch;">
       <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
         <img src="assets/logo-mark.svg" alt="" width="16" height="22" style="display: block; flex: none;">
@@ -173,7 +174,7 @@
       </div>
       <p style="font-size: 13px; line-height: 1.6; color: #5a6270; margin: 0;">Lead Product &amp; Experience Designer. Based in Tehran; working remotely with international clients.</p>
     </div>
-    <div style="display: flex; gap: 56px; font-family: 'JetBrains Mono', monospace; font-size: 13px;">
+    <div style="display: flex; gap: clamp(31px, 4.48vw, 56px); font-family: 'JetBrains Mono', monospace; font-size: 13px;">
       <div style="display: flex; flex-direction: column; gap: 12px;">
         <span style="color: #97a0ad; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">Site</span>
         <a href="Work" style="color: #3a414d;" style-hover="color:#14171c;">Work</a>
