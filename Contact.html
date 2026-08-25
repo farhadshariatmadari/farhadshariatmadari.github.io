@@ -209,22 +209,89 @@ class Component extends DCLogic {
     this._sc = el; this._scText = el.textContent;
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     el.addEventListener('pointerenter', this.runScramble);
-    this.runScramble();
+    // Widths are measured below, so the first run has to wait for the real font —
+    // measuring the fallback locks in the wrong boxes the moment Space Grotesk lands.
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(this.runScramble);
+    else this.runScramble();
+  };
+  // The headline is two lines and has to stay two lines while the scramble runs.
+  // Swapping 'building.' for random glyphs makes the word wider, the word wraps, and
+  // the h1 grows a third line. Two guards stop that, and both are needed:
+  //   1. Each word becomes an inline-block locked to the width it finishes at, so the
+  //      h1 breaks in exactly the same places no matter what is inside the words.
+  //   2. A replacement glyph is never wider than the character it stands in for, so a
+  //      scrambled word can't spill out of its locked box and overlap its neighbour.
+  // Guard 1 alone needs clipping; guard 2 alone leaves the break at the mercy of the
+  // string. Both are torn down on the last frame, so the finished text stays fluid.
+  // The locked widths are measured in px at the current font-size, and the h1 font-size
+  // is a clamp() on vw. A resize mid-run would leave every word holding a stale box —
+  // which wraps the headline to four lines. Snap to the finished text instead.
+  stopScramble = () => {
+    clearInterval(this._sci);
+    window.removeEventListener('resize', this.stopScramble);
+    if (this._sc) this._sc.textContent = this._scText;
   };
   runScramble = () => {
     const el = this._sc, text = this._scText; if (!el) return;
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz/<>-_$%';
-    let frame = 0; const speed = 0.5;
     clearInterval(this._sci);
+    window.removeEventListener('resize', this.stopScramble);
+
+    const words = text.split(' ');
+    el.textContent = '';
+    const spans = words.map((w, i) => {
+      const s = document.createElement('span');
+      s.style.display = 'inline-block';
+      s.textContent = w;
+      el.appendChild(s);
+      if (i < words.length - 1) el.appendChild(document.createTextNode(' '));
+      return s;
+    });
+    // Measure every word before locking any of them, so an early write can't shift a later read.
+    const widths = spans.map((s) => s.getBoundingClientRect().width);
+    // Nothing is laid out yet (background tab, display:none, a pane with no width):
+    // locking zero-width boxes stacks the headline one character per line. Put the
+    // text back and try again — rAF is paused while hidden, so this resumes on show.
+    if (widths.some((w) => !w)) {
+      el.textContent = text;
+      if ((this._scTries = (this._scTries || 0) + 1) < 100) requestAnimationFrame(this.runScramble);
+      return;
+    }
+    this._scTries = 0;
+    spans.forEach((s, i) => { s.style.width = widths[i] + 'px'; });
+    window.addEventListener('resize', this.stopScramble);
+
+    const cs = getComputedStyle(el);
+    const ctx = this._scCtx || (this._scCtx = document.createElement('canvas').getContext('2d'));
+    ctx.font = cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+    // measureText ignores letter-spacing, but it is the same on every glyph, so
+    // comparing one advance against another stays valid.
+    const pool = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz/<>-_$%'
+      .split('').map((c) => ({ c, w: ctx.measureText(c).width }));
+    const narrowest = pool.reduce((a, b) => (b.w < a.w ? b : a)).c;
+    const fits = {};
+    const pick = (target) => {
+      let p = fits[target];
+      if (!p) {
+        const tw = ctx.measureText(target).width;
+        p = pool.filter((o) => o.w <= tw).map((o) => o.c);
+        if (!p.length) p = [narrowest];   // 'i', '.', an apostrophe: nothing is narrower
+        fits[target] = p;
+      }
+      return p[(Math.random() * p.length) | 0];
+    };
+
+    let frame = 0; const speed = 0.5;
     this._sci = setInterval(() => {
       const revealed = frame * speed;
-      let out = '';
-      for (let i = 0; i < text.length; i++) {
-        if (text[i] === ' ' || i < revealed) out += text[i];
-        else out += chars[(Math.random() * chars.length) | 0];
-      }
-      el.textContent = out;
-      if (revealed >= text.length) { clearInterval(this._sci); el.textContent = text; }
+      let n = 0;
+      spans.forEach((s, i) => {
+        const word = words[i];
+        let out = '';
+        for (let j = 0; j < word.length; j++) out += (n + j) < revealed ? word[j] : pick(word[j]);
+        s.textContent = out;
+        n += word.length + 1;   // +1 for the space, so the reveal keeps its original pace
+      });
+      if (revealed >= text.length) this.stopScramble();
       frame++;
     }, 38);
   };

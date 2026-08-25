@@ -236,6 +236,40 @@ Markup:
 - Under `prefers-reduced-motion` the box appears at full size with no animation.
   Nothing is hidden, only the motion is dropped.
 
+## The headline scramble (`Contact.html`)
+
+The h1 reveals `what you're building.` out of random characters — once on load, and
+again on `pointerenter`. It lives in the page's Component class, not a standalone
+script, because it is one headline on one page.
+
+**The headline is two lines and has to stay two lines while it runs.** Random glyphs
+are wider than the ones they stand in for, so `building.` grew, wrapped, and the h1
+sprouted a third line mid-animation. Two guards fix it and *both* are needed:
+
+- **Every word becomes an `inline-block` locked to the width it finishes at**, so the
+  h1 breaks in exactly the same places whatever is inside the words. Guard 2 alone
+  leaves the break at the mercy of the string — narrower text can pull a word *up*
+  just as easily as wider text pushes one down.
+- **A replacement glyph is never wider than the character it replaces**, measured
+  with `canvas.measureText`. Guard 1 alone would need clipping, and `overflow:
+  hidden` on a `line-height: 1.0` heading cuts the descender off the `g`.
+
+The worst possible scramble of each word measures 0–1.9px *under* its real width, so
+no state can overflow its box. Three things follow from the widths being in px:
+
+- **Measure after `document.fonts.ready`.** Measuring the fallback font locks in
+  boxes that are wrong the moment Space Grotesk lands.
+- **Bail if the element has no width** (background tab, `display: none`). Locking
+  zero-width boxes stacks the headline one character per line. It retries on rAF,
+  which is paused while hidden, so it resumes on show.
+- **Abort on `resize`.** `font-size` is `clamp(36px, 5.4vw, 64px)`, so a resize
+  mid-run leaves every word holding a stale box — that wraps the h1 to four lines.
+  `stopScramble()` snaps to the finished text instead.
+
+Every run rebuilds and re-measures, and the last frame restores plain text, so the
+resting headline is fluid and carries no leftover spans. Verified surviving a form
+`setState` re-render mid-animation, the same way the prism grid was.
+
 ## The hero work reel (`index.html`)
 
 The panel beside the home-page headline cross-fades four real case-study
