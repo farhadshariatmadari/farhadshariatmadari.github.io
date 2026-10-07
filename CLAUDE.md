@@ -270,6 +270,30 @@ Every run rebuilds and re-measures, and the last frame restores plain text, so t
 resting headline is fluid and carries no leftover spans. Verified surviving a form
 `setState` re-render mid-animation, the same way the prism grid was.
 
+## The contact form (`Contact.html`)
+
+Submissions go to **Web3Forms**, which emails them to farhadshariatmadari@gmail.com
+and keeps a copy in its dashboard (Farhad's account, signed up Oct 2026). There
+is no server. The form POSTs `FormData` straight to `api.web3forms.com/submit`.
+It used to open a `mailto:`, which does nothing for anyone without a desktop
+mail app, yet still showed the success screen.
+
+- `WEB3FORMS_KEY` in the Component class is **public by design**. It can only
+  deliver to the inbox it was issued for, so it belongs in the client and in this
+  public repo. Don't move it into a "secret" or strip it before committing.
+- It is a real `<form onSubmit>`, so the browser's own validation (`required`,
+  `type="email"`) runs before `send` does. A valueless `required` attribute is
+  lost in the x-dc runtime, because it reaches React as `""` and React drops a
+  falsy boolean. Hence `required="{{ true }}"`. camelCase props go through the
+  `sc-camel-` prefix (`sc-camel-auto-complete`, `sc-camel-tab-index`).
+- The success screen shows **only on `success: true`** from the API. A failure
+  or a 15s timeout keeps everything the visitor typed and offers the old prefilled
+  `mailto:` as the fallback (`mailtoHref`), so nothing has to be retyped.
+- `botcheck` is Web3Forms' honeypot. It is hidden, and the service drops any
+  submission that has it ticked.
+- `subject` and `from_name` set the notification's subject line and sender name.
+  Replying in Gmail goes to the visitor's `email` field.
+
 ## The hero work reel (`index.html`)
 
 The panel beside the home-page headline cross-fades four real case-study

@@ -28,6 +28,7 @@
   .field::placeholder { color: #9aa3b0; }
   textarea.field { resize: vertical; min-height: 128px; line-height: 1.55; }
   .lbl { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #97a0ad; margin-bottom: 8px; display: block; }
+  .send-btn:disabled { opacity: .65; cursor: progress !important; }
 </style>
 <script src="./prism-grid.js"></script>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
@@ -112,27 +113,35 @@
       </div>
     </div>
 
-    <!-- FORM -->
-    <div style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: clamp(18px, 2.56vw, 32px) clamp(19px, 2.72vw, 34px);">
+    <!-- FORM · posts to Web3Forms, which emails each submission to farhadshariatmadari@gmail.com -->
+    <div aria-live="polite" style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: clamp(18px, 2.56vw, 32px) clamp(19px, 2.72vw, 34px);">
       <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
         <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px 4px;">
           <div style="width: 48px; height: 48px; border-radius: 50%; background: #eaf6f0; color: #22a06b; display: flex; align-items: center; justify-content: center; font-size: 24px;">✓</div>
-          <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 24px; letter-spacing: -0.02em; margin: 0;">Your email is ready to send.</h2>
-          <p style="font-size: 15px; line-height: 1.6; color: #5a6270; margin: 0; max-width: 46ch;">I've opened a pre-filled email in your mail app. If nothing happened, reach me directly at <a href="mailto:farhadshariatmadari@gmail.com">farhadshariatmadari@gmail.com</a>.</p>
+          <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 24px; letter-spacing: -0.02em; margin: 0;">Message sent.</h2>
+          <p style="font-size: 15px; line-height: 1.6; color: #5a6270; margin: 0; max-width: 46ch;">Thanks, {{ name }} — it's in my inbox. I'll reply to <span style="color: #14171c; overflow-wrap: anywhere;">{{ email }}</span>, usually within a day or two.</p>
           <button onClick="{{ reset }}" style="margin-top: 6px; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #14171c; background: #fff; border: 1px solid #d7dbe1; border-radius: 5px; padding: 11px 18px;">Write another</button>
         </div>
       </sc-if>
       <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
-        <div style="display: flex; flex-direction: column; gap: 18px;">
+        <form onSubmit="{{ send }}" style="display: flex; flex-direction: column; gap: 18px; margin: 0;">
           <div class="r-g2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
-            <div><label class="lbl" for="cn">Your name</label><input id="cn" class="field" type="text" placeholder="Jane Doe" value="{{ name }}" onInput="{{ onName }}"></div>
-            <div><label class="lbl" for="ce">Email</label><input id="ce" class="field" type="email" placeholder="jane@company.com" value="{{ email }}" onInput="{{ onEmail }}"></div>
+            <div><label class="lbl" for="cn">Your name</label><input id="cn" class="field" type="text" name="name" sc-camel-auto-complete="name" required="{{ true }}" placeholder="Jane Doe" value="{{ name }}" onInput="{{ onName }}"></div>
+            <div><label class="lbl" for="ce">Email</label><input id="ce" class="field" type="email" name="email" sc-camel-auto-complete="email" required="{{ true }}" placeholder="jane@company.com" value="{{ email }}" onInput="{{ onEmail }}"></div>
           </div>
-          <div><label class="lbl" for="ct">Engagement type</label><select id="ct" class="field" value="{{ type }}" onChange="{{ onType }}"><option>Contract</option><option>Full-time</option><option>Part-time</option><option>Consulting</option><option>Not sure yet</option></select></div>
-          <div><label class="lbl" for="cm">What are you building?</label><textarea id="cm" class="field" placeholder="A few lines about the product, the problem, and timeline…" value="{{ message }}" onInput="{{ onMessage }}"></textarea></div>
-          <button onClick="{{ send }}" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: #2f5cf0; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 15px 24px; border: none; border-radius: 5px;" style-hover="background:#234ad1;">Send message <span style="font-size:16px;">→</span></button>
-          <p style="font-size: 12px; color: #97a0ad; margin: 0; line-height: 1.5;">This opens a pre-filled email in your own mail app — nothing is stored here.</p>
-        </div>
+          <div><label class="lbl" for="ct">Engagement type</label><select id="ct" class="field" name="engagement" value="{{ type }}" onChange="{{ onType }}"><option>Contract</option><option>Full-time</option><option>Part-time</option><option>Consulting</option><option>Not sure yet</option></select></div>
+          <div><label class="lbl" for="cm">What are you building?</label><textarea id="cm" class="field" name="message" required="{{ true }}" placeholder="A few lines about the product, the problem, and timeline…" value="{{ message }}" onInput="{{ onMessage }}"></textarea></div>
+          <!-- honeypot: invisible to people, ticked by form-filling bots; Web3Forms drops any submission that has it -->
+          <input type="checkbox" name="botcheck" sc-camel-tab-index="-1" aria-hidden="true" style="display: none;">
+          <button type="submit" class="send-btn" disabled="{{ sending }}" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: #2f5cf0; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 15px 24px; border: none; border-radius: 5px;" style-hover="background:#234ad1;">
+            <sc-if value="{{ sending }}" hint-placeholder-val="{{ false }}">Sending…</sc-if>
+            <sc-if value="{{ !sending }}" hint-placeholder-val="{{ true }}">Send message <span style="font-size:16px;">→</span></sc-if>
+          </button>
+          <sc-if value="{{ failed }}" hint-placeholder-val="{{ false }}">
+            <p role="alert" style="font-size: 14px; line-height: 1.55; color: #b42318; background: #fef3f2; border: 1px solid #fecdca; border-radius: 7px; padding: 12px 14px; margin: 0;">That didn't go through — your message is still here, so try again in a moment, or <a href="{{ mailtoHref }}" style="color: #b42318; text-decoration: underline;">send it from your mail app</a> instead.</p>
+          </sc-if>
+          <p style="font-size: 12px; color: #97a0ad; margin: 0; line-height: 1.5;">Goes straight to my inbox. Your email is only used to reply to you.</p>
+        </form>
       </sc-if>
     </div>
 
@@ -174,7 +183,10 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { name: '', email: '', type: 'Contract', message: '', sent: false };
+  // Web3Forms access key. Public by design — it can only deliver to the inbox it was
+  // issued for, so it is safe in client code and in this public repo.
+  WEB3FORMS_KEY = '01bddd18-8c7c-4116-89d3-fbb96326f1c3';
+  state = { name: '', email: '', type: 'Contract', message: '', status: 'idle' };   // idle · sending · sent · error
   set(k) { return (e) => this.setState({ [k]: e.target.value }); }
   rippleRef = (el) => {
     if (!el || this._rp === el) return;
@@ -296,18 +308,45 @@ class Component extends DCLogic {
     }, 38);
   };
   renderVals() {
-    const { name, email, type, message, sent } = this.state;
-    const send = () => {
-      const subj = encodeURIComponent(`New project inquiry — ${type}${name ? ' — ' + name : ''}`);
-      const body = encodeURIComponent(
-        `Name: ${name}\nEmail: ${email}\nEngagement: ${type}\n\n${message}`
-      );
-      window.location.href = `mailto:farhadshariatmadari@gmail.com?subject=${subj}&body=${body}`;
-      this.setState({ sent: true });
+    const { name, email, type, message, status } = this.state;
+    const subject = `New project inquiry — ${type}${name ? ' — ' + name : ''}`;
+    // The old mailto flow, kept only as the way out when the request fails, so a
+    // visitor never has to retype what they wrote.
+    const mailtoHref = 'mailto:farhadshariatmadari@gmail.com'
+      + `?subject=${encodeURIComponent(subject)}`
+      + `&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\nEngagement: ${type}\n\n${message}`)}`;
+    // Runs only after the browser's own validation passes (required, type=email).
+    const send = async (e) => {
+      e.preventDefault();
+      if (this.state.status === 'sending') return;
+      // Read the form before the first await — React clears the event's targets after dispatch.
+      const data = new FormData(e.target);
+      data.append('access_key', this.WEB3FORMS_KEY);
+      data.append('subject', subject);
+      data.append('from_name', 'Portfolio contact form');
+      this.setState({ status: 'sending' });
+      // A hung request would leave the button on "Sending…" forever.
+      const ctl = new AbortController();
+      const timer = setTimeout(() => ctl.abort(), 15000);
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST', headers: { Accept: 'application/json' }, body: data, signal: ctl.signal
+        });
+        const out = await res.json().catch(() => ({}));
+        if (!res.ok || !out.success) throw new Error(out.message || 'HTTP ' + res.status);
+        this.setState({ status: 'sent' });
+      } catch (err) {
+        console.warn('Contact form:', err);
+        this.setState({ status: 'error' });
+      } finally {
+        clearTimeout(timer);
+      }
     };
-    const reset = () => this.setState({ sent: false, message: '' });
+    const reset = () => this.setState({ status: 'idle', message: '' });
+    const sent = status === 'sent';
     return {
       name, email, type, message, sent, notSent: !sent,
+      sending: status === 'sending', failed: status === 'error', mailtoHref,
       onName: this.set('name'), onEmail: this.set('email'),
       onType: this.set('type'), onMessage: this.set('message'),
       send, reset, scrambleRef: this.scrambleRef, rippleRef: this.rippleRef
