@@ -281,18 +281,32 @@ mail app, yet still showed the success screen.
 - `WEB3FORMS_KEY` in the Component class is **public by design**. It can only
   deliver to the inbox it was issued for, so it belongs in the client and in this
   public repo. Don't move it into a "secret" or strip it before committing.
-- It is a real `<form onSubmit>`, so the browser's own validation (`required`,
-  `type="email"`) runs before `send` does. A valueless `required` attribute is
-  lost in the x-dc runtime, because it reaches React as `""` and React drops a
-  falsy boolean. Hence `required="{{ true }}"`. camelCase props go through the
-  `sc-camel-` prefix (`sc-camel-auto-complete`, `sc-camel-tab-index`).
+- It is a real `<form onSubmit>`, so the browser's own validation runs before
+  `send` does. A valueless `required` attribute is lost in the x-dc runtime,
+  because it reaches React as `""` and React drops a falsy boolean. Always bind it
+  as `required="{{ … }}"`. camelCase props go through the `sc-camel-` prefix
+  (`sc-camel-auto-complete`, `sc-camel-tab-index`).
+- **Only "email or mobile" is required** (Farhad, Oct 2026). Name and message are
+  optional, and either contact field or both may be filled. Native validation
+  can't say "one of these two", so both carry `required="{{ needContact }}"`.
+  They are required while both are empty and neither is once one has text.
+  `onContactInvalid` swaps in a message that names both fields. A custom validity
+  message sticks until it is cleared, so `setContact` clears it on **both** fields
+  whenever either one changes. Without that, filling in the mobile would leave the
+  email stuck invalid.
+- The mobile `pattern` accepts Persian (`۰–۹`) and Arabic-Indic digits as well as
+  ASCII, because a Persian keyboard types those. Chrome compiles `pattern` with
+  the `v` flag, so `( ) . -` inside the class must stay escaped.
+- Blank fields are deleted from the `FormData` before sending, so the email has no
+  empty rows and Web3Forms never sees a blank `email` to use as the reply-to.
 - The success screen shows **only on `success: true`** from the API. A failure
   or a 15s timeout keeps everything the visitor typed and offers the old prefilled
   `mailto:` as the fallback (`mailtoHref`), so nothing has to be retyped.
 - `botcheck` is Web3Forms' honeypot. It is hidden, and the service drops any
   submission that has it ticked.
 - `subject` and `from_name` set the notification's subject line and sender name.
-  Replying in Gmail goes to the visitor's `email` field.
+  Replying in Gmail goes to the visitor's `email` field (verified). When only a
+  mobile is given there is nothing to reply to, so the number is in the subject.
 
 ## The hero work reel (`index.html`)
 

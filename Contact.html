@@ -119,18 +119,23 @@
         <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 16px; padding: 24px 4px;">
           <div style="width: 48px; height: 48px; border-radius: 50%; background: #eaf6f0; color: #22a06b; display: flex; align-items: center; justify-content: center; font-size: 24px;">✓</div>
           <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 24px; letter-spacing: -0.02em; margin: 0;">Message sent.</h2>
-          <p style="font-size: 15px; line-height: 1.6; color: #5a6270; margin: 0; max-width: 46ch;">Thanks, {{ name }} — it's in my inbox. I'll reply to <span style="color: #14171c; overflow-wrap: anywhere;">{{ email }}</span>, usually within a day or two.</p>
+          <p style="font-size: 15px; line-height: 1.6; color: #5a6270; margin: 0; max-width: 46ch;">{{ thanks }} — it's in my inbox. I'll get back to you at <span style="color: #14171c; overflow-wrap: anywhere;">{{ replyTo }}</span>, usually within a day or two.</p>
           <button onClick="{{ reset }}" style="margin-top: 6px; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: #14171c; background: #fff; border: 1px solid #d7dbe1; border-radius: 5px; padding: 11px 18px;">Write another</button>
         </div>
       </sc-if>
       <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
         <form onSubmit="{{ send }}" style="display: flex; flex-direction: column; gap: 18px; margin: 0;">
-          <div class="r-g2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
-            <div><label class="lbl" for="cn">Your name</label><input id="cn" class="field" type="text" name="name" sc-camel-auto-complete="name" required="{{ true }}" placeholder="Jane Doe" value="{{ name }}" onInput="{{ onName }}"></div>
-            <div><label class="lbl" for="ce">Email</label><input id="ce" class="field" type="email" name="email" sc-camel-auto-complete="email" required="{{ true }}" placeholder="jane@company.com" value="{{ email }}" onInput="{{ onEmail }}"></div>
+          <div><label class="lbl" for="cn">Your name</label><input id="cn" class="field" type="text" name="name" sc-camel-auto-complete="name" placeholder="Jane Doe" value="{{ name }}" onInput="{{ onName }}"></div>
+          <!-- email OR mobile: both are required while both are empty, neither once one has text -->
+          <div>
+            <div class="r-g2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
+              <div><label class="lbl" for="ce">Email</label><input id="ce" class="field" type="email" name="email" sc-camel-auto-complete="email" required="{{ needContact }}" placeholder="jane@company.com" value="{{ email }}" onInput="{{ onEmail }}" onInvalid="{{ onContactInvalid }}"></div>
+              <div><label class="lbl" for="cp">Mobile</label><input id="cp" class="field" type="tel" name="phone" sc-camel-auto-complete="tel" required="{{ needContact }}" pattern="\+?[0-9۰-۹٠-٩\s\(\)\.\-]{7,24}" placeholder="+1 415 555 0132" value="{{ phone }}" onInput="{{ onPhone }}" onInvalid="{{ onContactInvalid }}"></div>
+            </div>
+            <p style="font-size: 12px; color: #97a0ad; margin: 8px 0 0; line-height: 1.5;">Email or mobile — one is enough.</p>
           </div>
           <div><label class="lbl" for="ct">Engagement type</label><select id="ct" class="field" name="engagement" value="{{ type }}" onChange="{{ onType }}"><option>Contract</option><option>Full-time</option><option>Part-time</option><option>Consulting</option><option>Not sure yet</option></select></div>
-          <div><label class="lbl" for="cm">What are you building?</label><textarea id="cm" class="field" name="message" required="{{ true }}" placeholder="A few lines about the product, the problem, and timeline…" value="{{ message }}" onInput="{{ onMessage }}"></textarea></div>
+          <div><label class="lbl" for="cm">What are you building?</label><textarea id="cm" class="field" name="message" placeholder="A few lines about the product, the problem, and timeline…" value="{{ message }}" onInput="{{ onMessage }}"></textarea></div>
           <!-- honeypot: invisible to people, ticked by form-filling bots; Web3Forms drops any submission that has it -->
           <input type="checkbox" name="botcheck" sc-camel-tab-index="-1" aria-hidden="true" style="display: none;">
           <button type="submit" class="send-btn" disabled="{{ sending }}" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: #2f5cf0; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 15px 24px; border: none; border-radius: 5px;" style-hover="background:#234ad1;">
@@ -140,7 +145,7 @@
           <sc-if value="{{ failed }}" hint-placeholder-val="{{ false }}">
             <p role="alert" style="font-size: 14px; line-height: 1.55; color: #b42318; background: #fef3f2; border: 1px solid #fecdca; border-radius: 7px; padding: 12px 14px; margin: 0;">That didn't go through — your message is still here, so try again in a moment, or <a href="{{ mailtoHref }}" style="color: #b42318; text-decoration: underline;">send it from your mail app</a> instead.</p>
           </sc-if>
-          <p style="font-size: 12px; color: #97a0ad; margin: 0; line-height: 1.5;">Goes straight to my inbox. Your email is only used to reply to you.</p>
+          <p style="font-size: 12px; color: #97a0ad; margin: 0; line-height: 1.5;">Goes straight to my inbox. Your details are only used to reply to you.</p>
         </form>
       </sc-if>
     </div>
@@ -186,8 +191,23 @@ class Component extends DCLogic {
   // Web3Forms access key. Public by design — it can only deliver to the inbox it was
   // issued for, so it is safe in client code and in this public repo.
   WEB3FORMS_KEY = '01bddd18-8c7c-4116-89d3-fbb96326f1c3';
-  state = { name: '', email: '', type: 'Contract', message: '', status: 'idle' };   // idle · sending · sent · error
+  state = { name: '', email: '', phone: '', type: 'Contract', message: '', status: 'idle' };   // idle · sending · sent · error
   set(k) { return (e) => this.setState({ [k]: e.target.value }); }
+  // Email and mobile are "one of the two". Native validation can't express that,
+  // so both carry required={needContact} and the browser's own bubble words it.
+  // A custom message sticks until cleared, so typing in EITHER field clears BOTH:
+  // otherwise filling in the mobile would leave the email stuck invalid.
+  setContact(k) {
+    return (e) => {
+      ['ce', 'cp'].forEach((id) => { const el = document.getElementById(id); if (el) el.setCustomValidity(''); });
+      this.setState({ [k]: e.target.value });
+    };
+  }
+  onContactInvalid = (e) => {
+    const v = e.target.validity;
+    if (v.valueMissing) e.target.setCustomValidity('Leave an email or a mobile number so I can get back to you.');
+    else if (v.patternMismatch) e.target.setCustomValidity('Enter a phone number using digits, e.g. +1 415 555 0132.');
+  };
   rippleRef = (el) => {
     if (!el || this._rp === el) return;
     this._rp = el; this._rctx = el.getContext('2d'); this._rmouse = { x: -9999, y: -9999 };
@@ -308,19 +328,24 @@ class Component extends DCLogic {
     }, 38);
   };
   renderVals() {
-    const { name, email, type, message, status } = this.state;
-    const subject = `New project inquiry — ${type}${name ? ' — ' + name : ''}`;
+    const { name, email, phone, type, message, status } = this.state;
+    // Only the email-or-mobile pair is required, so any of these may be blank.
+    const who = name.trim() || email || phone.trim();
+    const subject = `New project inquiry — ${type}${who ? ' — ' + who : ''}`;
     // The old mailto flow, kept only as the way out when the request fails, so a
     // visitor never has to retype what they wrote.
     const mailtoHref = 'mailto:farhadshariatmadari@gmail.com'
       + `?subject=${encodeURIComponent(subject)}`
-      + `&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\nEngagement: ${type}\n\n${message}`)}`;
-    // Runs only after the browser's own validation passes (required, type=email).
+      + `&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\nMobile: ${phone}\nEngagement: ${type}\n\n${message}`)}`;
+    // Runs only after the browser's own validation passes (email-or-mobile, formats).
     const send = async (e) => {
       e.preventDefault();
       if (this.state.status === 'sending') return;
       // Read the form before the first await — React clears the event's targets after dispatch.
       const data = new FormData(e.target);
+      // Blank optional fields would arrive as empty rows in the email, and a blank
+      // `email` is what Web3Forms would try to use as the reply-to.
+      for (const [k, v] of [...data]) if (typeof v === 'string' && !v.trim()) data.delete(k);
       data.append('access_key', this.WEB3FORMS_KEY);
       data.append('subject', subject);
       data.append('from_name', 'Portfolio contact form');
@@ -345,9 +370,13 @@ class Component extends DCLogic {
     const reset = () => this.setState({ status: 'idle', message: '' });
     const sent = status === 'sent';
     return {
-      name, email, type, message, sent, notSent: !sent,
+      name, email, phone, type, message, sent, notSent: !sent,
+      needContact: !email.trim() && !phone.trim(), onContactInvalid: this.onContactInvalid,
+      thanks: name.trim() ? `Thanks, ${name.trim()}` : 'Thanks',
+      // no-break spaces: a phone number split across two lines reads as two numbers
+      replyTo: email || phone.trim().replace(/ /g, ' '),
       sending: status === 'sending', failed: status === 'error', mailtoHref,
-      onName: this.set('name'), onEmail: this.set('email'),
+      onName: this.set('name'), onEmail: this.setContact('email'), onPhone: this.setContact('phone'),
       onType: this.set('type'), onMessage: this.set('message'),
       send, reset, scrambleRef: this.scrambleRef, rippleRef: this.rippleRef
     };
