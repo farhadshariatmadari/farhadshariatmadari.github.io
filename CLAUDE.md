@@ -498,6 +498,41 @@ Things learned getting it to work:
 - The hidden preview pane pauses rAF, so GSAP looks dead there (`ticker.frame`
   stays 0). It was verified in headless Chrome over CDP instead.
 
+## The border glow (`border-glow.js`)
+
+A vanilla port of React Bits' `<BorderGlow>` in its light-surface settings.
+While the pointer is over a card, the edge nearest it gets a mesh-gradient
+border (signal blue, violet, pink, the prism grid's colours) and a soft blue
+glow. Nothing shows at the centre, and it strengthens toward the edge.
+`data-border-glow` on the card is all it takes. It's on the home page's 4
+testimonial cards and all 9 Work cards (Trio flagship + the grid), and the
+script loads on those two pages only.
+
+- **No element is injected.** The original appends an `.edge-light` span, and
+  here that would become the card's last child. Work's flagship is an
+  `.r-strip`, and responsive.css hangs its stacked dividers off
+  `> *:last-child`, so the image cell would grow a stray border. The border
+  is the card's `::before`, the glow its `::after`, and the script only
+  writes `--edge-proximity` and `--cursor-angle`. The original's third layer,
+  a faint fill inside the edge (0.22 on light), is dropped because it needs
+  a third box.
+- Both layers are `z-index: -1` inside the card's own stacking context
+  (`isolation: isolate`): above its background, below its text. They sit at
+  `inset: -1px` so the colour replaces the 1px grey border rather than doubling
+  it. That assumes a 1px border and a `#fff` card (`--bg-card` overrides it).
+- **The card has to be `overflow: visible`** (forced with `!important`) or it
+  clips its own glow. The glow's mask is drawn larger than the card with
+  `mask-clip: no-clip` so the outset shadows survive it. Losing the clip cost
+  Work's flagship its rounded image corners, so `.wk-flag-shot` gives the image
+  its own (right side, then bottom once it stacks at 860).
+- Inside `@media (hover: hover)` only, so touch layouts are untouched,
+  `overflow` included. A tap would leave `:hover` stuck on.
+- Verified in headless Chrome with real mouse moves on both pages: centre 0,
+  edges 0.79–0.96, fades out on leave. No x-overflow at 320/375/768/1440, the
+  flagship keeps 2 children, no console errors. To test a hover, wait for a
+  card's GSAP reveal to finish first. The card rises 28px, the pointer ends
+  up outside it, and `:hover` drops while the last proximity reading stays.
+
 ## The headline scramble (`Contact.html`)
 
 The h1 reveals `what you're building.` out of random characters — once on load, and
