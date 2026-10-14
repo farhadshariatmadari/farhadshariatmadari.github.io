@@ -183,6 +183,7 @@
 <script src="./smooth-scroll.js"></script>
 <script src="./border-glow.js"></script>
 <script src="./spotlight-card.js"></script>
+<script src="./pixel-card.js"></script>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 </helmet>
 
@@ -493,7 +494,10 @@
 <!-- ============ CTA ============ -->
 <section style="padding: 0 clamp(22px, 3.2vw, 40px) clamp(53px, 7.68vw, 96px);">
   <div style="border-radius: 14px; background: #14171c; color: #f6f7f9; padding: clamp(40px, 5.76vw, 72px) clamp(31px, 4.48vw, 56px); position: relative; overflow: hidden;">
-    <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
+    <!-- data-pixel-card: pixel-card.js draws its canvas into this grid layer,
+         which React renders empty. Hovering the box blooms pixels out of the
+         pointer, over the grid and under the copy. See pixel-card.js. -->
+    <div data-pixel-card style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
     <div style="position: relative;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6f7a8a; margin-bottom: 20px;">// let's talk</div>
       <h2 data-gsap="split-lines" style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(30px, 4.4vw, 52px); line-height: 1.02; letter-spacing: -0.025em; margin: 0 0 20px; max-width: 18ch;">Have a complex problem that needs a clear product?</h2>

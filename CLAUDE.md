@@ -563,6 +563,37 @@ focus, and under reduced motion jumps instead of easing.
   gone at 200px, and runs on seamlessly under the glowing edge. Flagship
   children unchanged, no x-overflow, no console errors.
 
+## The pixel field (`pixel-card.js`)
+
+A vanilla port of React Bits' `<PixelCard>` (dark theme, its "blue" variant
+re-hued to signal blue) on the home page's dark CTA ("Have a complex problem…").
+On hover, pixels on an 8px pitch (six per 48px grid cell) ripple out from the
+pointer with a blue glow, and the ones near the cursor swell after it on a
+spring. A press sends a pulse ring across, and leaving drains them toward
+the edges. It plays once by itself the first time the box scrolls into view.
+Keyboard focus (`:focus-visible` only, so clicking the mail button doesn't
+pin it on) counts as hover.
+
+- `data-pixel-card` goes on an element React renders **empty** inside a
+  `position: relative; overflow: hidden` box. On the CTA that's the existing
+  48px grid layer, so the canvas sits over the grid lines and under the copy.
+  The box (the host's parent) is what takes the pointer. Same trick as the
+  prism grid.
+- Only hosts with a box get mounted. The raw x-dc template is in the DOM under
+  `display: none` until render, and mounting into it would size the canvas
+  to 0.
+- Left out: the original's variants, shapes and `trigger` modes (the chosen
+  values are constants at the top), and its card chrome (surface, edge
+  highlight, tabIndex). The CTA has its own, and its links are focusable.
+- Reduced motion: no twinkle, flash, pulse or intro, and hover shows the field
+  at once. The rAF loop stops when the field is settled or off screen.
+- The other dark "let's talk" boxes (About, Work, How I Work) don't have it.
+  Adding it is one attribute plus the script tag.
+- Verified in headless Chrome: canvas = box size (1160×500 at 1440), dark
+  before view, intro lights ~38k px then clears, hover lights it and leave
+  clears it, idle afterwards. Headline still hit-tests above the canvas, no
+  x-overflow, no console errors.
+
 ## The headline scramble (`Contact.html`)
 
 The h1 reveals `what you're building.` out of random characters — once on load, and
