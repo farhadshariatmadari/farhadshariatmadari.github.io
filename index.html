@@ -167,11 +167,20 @@
   @media (prefers-reduced-motion: reduce) {
     .cs-card-go, .cs-row-arrow { transition: none; }
   }
+  /* The hero window drifts against the headline beside it. At 1020px and
+     under it wraps below the headline instead, sits ~50px off the hero's
+     clipped floor, and sank up to 32px through it. smooth-scroll.js stops
+     parallax itself at 860, so this covers the strip in between. */
+  @media (max-width: 1024px) { .hero-shot { translate: none !important; } }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="./vendor/gsap/gsap.min.js"></script>
+<script src="./vendor/gsap/ScrollTrigger.min.js"></script>
+<script src="./vendor/gsap/SplitText.min.js"></script>
+<script src="./motion.js"></script>
 <script src="./prism-grid.js"></script>
 <script src="./pointer-highlight.js"></script>
 <script src="./vector-mark.js"></script>
+<script src="./smooth-scroll.js"></script>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 </helmet>
 
@@ -223,7 +232,12 @@
        back; left alone, a "Farhad" cursor edits it. See vector-mark.js and the
        "hero mark" CSS above. The avatar is that cursor's, as a design tool's
        multiplayer bar would show it. -->
-  <div class="rise" style="animation-delay:.3s; flex: 0 1 460px; min-width: min(100%, 320px);">
+  <!-- data-speed: the window sinks slowly behind the headline as the page
+       scrolls away. rest="entry" so it loads exactly where it was designed.
+       Off once it wraps below the headline (.hero-shot, in <style>).
+       .rise animates `transform` and parallax writes `translate`, so they
+       don't touch each other. No data-gsap here: the hero is motion.js-free. -->
+  <div class="rise hero-shot" data-speed="0.08" data-speed-rest="entry" style="animation-delay:.3s; flex: 0 1 460px; min-width: min(100%, 320px);">
     <div style="border: 1px solid #e2e5ea; border-radius: 12px; background: rgba(255,255,255,.72); backdrop-filter: blur(6px); box-shadow: 0 30px 60px -40px rgba(20,23,28,.32); overflow: hidden;">
       <div style="display: flex; align-items: center; gap: 8px; padding: 11px 16px; border-bottom: 1px solid #eef0f3;">
         <span style="width:9px;height:9px;border-radius:50%;background:#e2e5ea;"></span>
@@ -244,25 +258,25 @@
 
 <!-- ============ STATS BAR ============ -->
 <section style="padding: 0 clamp(22px, 3.2vw, 40px);">
-  <div class="r-strip r-c5" style="border: 1px solid #e2e5ea; border-radius: 8px; background: #fff; display: grid; grid-template-columns: repeat(5, 1fr); overflow: hidden;">
+  <div class="r-strip r-c5" data-gsap="fade-up" data-gsap-stagger="70" style="border: 1px solid #e2e5ea; border-radius: 8px; background: #fff; display: grid; grid-template-columns: repeat(5, 1fr); overflow: hidden;">
     <div style="padding: clamp(16px, 2.24vw, 28px) 24px; border-right: 1px solid #eef0f3;">
-      <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; line-height: 1;">8</div>
+      <div data-gsap="count" style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; line-height: 1;">8</div>
       <div style="font-size: 12.5px; color: #5a6270; line-height: 1.45; margin-top: 8px;">years of product design experience</div>
     </div>
     <div style="padding: clamp(16px, 2.24vw, 28px) 24px; border-right: 1px solid #eef0f3;">
-      <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; line-height: 1;">500K+</div>
+      <div data-gsap="count" style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; line-height: 1;">500K+</div>
       <div style="font-size: 12.5px; color: #5a6270; line-height: 1.45; margin-top: 8px;">downloads for Safes, up from 500</div>
     </div>
     <div style="padding: clamp(16px, 2.24vw, 28px) 24px; border-right: 1px solid #eef0f3;">
-      <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; line-height: 1; color: #2f5cf0;">7×</div>
+      <div data-gsap="count" style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; line-height: 1; color: #2f5cf0;">7×</div>
       <div style="font-size: 12.5px; color: #5a6270; line-height: 1.45; margin-top: 8px;">conversion lift on DigiKala Mehr</div>
     </div>
     <div style="padding: clamp(16px, 2.24vw, 28px) 24px; border-right: 1px solid #eef0f3;">
-      <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; line-height: 1;">3</div>
+      <div data-gsap="count" style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; line-height: 1;">3</div>
       <div style="font-size: 12.5px; color: #5a6270; line-height: 1.45; margin-top: 8px;">first-of-their-kind products in Iran</div>
     </div>
     <div style="padding: clamp(16px, 2.24vw, 28px) 24px;">
-      <div style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; line-height: 1;">3</div>
+      <div data-gsap="count" style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -0.02em; line-height: 1;">3</div>
       <div style="font-size: 12.5px; color: #5a6270; line-height: 1.45; margin-top: 8px;">markets shipped: Iran, UAE, Greece</div>
     </div>
   </div>
@@ -388,7 +402,7 @@
   </div>
 
   <!-- clickable project index, synced to the stack -->
-  <nav class="cs-list" ref="{{ listRef }}" aria-label="All projects">
+  <nav class="cs-list" ref="{{ listRef }}" aria-label="All projects" data-gsap="fade-up" data-gsap-stagger="45">
     <a class="cs-row" href="Trio" data-idx="0"><span class="cs-row-n">01</span><span class="cs-row-name">Trio</span><span class="cs-row-tag">Enterprise · UEM / MDM</span><span class="cs-row-metric">4.9★ G2 · Gitex</span><span class="cs-row-arrow">→</span></a>
     <a class="cs-row" href="Behinto" data-idx="1"><span class="cs-row-n">02</span><span class="cs-row-name">Behinto</span><span class="cs-row-tag">AI-first · Healthcare</span><span class="cs-row-metric">In pilot · 2026</span><span class="cs-row-arrow">→</span></a>
     <a class="cs-row" href="DigiKala-Mehr" data-idx="2"><span class="cs-row-n">03</span><span class="cs-row-name">DigiKala Mehr</span><span class="cs-row-tag">Charity commerce · Digikala</span><span class="cs-row-metric">0.4% → 2.8%</span><span class="cs-row-arrow">→</span></a>
@@ -405,7 +419,7 @@
 <!-- ============ LOGO BAR ============ -->
 <section style="padding: clamp(35px, 5.12vw, 64px) clamp(22px, 3.2vw, 40px);">
   <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad; margin-bottom: 28px; text-align: center;">Trusted with the work at</div>
-  <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px clamp(24px, 3.52vw, 44px); font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 20px; color: #8b93a0;">
+  <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 16px clamp(24px, 3.52vw, 44px); font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 20px; color: #8b93a0;" data-gsap="fade" data-gsap-stagger="90">
     <span>Digikala</span>
     <span>Keshavarzi Bank</span>
     <span>Sharif University · AICT</span>
@@ -420,12 +434,12 @@
   <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 24px; margin-bottom: 40px; flex-wrap: wrap;">
     <div>
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad; margin-bottom: 12px;">// what people say</div>
-      <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 32px; letter-spacing: -0.02em; margin: 0;">Managers and teammates, in their words.</h2>
+      <h2 data-gsap="split-words" style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 32px; letter-spacing: -0.02em; margin: 0;">Managers and teammates, in their words.</h2>
     </div>
     <a href="https://www.linkedin.com/in/farhadshariatmadari/" style="font-family: 'JetBrains Mono', monospace; font-size: 13px; white-space: nowrap;">Recommendations on LinkedIn →</a>
   </div>
 
-  <div class="r-g2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+  <div class="r-g2" data-gsap="fade-up" data-gsap-stagger="110" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
 
     <figure style="border: 1px solid #e2e5ea; border-radius: 12px; background: #fff; padding: clamp(19px, 2.72vw, 34px) clamp(20px, 2.88vw, 36px) clamp(16px, 2.4vw, 30px); margin: 0; display: flex; flex-direction: column;">
       <blockquote style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: 19px; line-height: 1.45; letter-spacing: -0.01em; margin: 0 0 auto; color: #14171c;">“Farhad has a rare combination of strong design skills, product thinking, and technical understanding. He doesn't just make things look good — he asks the right questions, challenges assumptions, and keeps the user experience at the center of every decision.”</blockquote>
@@ -480,9 +494,9 @@
     <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
     <div style="position: relative;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6f7a8a; margin-bottom: 20px;">// let's talk</div>
-      <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(30px, 4.4vw, 52px); line-height: 1.02; letter-spacing: -0.025em; margin: 0 0 20px; max-width: 18ch;">Have a complex problem that needs a clear product?</h2>
-      <p style="font-size: 17px; line-height: 1.6; color: #a7afba; max-width: 52ch; margin: 0 0 36px;">I work remotely with international clients and hybrid in Tehran — contract, full-time, or consulting. Tell me what you're building.</p>
-      <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center;">
+      <h2 data-gsap="split-lines" style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(30px, 4.4vw, 52px); line-height: 1.02; letter-spacing: -0.025em; margin: 0 0 20px; max-width: 18ch;">Have a complex problem that needs a clear product?</h2>
+      <p data-gsap="fade-up" data-gsap-delay="250" style="font-size: 17px; line-height: 1.6; color: #a7afba; max-width: 52ch; margin: 0 0 36px;">I work remotely with international clients and hybrid in Tehran — contract, full-time, or consulting. Tell me what you're building.</p>
+      <div data-gsap="fade-up" data-gsap-delay="400" data-gsap-stagger="90" style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center;">
         <a href="mailto:farhadshariatmadari@gmail.com" class="r-mailbtn" style="display: inline-flex; align-items: center; gap: 10px; background: #2f5cf0; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 15px 24px; border-radius: 5px;" style-hover="background:#3f6bff;"><span class="r-mailbtn-t">farhadshariatmadari<wbr>@gmail.com</span> <span style="font-size:16px;">→</span></a>
         <a href="https://www.linkedin.com/in/farhadshariatmadari/" style="display: inline-flex; align-items: center; gap: 10px; color: #f6f7f9; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 15px 24px; border-radius: 5px; border: 1px solid #33383f;" style-hover="border-color:#5a6270;">LinkedIn</a>
       </div>

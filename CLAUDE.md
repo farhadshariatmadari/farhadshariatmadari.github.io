@@ -236,6 +236,268 @@ Markup:
 - Under `prefers-reduced-motion` the box appears at full size with no animation.
   Nothing is hidden, only the motion is dropped.
 
+## Smooth scroll (`smooth-scroll.js`)
+
+[Lenis](https://lenis.dev) 1.3.26, on all 14 pages, as one line in each
+`<helmet>`: `<script src="./smooth-scroll.js"></script>`. It eases wheel and
+trackpad scrolling over the browser's real scroll, so `scrollY`, `position:
+sticky`, IntersectionObserver and back-button restoration are all untouched.
+Touch stays native (`syncTouch` off).
+
+The file loads Lenis from unpkg itself (pinned, with SRI) instead of taking a
+second `<script>` tag, because x-dc re-creates helmet scripts with
+`createElement`, which makes them async, and two tags would run in network
+order. If unpkg is down the page just scrolls natively. Upgrading means changing
+`SRC` and `SRI` together:
+
+```bash
+curl -s https://unpkg.com/lenis@X.Y.Z/dist/lenis.min.js | openssl dgst -sha384 -binary | openssl base64 -A
+```
+
+What page markup can use, anywhere:
+
+| Markup | Effect |
+|---|---|
+| `<a href="#id">` | glides there, landing just under the sticky header |
+| `data-scroll-to="#id"` / `"top"` / `"bottom"` / px / selector | the same, on any element |
+| `data-scroll-offset="-24"` · `data-scroll-duration="1.6"` | optional, with either of the above |
+| `data-speed="0.15"` | parallax. 0.1–0.3 sinks it, negative lifts it |
+| `data-speed-rest="entry"` | with `data-speed`: rests at entry, then drifts one way (below) |
+| `data-lenis-prevent` | native scroll inside that element |
+
+From scripts: `window.smoothScroll.to(target, opts)`, which works whether
+or not Lenis loaded, and `window.lenis` once it has.
+
+- **`allowNestedScroll: true` is load-bearing.** Behinto and Medio put tall
+  screenshots in 560px `overflow-y: auto` frames, and Contact has a textarea.
+  Without the option, the wheel over them scrolls the page and the frames
+  become unscrollable with a mouse. At a frame's end the wheel passes back to
+  the page.
+- **The header height is written to `<html>`'s `scroll-padding-top`.** Lenis's
+  `scrollTo` reads that, so anchors clear the header, and the browser's focus
+  scrolling reads it too. It is re-measured on resize and before every scroll,
+  because the nav changes height at its breakpoints.
+- **Nothing that needs page markup runs until the markup exists.** x-dc mounts
+  into `#dc-root` *after* the load event, and with Lenis cached, `start()` can
+  run before there is a header. `waitFor()` polls on rAF. The same timing means
+  the browser's own jump to a `#hash` on arrival finds nothing, so
+  `landOnHash()` does it once the target exists and fonts are ready. It never
+  overrides a back/forward restore.
+- **Every lookup goes through `live()`.** Before x-dc renders, the raw markup
+  sits in the document under `display: none`, with the same header and the
+  same ids. `live()` takes the first match that has a box, so the hidden copy
+  can't be measured (a 0px header) or landed on.
+- Under `prefers-reduced-motion`, Lenis stops easing the wheel and makes
+  `scrollTo` instant (`respectReducedMotion`), and parallax is off.
+- lenis.dev's "templates" are Framer sites. They don't port to this runtime.
+  Lenis itself is the only part that does.
+
+### Parallax (`data-speed`)
+
+**Every hero that has two or more layers to drift against each other.** That
+means five places. Farhad asked for it everywhere (Oct 2026), and these are
+everywhere it means something:
+
+| Page | Element | Speed | Rest | Off at |
+|---|---|---|---|---|
+| `index.html` | hero "farhad.fig" window (`.hero-shot`) | `0.08` | entry | ≤1024 (wraps under the h1) |
+| `About.html` | `.about-hero-art` sketch | `0.1` | entry | 860 (goes static) |
+| `Medio.html` | laptop / phone wrappers (`.md-hero-shot`) | `0.05` / `-0.07` | centre | ≤900 (stacks) |
+| `Behinto.html` | outer / middle phone wrappers (`.bh-hero-shot`) | `0.04` / `-0.06` | centre | ≤1000 (wraps) |
+| `Zeero.html` | the two outer phones | `0.06` | entry | 860 (wraps under ~800) |
+
+All five were swept in headless Chrome at 880–1920 wide. On screen, no
+element runs into another or into a frame edge it doesn't already stand on.
+Edge-standers (Zeero, About) never lift off their edge.
+
+**Deliberately left out.** Trio and DigiKala Mehr: one browser-framed
+screenshot, so there's nothing to drift against. Drifting the whole frame
+against the text just reads as lag. Agrino, Safes, Vendora, Sharif AICT:
+hatch placeholders, so they get it when their real screens do. Work: its one
+image is cover-cropped to an exact fit, with no slack to pan. How I Work,
+Contact: text only. Screenshots in body sections: they're content to read,
+and some are the nested-scroll frames.
+
+**Never on an element that has `data-gsap`.** GSAP's CSSPlugin folds an
+existing `translate` into its own transform when it sets a tween up, and
+writes `translate: none`. The offset then counts twice for the whole reveal,
+and motion.js's restore snaps it back: a 24–34px jump at the end of Medio's
+hero fade-up. The script skips any element that has both and logs a warning.
+Put `data-speed` on a wrapper that owns position (flex sizing, any baseline
+offset), and leave `data-gsap` on the element inside, which owns appearance.
+Medio and Behinto are built that way. Behinto's outer phones also had their
+`translateY(14px)` drop on the figure, so the fade-up animated it to 0 and
+motion.js snapped it back. It is on the wrapper now. `tools/motion-attrs.py`
+on the GSAP side refuses to mark anything carrying `data-speed`.
+
+- **Two resting points.** By default an element sits as designed when its
+  centre crosses the viewport's, and drifts both ways from there, which keeps
+  the offset on screen small. `data-speed-rest="entry"` makes it sit as
+  designed when it comes into view (or at load, if it's already in view), and
+  then drift one way only. Use `entry` for anything standing on a clipping
+  edge: under the default it rises while below centre and opens a gap under
+  itself. Use it for hero visuals too, so the page loads exactly as designed.
+  Medio and Behinto use the default because their stages are mid-screen: with
+  `entry`, one-way drift reaches twice the offset by the time the stage leaves.
+- It writes the individual `translate` property, not `transform`, so it
+  composes with an existing transform and React never resets it. It is clamped
+  to ±1 viewport × speed, so an off-screen element can't stretch the page. For
+  an image moving inside its frame, make the image taller (`height: 120%`) and
+  give the frame `overflow: hidden`.
+- **It only runs on `(hover: hover) and (pointer: fine) and (min-width:
+  861px)`.** Touch scrolling runs on the compositor and a JS translate trails it
+  by a frame, which reads as jitter. Under 861px everything is one column.
+- **A page switches one element off at its own breakpoint with `translate:
+  none !important`.** The script checks the computed `translate`, so it doesn't
+  subtract an offset that was never applied. Three heroes need this (the
+  "Off at" column above). Medio's wraps under ~895px, and stacked, the sinking
+  laptop and rising phone ran 28px into each other at 880. Any composition that
+  wraps needs the same check, because elements with opposite speeds
+  **converge** once they stack. Find the wrap width by measuring, not
+  arithmetic: flex wraps on the items' *basis*, not their min-width. The home
+  hero's 460 + 460 + gap makes it wrap at 1020, where the arithmetic said 847.
+- **A translated element paints above every plain sibling that follows it.**
+  Like `transform`, it lifts the element into the positioned paint layer. The
+  laptop's `0 28px 70px` shadow would have drawn over the hero's caption bar,
+  which used to sit over it. The bar now has `position: relative` to restore
+  the order, on Medio and on Behinto. Check what comes after anything you give
+  `data-speed`.
+
+### Testing it
+
+The hidden preview pane pauses rAF **and ResizeObserver**. Lenis then never
+ticks, and if it started before x-dc rendered, it believes the page is 0px tall
+and clamps every scroll to 0, which looks like a bug in this file. The pane is
+fine for logic if you drive frames by hand (`setTimeout` +
+`lenis.raf(performance.now())`). Anything about real wheels was verified in
+headless Chrome over CDP instead: `Input.dispatchMouseEvent` with `type:
+'mouseWheel'` sends a trusted wheel, which is the only way to prove a nested
+frame really scrolls. A synthetic `WheelEvent` has no default action, so it can
+only show that Lenis didn't call `preventDefault`. Two traps in that setup:
+
+- On a cold cache, React takes ~2.2s from unpkg and Lenis lands ~0–200ms
+  after it. Poll for `window.lenis` rather than sleeping a fixed 3s.
+- Don't `scrollIntoView` and wheel straight away while Lenis is still easing a
+  previous wheel. Its animation overrides the native jump, the target slides
+  out from under the cursor, and the wheel lands on the page.
+
+## GSAP (`vendor/gsap/` + `motion.js`)
+
+GSAP **3.15.0** is self-hosted in `vendor/gsap/`: the core and every plugin,
+minified, copied from the npm package (all plugins are free since 3.13, including
+SplitText, MorphSVG, DrawSVG, ScrollSmoother). No CDN. Upgrade by replacing the
+folder from `npm pack gsap@<version>`. `index.html`'s card stack loads the core
+from there too. It used to load 3.12.5 from cdnjs, and 3.15 was verified cycling
+and swapping the deck with no console errors.
+
+`motion.js` is a set of declarative presets for page markup. **It runs on all 14
+pages, everywhere below the hero.**
+
+- **`index.html` was choreographed by hand.** It covers the metrics strip (cells
+  staggered + `count` on the five numbers), the project index rows, the logo
+  bar, the testimonials (h2 `split-words`, cards staggered), and the CTA (h2
+  `split-lines`, then copy and buttons). The hero is left alone because it
+  already has its own `.anim` blur-in and the *avoid* highlight. The card stack
+  is left alone because GSAP owns it.
+- **The other 13 pages are marked by `tools/motion-attrs.py`**, which applies the
+  same treatment by rule:
+
+  | Element | Preset |
+  |---|---|
+  | `h2` | `split-words`, or `split-lines` when it is a large heading |
+  | `.r-gN` / `.r-strip` grids | children staggered in |
+  | `.r-num` step rows | each row fades up |
+  | screenshot frames (an `img`'s parent) | fade up |
+  | big numbers | `count` |
+  | the dark CTA box | heading, then paragraph, then buttons, as on home |
+
+  Re-run it after a Claude Design re-export, after `responsive-classes.py`
+  (it reads the `.r-*` classes that script adds). It is idempotent:
+
+  ```bash
+  python3 tools/motion-attrs.py          # --check to preview
+  ```
+
+  The script leaves alone:
+  - the nav, the hero (the `<section>` holding the `<h1>`), and the footer
+  - anything inside `<sc-if>`, which only mounts on a state change
+  - any heading that carries a pointer highlight. SplitText would tear out the
+    injected `.ph-fx`
+  - anything whose ancestor already animates. One element never moves inside
+    another that is moving; `count` is the exception, since it changes only text
+  - **any element with `data-speed`**
+
+  `count` skips years, step numbers like "01" (the leading zero would be lost),
+  values under 3, and either side of a "before → after" pair. Counting "0.4%" up
+  from 0 says the opposite of what "0.4% → 2.8%" means.
+- **Never put `data-gsap` and `data-speed` on the same element.**
+  `smooth-scroll.js` writes its parallax as `translate`. GSAP folds that into
+  its own transform, and `restore()` then snaps it back, which showed as a
+  24–34px jump on Medio's hero. Wrap one element inside the other. Both scripts
+  guard against it.
+- **Testing:** pages take a few seconds longer to become ready now that Lenis
+  loads from unpkg. A headless test that scrolls before render sees nothing
+  fire, so wait about 5s first. All 13 pages were verified that way: every
+  element played and restored its inline style exactly, the counters ended on
+  the real text, and there were no console errors and no horizontal overflow.
+
+To add it to a new page, put four lines in its `<helmet>`, in this order:
+
+```html
+<script src="./vendor/gsap/gsap.min.js"></script>
+<script src="./vendor/gsap/ScrollTrigger.min.js"></script>
+<script src="./vendor/gsap/SplitText.min.js"></script>  <!-- split-* only -->
+<script src="./motion.js"></script>
+```
+
+Then `data-gsap="fade-up"` on any element. The element plays once when it scrolls
+in. Presets: `fade`, `fade-up`, `fade-down`, `from-left`, `from-right`,
+`scale-in`, `blur-in`, `clip-up`, `split-lines`, `split-words`, `split-chars`,
+`count`. Options: `data-gsap-delay` / `-duration` / `-stagger` (ms, matching
+`data-ph-delay`), `-start`. `data-gsap-stagger` animates the element's children
+instead of the element. Parallax is deliberately left out; use `data-speed`
+from `smooth-scroll.js`.
+
+Things learned getting it to work:
+
+- **x-dc runs every `<helmet>` script twice.** The raw `<x-dc>` markup is parsed
+  into the body under `display:none`, which runs the scripts once, in order. Then
+  x-dc re-inserts them into `<head>`, which runs them again. The second
+  `gsap.min.js` replaces `window.gsap` with a separate instance. `motion.js`
+  therefore captures `gsap`, `ScrollTrigger` and `SplitText` at its first run and
+  only ever uses those. A bare `ScrollTrigger.refresh()` would hit the copy
+  that owns no triggers. `window.__motion.gsap` / `.ScrollTrigger` is the copy
+  to inspect from the console.
+- **It skips anything inside `x-dc`**. That is the hidden raw template, and a
+  trigger measured on a `display:none` element fires at once.
+- **Not `clamp()` on the start.** It lifts anything already in view to a start of
+  exactly 0, and at `scrollY` 0 that doesn't count as entered, so the first
+  screen stayed hidden until the visitor scrolled. The default start is `top 88%`
+  as a function, capped at `maxScroll − 1` so the last element on a page can
+  still be reached.
+- **One-shot presets snapshot the element's inline style and put it back
+  exactly** when they finish. That covers `opacity`, `transform`, the individual
+  `translate`/`rotate`/`scale` that GSAP sets to `none`, `filter` and `clip-path`.
+  The export keeps layout and dimmed opacity (`.6`) inline, and a leftover GSAP
+  transform becomes a baseline later GSAP work can't clear (landmine 1 of the
+  card stack). Verified: a `.6` label returns to `.6`, and a `rotate(2deg)`
+  element returns to `rotate(2deg)`.
+- **Motion is relative to where the element already rests.** `basic()` reads
+  each target's resting `x`/`y`/`scale` (`gsap.getProperty`) and animates from
+  rest + offset back to rest. It used to animate `y` to an absolute 0, so an
+  element sitting on an inline `translateY(14px)` lost its offset for the whole
+  reveal, and `restore()` snapped it back at the end. That was Behinto's outer
+  hero phones. Verified: `translateY(14px)` runs 42 → 14 with no snap, and
+  `scale(1.1)` runs 1.034 → 1.1.
+- `count` writes into React's own text node (`nodeValue`), not `textContent`, and
+  ends on the original string. The element must hold plain text only.
+- `split-*` swaps the element's children while it runs, then reverts to HTML. React's
+  text nodes are gone after that. Use it only on static copy, never on text a
+  `setState` changes, and not on the Contact h1 (the scramble owns it).
+- Reduced motion: nothing animates, and everything is simply in place.
+- The hidden preview pane pauses rAF, so GSAP looks dead there (`ticker.frame`
+  stays 0). It was verified in headless Chrome over CDP instead.
+
 ## The headline scramble (`Contact.html`)
 
 The h1 reveals `what you're building.` out of random characters — once on load, and

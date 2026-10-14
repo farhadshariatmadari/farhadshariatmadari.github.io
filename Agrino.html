@@ -26,7 +26,12 @@
   a:hover { color: #234ad1; }
   ::selection { background: #2f5cf0; color: #fff; }
 </style>
+<script src="./smooth-scroll.js"></script>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<script src="./vendor/gsap/gsap.min.js"></script>
+<script src="./vendor/gsap/ScrollTrigger.min.js"></script>
+<script src="./vendor/gsap/SplitText.min.js"></script>
+<script src="./motion.js"></script>
 </helmet>
 
 <div style="max-width: 1240px; margin: 0 auto;">
@@ -79,7 +84,7 @@
     <div>
       <p style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: clamp(20px, 2.4vw, 28px); line-height: 1.4; letter-spacing: -0.015em; margin: 0 0 40px; color: #14171c; max-width: 38ch;">A chat-centric super-app for farmers: market information, weather alerts, access to agriculture experts, and commerce — with AI running through all of it.</p>
       <p style="font-size: 16px; line-height: 1.7; color: #3a414d; max-width: 62ch; margin: 0;">Consultation chatbots for crop and livestock farmers, AI-powered search for buying and selling products, and custom AI assistants that large agribusinesses can configure for themselves — all answering from documents approved by Keshavarzi Bank.</p>
-      <div class="r-strip r-c3" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid #e2e5ea; border-radius: 8px; background: #fff; overflow: hidden; margin-top: 32px;">
+      <div data-gsap="fade-up" data-gsap-stagger="70" class="r-strip r-c3" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid #e2e5ea; border-radius: 8px; background: #fff; overflow: hidden; margin-top: 32px;">
         <div style="padding: 20px 22px; border-right: 1px solid #eef0f3;">
           <div style="font-family:'JetBrains Mono',monospace; font-size: 11px; color: #97a0ad; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">Client</div>
           <div style="font-size: 14px; line-height: 1.5;">Keshavarzi Bank of Iran (Agricultural Bank)</div>
@@ -102,7 +107,7 @@
   <div class="r-side" style="border-top: 1px solid #e2e5ea; padding-top: clamp(26px, 3.84vw, 48px); display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px);">
     <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// problem</div>
     <div>
-      <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 24px; max-width: 28ch;">Powerful AI, for a mixed-skill rural audience.</h2>
+      <h2 data-gsap="split-words" style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 24px; max-width: 28ch;">Powerful AI, for a mixed-skill rural audience.</h2>
       <p style="font-size: 16px; line-height: 1.7; color: #3a414d; max-width: 62ch; margin: 0;">Agrino has to make AI consultation, commerce, and expert access usable by farmers across a wide range of digital literacy — and every answer has to trace back to sources Keshavarzi Bank has approved. The design challenge is making something genuinely powerful feel plain-spoken and trustworthy.</p>
     </div>
   </div>
@@ -113,17 +118,17 @@
   <div class="r-side" style="border-top: 1px solid #e2e5ea; padding-top: clamp(26px, 3.84vw, 48px); display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px);">
     <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// approach</div>
     <div>
-      <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 32px; max-width: 30ch;">Design straight from the bank's problems.</h2>
+      <h2 data-gsap="split-words" style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 32px; max-width: 30ch;">Design straight from the bank's problems.</h2>
       <div style="display: flex; flex-direction: column; gap: 0; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden;">
-        <div class="r-num" style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px clamp(16px, 2.24vw, 28px); border-bottom: 1px solid #eef0f3;">
+        <div data-gsap="fade-up" class="r-num" style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px clamp(16px, 2.24vw, 28px); border-bottom: 1px solid #eef0f3;">
           <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; color: #cdd3db;">01</span>
           <div><div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size: 17px; margin-bottom: 6px;">End-to-end design from stakeholder sessions</div><p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">Ran the work directly off sessions with the bank, translating their problems into customized, optimized flows.</p></div>
         </div>
-        <div class="r-num" style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px clamp(16px, 2.24vw, 28px); border-bottom: 1px solid #eef0f3;">
+        <div data-gsap="fade-up" class="r-num" style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px clamp(16px, 2.24vw, 28px); border-bottom: 1px solid #eef0f3;">
           <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; color: #cdd3db;">02</span>
           <div><div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size: 17px; margin-bottom: 6px;">Built the foundations</div><p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">A full token system — 300+ variables, light + dark from day one — plus plain-language content rules written for mixed-skill rural users.</p></div>
         </div>
-        <div class="r-num" style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px clamp(16px, 2.24vw, 28px);">
+        <div data-gsap="fade-up" class="r-num" style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px clamp(16px, 2.24vw, 28px);">
           <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; color: #cdd3db;">03</span>
           <div><div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size: 17px; margin-bottom: 6px;">Components &amp; flows, in progress</div><p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">Building out the component library and the core flows on top of the shipped foundations.</p></div>
         </div>
@@ -137,9 +142,9 @@
   <div style="border-top: 1px solid #e2e5ea; padding-top: clamp(26px, 3.84vw, 48px);">
     <div class="r-side" style="display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px); margin-bottom: 36px;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// key work</div>
-      <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0; max-width: 26ch;">The chat home, AI consultation, and the token foundation.</h2>
+      <h2 data-gsap="split-words" style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0; max-width: 26ch;">The chat home, AI consultation, and the token foundation.</h2>
     </div>
-    <div class="r-g3" style="display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 20px;">
+    <div data-gsap="fade-up" data-gsap-stagger="90" class="r-g3" style="display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 20px;">
       <div style="border: 1px solid #e2e5ea; border-radius: 10px; overflow: hidden; background: #fff;">
         <div style="aspect-ratio: 3/5; background: repeating-linear-gradient(135deg, #eef1f5 0 12px, #f5f7fa 12px 24px); display: flex; align-items: center; justify-content: center;"><span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#b4bcc7;letter-spacing:0.1em;">[ chat home ]</span></div>
         <div style="padding: 16px 18px; font-size: 12.5px; color: #5a6270; border-top: 1px solid #eef0f3;">Chat-centric home.</div>
@@ -174,7 +179,7 @@
 
 <!-- ============ NEXT PROJECT ============ -->
 <section style="padding: clamp(22px, 3.2vw, 40px) clamp(22px, 3.2vw, 40px) clamp(53px, 7.68vw, 96px);">
-  <a href="Vendora" style="display: block; border-radius: 14px; background: #14171c; color: #f6f7f9; padding: clamp(31px, 4.48vw, 56px); position: relative; overflow: hidden;" style-hover="background:#1b1f27;">
+  <a data-gsap="fade-up" href="Vendora" style="display: block; border-radius: 14px; background: #14171c; color: #f6f7f9; padding: clamp(31px, 4.48vw, 56px); position: relative; overflow: hidden;" style-hover="background:#1b1f27;">
     <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
     <div style="position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
       <div>

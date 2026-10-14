@@ -25,8 +25,18 @@
   a { color: #2f5cf0; text-decoration: none; }
   a:hover { color: #234ad1; }
   ::selection { background: #2f5cf0; color: #fff; }
+  /* The three hero phones sit in one row only above ~990px. Once they wrap,
+     the lifting middle phone and a sinking outer one end up stacked and drift
+     toward each other. smooth-scroll.js stops parallax itself at 860, so this
+     covers the strip in between. */
+  @media (max-width: 1000px) { .bh-hero-shot { translate: none !important; } }
 </style>
+<script src="./smooth-scroll.js"></script>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<script src="./vendor/gsap/gsap.min.js"></script>
+<script src="./vendor/gsap/ScrollTrigger.min.js"></script>
+<script src="./vendor/gsap/SplitText.min.js"></script>
+<script src="./motion.js"></script>
 </helmet>
 
 <div style="max-width: 1240px; margin: 0 auto;">
@@ -67,17 +77,32 @@
 <section style="padding: 0 clamp(22px, 3.2vw, 40px);">
   <div style="border: 1px solid #e2e5ea; border-radius: 16px; overflow: hidden; background: #ebedf1; background-image: linear-gradient(#e2e5eb 1px, transparent 1px), linear-gradient(90deg, #e2e5eb 1px, transparent 1px); background-size: 40px 40px; background-position: -1px -1px;">
     <div style="display: flex; gap: 22px; justify-content: center; align-items: flex-start; flex-wrap: wrap; padding: clamp(29px, 4.16vw, 52px) clamp(22px, 3.2vw, 40px);">
-      <figure style="margin: 0; width: 272px; max-width: 100%; border-radius: 32px; overflow: hidden; border: 1px solid #dce0e6; box-shadow: 0 24px 60px rgba(20,23,28,.16); background: #fff; transform: translateY(14px);">
+      <!-- data-speed: the middle phone lifts and the outer two sink, so the
+           middle one reads as nearest. Off once the three wrap (.bh-hero-shot,
+           in <style>). See smooth-scroll.js.
+           Each wrapper owns position, the figure inside owns appearance and
+           its GSAP fade-up. The two must never share an element. The outer
+           phones' 14px drop lives on the wrapper too: on the figure, the
+           fade-up animated it to 0 and motion.js snapped it back at the end. -->
+      <div class="bh-hero-shot" data-speed="0.04" style="width: 272px; max-width: 100%; transform: translateY(14px);">
+      <figure data-gsap="fade-up" style="margin: 0; border-radius: 32px; overflow: hidden; border: 1px solid #dce0e6; box-shadow: 0 24px 60px rgba(20,23,28,.16); background: #fff;">
         <img src="assets/behinto-assistant.png" alt="Behinto AI assistant — guided, safe first actions" style="display: block; width: 100%; height: auto;">
       </figure>
-      <figure style="margin: 0; width: 272px; max-width: 100%; border-radius: 32px; overflow: hidden; border: 1px solid #dce0e6; box-shadow: 0 28px 70px rgba(20,23,28,.20); background: #fff;">
+      </div>
+      <div class="bh-hero-shot" data-speed="-0.06" style="width: 272px; max-width: 100%;">
+      <figure data-gsap="fade-up" style="margin: 0; border-radius: 32px; overflow: hidden; border: 1px solid #dce0e6; box-shadow: 0 28px 70px rgba(20,23,28,.20); background: #fff;">
         <img src="assets/behinto-recommendations.png" alt="Behinto AI screening plan grounded in clinical guidelines" style="display: block; width: 100%; height: auto;">
       </figure>
-      <figure style="margin: 0; width: 272px; max-width: 100%; border-radius: 32px; overflow: hidden; border: 1px solid #dce0e6; box-shadow: 0 24px 60px rgba(20,23,28,.16); background: #fff; transform: translateY(14px);">
+      </div>
+      <div class="bh-hero-shot" data-speed="0.04" style="width: 272px; max-width: 100%; transform: translateY(14px);">
+      <figure data-gsap="fade-up" style="margin: 0; border-radius: 32px; overflow: hidden; border: 1px solid #dce0e6; box-shadow: 0 24px 60px rgba(20,23,28,.16); background: #fff;">
         <img src="assets/behinto-calendar.png" alt="Behinto health calendar in dark theme" style="display: block; width: 100%; height: auto;">
       </figure>
+      </div>
     </div>
-    <div style="border-top: 1px solid #e2e5eb; padding: 14px 24px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #7a8493; background: rgba(255,255,255,.5);">
+    <!-- position: relative keeps this bar painted over the phones' shadows;
+         a translated element paints above any plain sibling that follows. -->
+    <div style="position: relative; border-top: 1px solid #e2e5eb; padding: 14px 24px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #7a8493; background: rgba(255,255,255,.5);">
       <span>[ behinto · consumer app ]</span>
       <span>Persian-first · RTL · light &amp; dark themes</span>
     </div>
@@ -91,7 +116,7 @@
     <div>
       <p style="font-family: 'Space Grotesk', sans-serif; font-weight: 500; font-size: clamp(20px, 2.4vw, 28px); line-height: 1.4; letter-spacing: -0.015em; margin: 0 0 40px; color: #14171c; max-width: 34ch;">A national, reliable AI healthcare application whose answers are grounded in vetted, current medical documents — built to a standard practicing doctors and the Health Ministry can accept.</p>
       <p style="font-size: 16px; line-height: 1.7; color: #3a414d; max-width: 62ch; margin: 0;">Clinician-facing workflows cover patient records, appointments, medications, and charting; the consumer-facing side is in progress. The customer is a team of prominent Iranian doctors — the product and the holding company share the name Behinto.</p>
-      <div class="r-strip r-c3" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid #e2e5ea; border-radius: 8px; background: #fff; overflow: hidden; margin-top: 32px;">
+      <div data-gsap="fade-up" data-gsap-stagger="70" class="r-strip r-c3" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid #e2e5ea; border-radius: 8px; background: #fff; overflow: hidden; margin-top: 32px;">
         <div style="padding: 20px 22px; border-right: 1px solid #eef0f3;">
           <div style="font-family:'JetBrains Mono',monospace; font-size: 11px; color: #97a0ad; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 8px;">Client</div>
           <div style="font-size: 14px; line-height: 1.5;">Behinto — team of prominent Iranian doctors</div>
@@ -114,7 +139,7 @@
   <div class="r-side" style="border-top: 1px solid #e2e5ea; padding-top: clamp(26px, 3.84vw, 48px); display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px);">
     <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// problem</div>
     <div>
-      <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 24px; max-width: 24ch;">Generic AI chatbots are unacceptable for medical use.</h2>
+      <h2 data-gsap="split-words" style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 24px; max-width: 24ch;">Generic AI chatbots are unacceptable for medical use.</h2>
       <p style="font-size: 16px; line-height: 1.7; color: #3a414d; max-width: 62ch; margin: 0;">Behinto's challenge is trust: an AI product whose answers doctors will stand behind — in Persian, for a national audience. That means an interaction model where the source of every answer is legible, and where the interface itself signals reliability rather than the improvisation of a general-purpose chatbot.</p>
     </div>
   </div>
@@ -125,17 +150,17 @@
   <div class="r-side" style="border-top: 1px solid #e2e5ea; padding-top: clamp(26px, 3.84vw, 48px); display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px);">
     <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// approach</div>
     <div>
-      <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 32px; max-width: 24ch;">Design the trust before designing the chat.</h2>
+      <h2 data-gsap="split-words" style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 32px; max-width: 24ch;">Design the trust before designing the chat.</h2>
       <div style="display: flex; flex-direction: column; gap: 0; border: 1px solid #e2e5ea; border-radius: 10px; background: #fff; overflow: hidden;">
-        <div class="r-num" style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px clamp(16px, 2.24vw, 28px); border-bottom: 1px solid #eef0f3;">
+        <div data-gsap="fade-up" class="r-num" style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px clamp(16px, 2.24vw, 28px); border-bottom: 1px solid #eef0f3;">
           <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; color: #cdd3db;">01</span>
           <div><div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size: 17px; margin-bottom: 6px;">Lead all product &amp; experience design</div><p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">From clinical workflows — patient records, appointments, medications, charting — through to the AI interaction model itself.</p></div>
         </div>
-        <div class="r-num" style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px clamp(16px, 2.24vw, 28px); border-bottom: 1px solid #eef0f3;">
+        <div data-gsap="fade-up" class="r-num" style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px clamp(16px, 2.24vw, 28px); border-bottom: 1px solid #eef0f3;">
           <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; color: #cdd3db;">02</span>
           <div><div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size: 17px; margin-bottom: 6px;">Build a Persian-first, RTL-first design system</div><p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">From scratch: a two-tier token architecture with 300+ variables, first-class light and dark themes, and WCAG-AA-calibrated color scales.</p></div>
         </div>
-        <div class="r-num" style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px clamp(16px, 2.24vw, 28px);">
+        <div data-gsap="fade-up" class="r-num" style="display: grid; grid-template-columns: 60px 1fr; gap: 20px; padding: 26px clamp(16px, 2.24vw, 28px);">
           <span style="font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 22px; color: #cdd3db;">03</span>
           <div><div style="font-family:'Space Grotesk',sans-serif; font-weight:600; font-size: 17px; margin-bottom: 6px;">Make destructive actions feel heavy</div><p style="font-size: 14px; line-height: 1.6; color: #5a6270; margin: 0;">Deliberately weighty destructive patterns, so clinicians feel the gravity of actions like discharging a patient before they commit to them.</p></div>
         </div>
@@ -149,7 +174,7 @@
   <div style="border-top: 1px solid #e2e5ea; padding-top: clamp(26px, 3.84vw, 48px);">
     <div class="r-side" style="display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px); margin-bottom: 36px;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// key work</div>
-      <h2 style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0; max-width: 26ch;">The AI interaction model, clinical workflows, and the RTL system.</h2>
+      <h2 data-gsap="split-words" style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0; max-width: 26ch;">The AI interaction model, clinical workflows, and the RTL system.</h2>
     </div>
     <!-- Block A · AI visit assistant flow -->
     <div class="r-side" style="display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px); margin-bottom: 28px;">
@@ -157,15 +182,15 @@
       <p style="font-size: 16px; line-height: 1.7; color: #3a414d; max-width: 62ch; margin: 0;">The consultation is recorded with explicit consent, transcribed and diarized on review, then distilled into a structured summary — chief complaint, medications, follow-up — the patient can keep or share. The AI never stands in for the doctor, and every screen says so.</p>
     </div>
     <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
-      <figure style="flex: 1 1 220px; margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
+      <figure data-gsap="fade-up" style="flex: 1 1 220px; margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
         <img src="assets/behinto-visit-record.png" alt="Behinto doctor-visit assistant — start recording with consent" style="display: block; width: 100%; height: auto;">
         <figcaption style="padding: 16px 20px; border-top: 1px solid #eef0f3;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #97a0ad; display: block; margin-bottom: 5px;">01 · record</span><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">Start the recording — with a clear consent nudge before anything runs.</span></figcaption>
       </figure>
-      <figure style="flex: 1 1 220px; margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
+      <figure data-gsap="fade-up" style="flex: 1 1 220px; margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
         <img src="assets/behinto-summary-progress.png" alt="Behinto summarizing a visit — transcription and key-point extraction" style="display: block; width: 100%; height: auto;">
         <figcaption style="padding: 16px 20px; border-top: 1px solid #eef0f3;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #97a0ad; display: block; margin-bottom: 5px;">02 · review</span><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">Transcribe, separate speakers, extract the points that matter.</span></figcaption>
       </figure>
-      <figure style="flex: 1 1 220px; margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
+      <figure data-gsap="fade-up" style="flex: 1 1 220px; margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
         <img src="assets/behinto-visit-summary.png" alt="Behinto AI visit summary — chief complaint, medications, follow-up" style="display: block; width: 100%; height: auto;">
         <figcaption style="padding: 16px 20px; border-top: 1px solid #eef0f3;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #97a0ad; display: block; margin-bottom: 5px;">03 · summarize</span><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">A structured summary saved to the record, with a standing disclaimer.</span></figcaption>
       </figure>
@@ -178,13 +203,13 @@
     </div>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 20px; align-items: start;">
       <figure style="margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
-        <div style="height: 560px; overflow-y: auto; background: #0e0f13;">
+        <div data-gsap="fade-up" style="height: 560px; overflow-y: auto; background: #0e0f13;">
           <img src="assets/behinto-home.png" alt="Behinto patient home — vitals, medications, AI insights, weekly report" style="display: block; width: 100%; height: auto;">
         </div>
         <figcaption style="padding: 16px 20px; border-top: 1px solid #eef0f3; display: flex; justify-content: space-between; gap: 12px; align-items: baseline;"><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">Patient home — vitals, meds, and the daily check-in, dark theme.</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #b4bcc7; white-space: nowrap;">scroll ↓</span></figcaption>
       </figure>
       <figure style="margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
-        <div style="height: 560px; overflow-y: auto; background: #f6f7f9;">
+        <div data-gsap="fade-up" style="height: 560px; overflow-y: auto; background: #f6f7f9;">
           <img src="assets/behinto-profile.png" alt="Behinto patient profile — records, care team, emergency contacts, settings" style="display: block; width: 100%; height: auto;">
         </div>
         <figcaption style="padding: 16px 20px; border-top: 1px solid #eef0f3; display: flex; justify-content: space-between; gap: 12px; align-items: baseline;"><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">Patient profile — records, care team, and emergency contacts.</span><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #b4bcc7; white-space: nowrap;">scroll ↓</span></figcaption>
@@ -211,7 +236,7 @@
 
 <!-- ============ NEXT PROJECT ============ -->
 <section style="padding: clamp(22px, 3.2vw, 40px) clamp(22px, 3.2vw, 40px) clamp(53px, 7.68vw, 96px);">
-  <a href="DigiKala-Mehr" style="display: block; border-radius: 14px; background: #14171c; color: #f6f7f9; padding: clamp(31px, 4.48vw, 56px); position: relative; overflow: hidden;" style-hover="background:#1b1f27;">
+  <a data-gsap="fade-up" href="DigiKala-Mehr" style="display: block; border-radius: 14px; background: #14171c; color: #f6f7f9; padding: clamp(31px, 4.48vw, 56px); position: relative; overflow: hidden;" style-hover="background:#1b1f27;">
     <div style="position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size: 48px 48px;"></div>
     <div style="position: relative; display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap;">
       <div>
