@@ -41,40 +41,14 @@
     .float-panel, .shimmer-btn::after { animation: none; }
   }
 
-  /* ============ hero work reel ============ */
-  /* Four real case-study screenshots cross-fading in the hero panel, driven
-     entirely by CSS keyframes. Deliberately NOT page logic: the Component class
-     on this page owns the GSAP card stack, and a setState re-render would wipe
-     the transforms it writes straight to the DOM. CSS needs no re-render, so the
-     two never touch. React renders these nodes once and reconciles nothing. */
-  .hr-frame { position: relative; height: 296px; overflow: hidden; background: #eef1f5; }
-  .hr-slide { position: absolute; inset: 0; opacity: 0; animation: hrFade 20s linear infinite; }
-  .hr-slide img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
-  /* Phone shots are ~1:2.3 and would be cropped to a letterbox strip by the same
-     frame the 16:9 desktop shots fill. They get a device column instead: fixed
-     width, top-aligned, and clipped by the frame — so it reads as a handset
-     rising into view rather than a mis-cropped screenshot. */
-  .hr-slide.is-phone { display: flex; justify-content: center; align-items: flex-start; padding-top: 26px; background: linear-gradient(158deg, #eef1f6 0%, #e3e7ee 100%); }
-  .hr-slide.is-phone img { width: 150px; height: auto; border-radius: 15px; border: 1px solid rgba(20,23,28,.10); box-shadow: 0 20px 38px -20px rgba(20,23,28,.45); }
-  .hr-cap { position: relative; height: 66px; border-top: 1px solid #eef0f3; background: #fff; }
-  .hr-cap > div { position: absolute; inset: 0; padding: 13px 16px; opacity: 0; animation: hrFade 20s linear infinite; }
-  .hr-cap b { display: block; font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 14.5px; letter-spacing: -.01em; }
-  .hr-cap small { display: block; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: .03em; color: #97a0ad; margin-top: 6px; }
-  .hr-dots { margin-left: auto; display: flex; gap: 5px; }
-  .hr-dots i { width: 13px; height: 3px; border-radius: 2px; background: #e2e5ea; animation: hrDot 20s linear infinite; }
-  /* one 20s cycle, four 5s slots — 1.5% of 20s is a 300ms cross-fade */
-  @keyframes hrFade { 0% { opacity: 0 } 1.5% { opacity: 1 } 25% { opacity: 1 } 26.5% { opacity: 0 } 100% { opacity: 0 } }
-  @keyframes hrDot { 0% { background: #e2e5ea } 1.5% { background: #2f5cf0 } 25% { background: #2f5cf0 } 26.5% { background: #e2e5ea } 100% { background: #e2e5ea } }
-  .hr-slide:nth-child(2), .hr-cap > div:nth-child(2), .hr-dots i:nth-child(2) { animation-delay: 5s; }
-  .hr-slide:nth-child(3), .hr-cap > div:nth-child(3), .hr-dots i:nth-child(3) { animation-delay: 10s; }
-  .hr-slide:nth-child(4), .hr-cap > div:nth-child(4), .hr-dots i:nth-child(4) { animation-delay: 15s; }
-  @media (max-width: 560px) { .hr-frame { height: 236px; } .hr-slide.is-phone img { width: 128px; } }
-  @media (prefers-reduced-motion: reduce) {
-    /* hold the first project rather than hiding three — nothing is lost, only motion */
-    .hr-slide, .hr-cap > div, .hr-dots i { animation: none; }
-    .hr-slide:first-child, .hr-cap > div:first-child { opacity: 1; }
-    .hr-dots i:first-child { background: #2f5cf0; }
-  }
+  /* ============ hero mark ============ */
+  /* The F mark open in a design file. vector-mark.js draws it into .vm-host,
+     which inherits this dot-grid canvas and so covers .vm-still, the plain logo
+     that only shows if the script never runs. The bottom 36px of the frame is
+     the script's inspector strip, hence the still's calc(). */
+  .vm-frame { position: relative; aspect-ratio: 460 / 420; overflow: hidden; background: #fbfbfc radial-gradient(circle, #dde1e7 1px, transparent 1.4px) 0 0 / 16px 16px; }
+  .vm-still { position: absolute; left: 50%; top: calc((100% - 36px) * .47); height: calc((100% - 36px) * .54); width: auto; transform: translate(-50%, -50%); }
+  .vm-avatar { width: 18px; height: 18px; border-radius: 50%; background: #2f5cf0; color: #fff; display: grid; place-items: center; font: 600 8.5px/1 'Space Grotesk', sans-serif; letter-spacing: .02em; }
 
   /* ============ testimonial avatars ============ */
   /* The initials disc is the base layer and the photo covers it, so a missing
@@ -197,6 +171,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="./prism-grid.js"></script>
 <script src="./pointer-highlight.js"></script>
+<script src="./vector-mark.js"></script>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 </helmet>
 
@@ -244,32 +219,22 @@
   </div>
   </div>
 
-  <!-- work reel: four real case-study screenshots, cross-fading. This replaced a
-       fictional "system.map" node diagram — on a portfolio the hero panel is the
-       one place that can show the actual work instead of illustrating the idea of
-       it. Slide order and captions must stay in step with .hr-cap and .hr-dots.
-       Assets are the hero-*.png variants (920px / 420px), not the full-resolution
-       case-study PNGs, which together weigh 595 KB above the fold. -->
+  <!-- hero mark: the F logo as an editable vector — drag a point and it springs
+       back; left alone, a "Farhad" cursor edits it. See vector-mark.js and the
+       "hero mark" CSS above. The avatar is that cursor's, as a design tool's
+       multiplayer bar would show it. -->
   <div class="rise" style="animation-delay:.3s; flex: 0 1 460px; min-width: min(100%, 320px);">
-    <div class="float-panel" style="border: 1px solid #e2e5ea; border-radius: 12px; background: rgba(255,255,255,.72); backdrop-filter: blur(6px); box-shadow: 0 30px 60px -40px rgba(20,23,28,.32); overflow: hidden;">
+    <div style="border: 1px solid #e2e5ea; border-radius: 12px; background: rgba(255,255,255,.72); backdrop-filter: blur(6px); box-shadow: 0 30px 60px -40px rgba(20,23,28,.32); overflow: hidden;">
       <div style="display: flex; align-items: center; gap: 8px; padding: 11px 16px; border-bottom: 1px solid #eef0f3;">
         <span style="width:9px;height:9px;border-radius:50%;background:#e2e5ea;"></span>
         <span style="width:9px;height:9px;border-radius:50%;background:#e2e5ea;"></span>
         <span style="width:9px;height:9px;border-radius:50%;background:#e2e5ea;"></span>
-        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#97a0ad; margin-left:6px;">selected.work</span>
-        <span class="hr-dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span style="font-family:'JetBrains Mono',monospace; font-size:11px; color:#97a0ad; margin-left:6px;">farhad.fig</span>
+        <span style="margin-left: auto; display: flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: #b4bcc7;">100%<span class="vm-avatar">FS</span></span>
       </div>
-      <div class="hr-frame">
-        <div class="hr-slide"><img src="assets/hero-trio.png" alt="Trio device inventory, listing enrolled Android, iOS and macOS devices" width="920" height="520"></div>
-        <div class="hr-slide is-phone"><img src="assets/hero-behinto.png" alt="Behinto AI screening plan, in Persian" width="420" height="956" loading="lazy"></div>
-        <div class="hr-slide"><img src="assets/hero-mehr.png" alt="A DigiKala Mehr charity project page" width="920" height="519" loading="lazy"></div>
-        <div class="hr-slide is-phone"><img src="assets/hero-zeero.png" alt="Zeero map with nearby scooters and a reservation sheet" width="420" height="903" loading="lazy"></div>
-      </div>
-      <div class="hr-cap">
-        <div><b>Trio — enterprise device management</b><small>MVP shipped solo in 4 months · 4.9★ on G2</small></div>
-        <div><b>Behinto — AI healthcare assistant</b><small>Iran's first · Persian-first, RTL-first system</small></div>
-        <div><b>DigiKala Mehr — charity commerce</b><small>0.4% → 2.8% purchase conversion · 7× lift</small></div>
-        <div><b>Zeero — e-bike &amp; scooter sharing</b><small>3× service area · +8% first-ride conversion</small></div>
+      <div class="vm-frame" role="img" aria-label="The F logo mark as an editable vector, with its anchor points showing. Drag a point and the mark springs back into shape.">
+        <img class="vm-still" src="assets/logo-mark.svg" alt="" width="61" height="84">
+        <div data-vector-mark class="vm-host"></div>
       </div>
     </div>
   </div>

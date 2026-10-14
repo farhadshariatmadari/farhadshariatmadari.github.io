@@ -308,32 +308,67 @@ mail app, yet still showed the success screen.
   Replying in Gmail goes to the visitor's `email` field (verified). When only a
   mobile is given there is nothing to reply to, so the number is in the subject.
 
-## The hero work reel (`index.html`)
+## The hero mark (`vector-mark.js`)
 
-The panel beside the home-page headline cross-fades four real case-study
-screenshots — Trio, Behinto, DigiKala Mehr, Zeero — each with the project name
-and its actual metric underneath. It replaced a `system.map` SVG that drew a
-tangle of nodes resolving into three placeholder card rows: a picture of the
-*idea* of design, on the one page whose whole job is showing the work.
+The panel beside the home-page headline is the F logo open in a design file,
+`farhad.fig`. It is drawn live from the logo's own construction, with its
+anchor points, selection box, size pill and an inspector strip, and every point
+can be dragged. It replaced the CSS work reel in Oct 2026. In between, a photo
+portrait that turned to follow the pointer was tried locally and never
+deployed. Farhad had it deleted, script, assets and build tools included. He
+asked for both swaps, so don't bring either back unprompted.
 
-- **It is pure CSS, and that is the point.** `index.html`'s Component class owns
-  the GSAP card stack, and a `setState` re-render wipes transforms written
-  straight to the DOM (see the card-stack landmines below). A keyframe animation
-  needs no re-render, so the two never interact. Don't "improve" this into a JS
-  carousel with state.
-- One 20s cycle, four 5s slots, `1.5%` of it a 300ms cross-fade. **Slides,
-  captions and dots are three separate lists sharing one set of `nth-child`
-  delays** — reorder one and you must reorder all three.
-- **The desktop and phone shots need different framing.** The 16:9 dashboard
-  shots fill the frame with `object-fit: cover`. The phone shots are ~1:2.3 and
-  the same treatment crops them to a meaningless letterbox strip, so `.is-phone`
-  gives them a fixed-width device column instead, top-aligned and clipped by the
-  frame — it reads as a handset rising into view.
-- Assets are the four **`hero-*.png`** variants, not the full-resolution
-  case-study PNGs those are cut from. At full size they are 595 KB above the
-  fold; downsized to 920px (desktop) and 420px (phone) they are 175 KB.
-- Under `prefers-reduced-motion` it holds the first project rather than hiding
-  three. Nothing is lost, only the motion.
+What it does:
+
+- **First view:** a multiplayer cursor labelled "Farhad" draws the mark with
+  the pen tool. It places the five points, rubber-banding from one to the next,
+  then the strokes inflate around the skeleton (`jelly()`, a ~13% overshoot)
+  and the selection lands with the size counting up to `61 × 84`. It starts
+  when the panel is first *seen* (IntersectionObserver), because on a phone it
+  sits below the fold.
+- **Left alone:** every few seconds the cursor picks a point up and moves it.
+  The moves are listed in `EDITS`. One drags the bar tip until it lines up
+  under the arm tip, so a smart guide fires.
+- **A visitor's mouse** entering the canvas takes over. The cursor fades out
+  and comes back 3.2s after the mouse leaves. A resting mouse pulls the nearest
+  point up to 3 units towards it.
+- **Dragging** a point stretches the strokes live. Smart guides (pink) snap it
+  to other points' x/y, and a dashed trail runs back to where it started. On
+  release it springs home with a wobble (`LOOSE`, ζ≈0.36). Dragging a stroke
+  moves the whole mark, and dragging empty canvas draws a marquee.
+
+Things that are easy to break:
+
+- **The geometry is `logo-mark.svg`'s**: same 61×84 user space, same three
+  gradients, and the same masked wedge, with the mask region made huge because
+  points travel outside 61×84. If the logo's construction changes, `REST`,
+  `T0` and `ARM` change with it.
+- **The middle arm is pinned to the stem.** Its root `d` is a fraction `t`
+  along foot → corner and can only slide along that line; the bar tip `e` rides
+  on `d`. That is why tilting the stem carries the bar with it, instead of the
+  bar detaching. When `a` or `b` is dragged, `d` and `e` are excluded from
+  smart-guide candidates, because they move with it and would chase themselves.
+- **Never inject into the copy still inside `<x-dc>`.** The runtime reads its
+  template from that element's `innerHTML`, so anything put there becomes part
+  of the React tree, and the next render dies on `removeChild`. `scan()` skips
+  any host with an `x-dc` ancestor. This bit during development: the page went
+  blank.
+- **Touch:** the canvas is `touch-action: pan-y` so a phone can scroll through
+  it. A touch that starts on a point (24px radius) cancels the scroll in a
+  non-passive `touchstart`. A touch on bare canvas is a scroll and doesn't take
+  over from the cursor.
+- **Reduced motion:** no intro, no cursor, and a critically damped return (it
+  goes home without bouncing). Dragging still works, because the visitor is
+  the one moving it.
+- The loop sleeps on a timer during the cursor's waits and stops when the
+  canvas is off screen. After being away, `resume()` restarts the visits from
+  a clean slate, so a queue of steps whose time has passed can't fire all at
+  once.
+- `.vm-frame`'s aspect ratio and `.vm-still`'s `calc()` are in `index.html`. The
+  still is only for when the script never runs; the host inherits the frame's
+  dot-grid background and covers it.
+- The old reel's `hero-*.png` are still in `assets/`, but no page references
+  them.
 
 ## The home page card stack (`index.html`)
 
@@ -426,7 +461,8 @@ must be PNG — SVG is not accepted for either. `index.html` has `og:title` and
 ## Images
 
 24 screenshot PNGs in `assets/`, already optimised (14.1 MB → 2.9 MB), plus the
-four testimonial avatar JPEGs below and the four `hero-*.png` reel variants. If
+four testimonial avatar JPEGs below and the four `hero-*.png` variants of the
+retired hero reel (unreferenced). If
 you add more screenshots:
 
 ```bash
@@ -479,7 +515,6 @@ The chats and dashboard-feed pair share one `aspect-ratio` box with
 `object-fit: contain`. Their ratios differ (1.61 vs 1.69), and the box's
 `#0c0e12` matches both screenshots' own background, so the letterbox is
 invisible. Don't change that colour on its own.
-
 
 ### Testimonial avatars
 
