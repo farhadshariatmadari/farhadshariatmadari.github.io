@@ -454,8 +454,32 @@ pngquant/oxipng pass, 175 KB for all four:
 the page shows a placeholder instead of a broken image, and restores itself when
 the file returns.
 
-Five projects have **no screenshots at all** (Safes, Medio, Agrino, Vendora,
-Sharif AICT) and use the hatch placeholder — see `assets/MISSING-ASSETS.md`.
+Four projects have **no screenshots at all** (Safes, Agrino, Vendora, Sharif
+AICT) and use the hatch placeholder — see `assets/MISSING-ASSETS.md`.
+
+### Medio's screens are WebP, not PNG
+
+The 13 `assets/medio-*.webp` files (1 MB in all) arrived from Farhad as
+already-compressed WebP at 2000px or less, so they skip the PNG pass above and
+are mostly copied byte-for-byte. Five were cut with `cwebp -crop` (q88) from
+the supplied originals, which are not in the repo:
+
+- `medio-dashboard-top` and `medio-dashboard-feed` are the top and middle of one
+  tall dashboard capture. The hero shows the first; the feed crop drops the
+  empty sidebar column, so there is no repeat of what the hero already shows.
+- `medio-reason-builder` has the sidebar cut off. That keeps its question text
+  legible at the ~840px it renders at.
+- `medio-appointment-detail` is cut tight to the modal's edge. The CSS
+  `border-radius: 3.2% / 2.04%` is the modal's own 24px corner as a share of
+  750×1177, so the dark backdrop's anti-aliased corner pixels never show. Re-cut
+  the image and that ratio has to change with it.
+- `medio-mobile-appointments` and `medio-mobile-fees` were PNGs, converted to WebP.
+
+The chats and dashboard-feed pair share one `aspect-ratio` box with
+`object-fit: contain`. Their ratios differ (1.61 vs 1.69), and the box's
+`#0c0e12` matches both screenshots' own background, so the letterbox is
+invisible. Don't change that colour on its own.
+
 
 ### Testimonial avatars
 
