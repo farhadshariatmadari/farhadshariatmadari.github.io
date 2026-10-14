@@ -93,7 +93,9 @@
       S + ':not(:hover)::before,' + S + ':not(:hover)::after{opacity:0;transition:opacity .75s ease-in-out;}' +
       // the gradient border: card colour over the padding box, mesh on the 1px ring
       S + '::before{border:1px solid transparent;' +
-        'background:linear-gradient(var(--bg-card,#fff) 0 100%) padding-box,' + meshBorder() + ';' +
+        // --spot-fill is spotlight-card.js's light. This fill covers the card's
+        // interior, so it has to repeat the light or hide it under the edge.
+        'background:var(--spot-fill,none) padding-box,linear-gradient(var(--bg-card,#fff) 0 100%) padding-box,' + meshBorder() + ';' +
         'opacity:calc((var(--edge-proximity) - ' + color + ') / ' + (100 - color) + ');' +
         '-webkit-mask-image:' + borderMask + ';mask-image:' + borderMask + ';}' +
       // the glow: the mask is drawn larger than the card and not clipped to it,

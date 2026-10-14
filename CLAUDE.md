@@ -533,6 +533,36 @@ script loads on those two pages only.
   card's GSAP reveal to finish first. The card rises 28px, the pointer ends
   up outside it, and `:hover` drops while the last proximity reading stays.
 
+## The spotlight (`spotlight-card.js`)
+
+A vanilla port of React Bits' `<SpotlightCard>`, light theme, on the same 13
+cards as the border glow (`data-spotlight`). It draws a soft signal-blue light
+inside the card. The light eases after the pointer, fades in from 80px outside
+the card, swells while the card is pressed, centres on a card with keyboard
+focus, and under reduced motion jumps instead of easing.
+
+- **It is the card's own `background-image`**, through `--spot-fill`, which
+  the script rewrites each frame with the strength baked into the alphas
+  (`!important`, since every card sets `background` inline). The original's
+  four spans are out for the same `.r-strip` last-child reason as the border
+  glow, and the border glow already owns both pseudo-elements.
+- **The two files are coupled.** border-glow.js's `::before` paints the card's
+  interior opaque under its ring, so its fill repeats `var(--spot-fill)`.
+  Without that, the light disappears under the glowing edge, exactly where the
+  pointer is. Change the fill in one, check the other.
+- Left out: the film grain (0 by default in the original) and the 1px rim
+  light, which needs a box of its own. Near an edge, the border glow lights
+  the rim anyway.
+- Ink (`#18181b`) is the original's light-theme colour. It's signal blue here so
+  it reads as the same light as the glow, at 1.6× the original's light-theme
+  strength (a peak alpha of ~0.067), since blue on white reads fainter than
+  ink.
+- One rAF loop for all cards, which stops once every card has settled.
+- Verified in headless Chrome: it eases (60ms after a move it's partway
+  there), flares on press (240 → 288px), shows faintly at 40px outside, is
+  gone at 200px, and runs on seamlessly under the glowing edge. Flagship
+  children unchanged, no x-overflow, no console errors.
+
 ## The headline scramble (`Contact.html`)
 
 The h1 reveals `what you're building.` out of random characters — once on load, and
