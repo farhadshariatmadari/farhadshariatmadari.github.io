@@ -666,6 +666,43 @@ mail app, yet still showed the success screen.
   Replying in Gmail goes to the visitor's `email` field (verified). When only a
   mobile is given there is nothing to reply to, so the number is in the subject.
 
+### Halo fields (`halo-field.js`)
+
+The form's five controls are a vanilla port of cult-ui's `<HaloInput>`,
+`<HaloTextarea>` and `<HaloSelect>`. Blurred gradient bars drift along the
+bottom of each field, clipped to a shell 1px larger than it. They show through
+that gap as a rim and through the frosted fill as a haze. The colours are
+re-hued from cult-ui's Vercel rainbow to the prism grid's pink, violet,
+amber and blues. Contact is the only page that loads the script.
+
+- **Input and textarea are CSS only.** The markup is a `.halo` shell holding a
+  static `<span class="halo-glow"><i></i><i></i></span>`, followed by the
+  field. The script adds the stylesheet and gives each field a different
+  phase, so the column doesn't drift as one wave. The invalid state is
+  `:user-invalid`, so nothing turns red before the visitor touches it.
+- **The select keeps the native `<select>`.** React's `onChange` and the
+  form's `FormData` still read it. Beside it sits an empty
+  `<div data-halo-select>`, and the script builds the trigger and listbox in
+  there (the prism grid's trick). A choice is written back as `select.value`
+  plus a bubbling `change` event, which is what React listens to on a select.
+  The native one is hidden only via `:has(.hs-trigger)`, so if the script
+  never runs, the plain styled select is still there.
+- The `<label for="ct">` still points at the native select, which is
+  `tabindex=-1` and forwards focus to the trigger. Without the `-1`,
+  Shift+Tab from the trigger lands on the select, which sends focus straight
+  back: a trap.
+- `.halo-sel` has `z-index: 2` because every `.halo` is `isolation: isolate`.
+  Without it, the open list draws under the textarea that follows.
+- Left out of the original: Base UI's align-item-with-trigger positioning (the
+  list drops below, or flips above if there's no room) and the loading
+  spinner.
+- Verified in headless Chrome with real mouse and keys: open, hover, choose
+  (check flash and staggered label), Tab in, arrows/Home/End/Enter/Escape,
+  type-ahead, label click, outside click, React state surviving a re-render,
+  red borders after an empty submit. No x-overflow at 320/375/768, no console
+  errors. The hidden preview pane can't test the focus paths, because an
+  unfocused document fires no `focus` events.
+
 ## The hero mark (`vector-mark.js`)
 
 The panel beside the home-page headline is the F logo open in a design file,

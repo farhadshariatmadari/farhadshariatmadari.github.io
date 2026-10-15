@@ -37,6 +37,7 @@
 <script src="./vendor/gsap/ScrollTrigger.min.js"></script>
 <script src="./vendor/gsap/SplitText.min.js"></script>
 <script src="./motion.js"></script>
+<script src="./halo-field.js"></script>
 </helmet>
 
 <canvas ref="{{ rippleRef }}" style="position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1;"></canvas>
@@ -130,17 +131,17 @@
       </sc-if>
       <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
         <form onSubmit="{{ send }}" style="display: flex; flex-direction: column; gap: 18px; margin: 0;">
-          <div><label class="lbl" for="cn">Your name</label><input id="cn" class="field" type="text" name="name" sc-camel-auto-complete="name" placeholder="Jane Doe" value="{{ name }}" onInput="{{ onName }}"></div>
+          <div><label class="lbl" for="cn">Your name</label><div class="halo"><span class="halo-glow" aria-hidden="true"><i></i><i></i></span><input id="cn" class="field" type="text" name="name" sc-camel-auto-complete="name" placeholder="Jane Doe" value="{{ name }}" onInput="{{ onName }}"></div></div>
           <!-- email OR mobile: both are required while both are empty, neither once one has text -->
           <div>
             <div class="r-g2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
-              <div><label class="lbl" for="ce">Email</label><input id="ce" class="field" type="email" name="email" sc-camel-auto-complete="email" required="{{ needContact }}" placeholder="jane@company.com" value="{{ email }}" onInput="{{ onEmail }}" onInvalid="{{ onContactInvalid }}"></div>
-              <div><label class="lbl" for="cp">Mobile</label><input id="cp" class="field" type="tel" name="phone" sc-camel-auto-complete="tel" required="{{ needContact }}" pattern="\+?[0-9۰-۹٠-٩\s\(\)\.\-]{7,24}" placeholder="+1 415 555 0132" value="{{ phone }}" onInput="{{ onPhone }}" onInvalid="{{ onContactInvalid }}"></div>
+              <div><label class="lbl" for="ce">Email</label><div class="halo"><span class="halo-glow" aria-hidden="true"><i></i><i></i></span><input id="ce" class="field" type="email" name="email" sc-camel-auto-complete="email" required="{{ needContact }}" placeholder="jane@company.com" value="{{ email }}" onInput="{{ onEmail }}" onInvalid="{{ onContactInvalid }}"></div></div>
+              <div><label class="lbl" for="cp">Mobile</label><div class="halo"><span class="halo-glow" aria-hidden="true"><i></i><i></i></span><input id="cp" class="field" type="tel" name="phone" sc-camel-auto-complete="tel" required="{{ needContact }}" pattern="\+?[0-9۰-۹٠-٩\s\(\)\.\-]{7,24}" placeholder="+1 415 555 0132" value="{{ phone }}" onInput="{{ onPhone }}" onInvalid="{{ onContactInvalid }}"></div></div>
             </div>
             <p style="font-size: 12px; color: #97a0ad; margin: 8px 0 0; line-height: 1.5;">Email or mobile — one is enough.</p>
           </div>
-          <div><label class="lbl" for="ct">Engagement type</label><select id="ct" class="field" name="engagement" value="{{ type }}" onChange="{{ onType }}"><option>Contract</option><option>Full-time</option><option>Part-time</option><option>Consulting</option><option>Not sure yet</option></select></div>
-          <div><label class="lbl" for="cm">What are you building?</label><textarea id="cm" class="field" name="message" placeholder="A few lines about the product, the problem, and timeline…" value="{{ message }}" onInput="{{ onMessage }}"></textarea></div>
+          <div><label class="lbl" id="ct-lbl" for="ct">Engagement type</label><div class="halo halo-sel"><span class="halo-glow" aria-hidden="true"><i></i><i></i><i></i></span><select id="ct" class="field" name="engagement" value="{{ type }}" onChange="{{ onType }}"><option>Contract</option><option>Full-time</option><option>Part-time</option><option>Consulting</option><option>Not sure yet</option></select><div data-halo-select></div></div></div>
+          <div><label class="lbl" for="cm">What are you building?</label><div class="halo"><span class="halo-glow" aria-hidden="true"><i></i><i></i></span><textarea id="cm" class="field" name="message" placeholder="A few lines about the product, the problem, and timeline…" value="{{ message }}" onInput="{{ onMessage }}"></textarea></div></div>
           <!-- honeypot: invisible to people, ticked by form-filling bots; Web3Forms drops any submission that has it -->
           <input type="checkbox" name="botcheck" sc-camel-tab-index="-1" aria-hidden="true" style="display: none;">
           <button type="submit" class="send-btn" disabled="{{ sending }}" style="cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 10px; background: #2f5cf0; color: #fff; font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 15px 24px; border: none; border-radius: 5px;" style-hover="background:#234ad1;">
