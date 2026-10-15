@@ -666,6 +666,13 @@ mail app, yet still showed the success screen.
   Replying in Gmail goes to the visitor's `email` field (verified). When only a
   mobile is given there is nothing to reply to, so the number is in the subject.
 
+The contact-methods column is stretched to the form's height (`align-items:
+stretch` on the grid, `.ct-methods` in the page's `<style>`). Each card takes
+an equal share of the difference and centres its content, so no single card
+ends in empty space. If the methods column is the taller one (around 720–780px
+wide), the form card stretches instead. Below 720 the columns stack and none of
+this applies.
+
 ### Halo fields (`halo-field.js`)
 
 The form's five controls are a vanilla port of cult-ui's `<HaloInput>`,
@@ -693,6 +700,10 @@ amber and blues. Contact is the only page that loads the script.
   back: a trap.
 - `.halo-sel` has `z-index: 2` because every `.halo` is `isolation: isolate`.
   Without it, the open list draws under the textarea that follows.
+- The select is the **translucent** variant, as in cult-ui's demo: washes on,
+  a frosted trigger tinted pink → violet → blue. The component's own default
+  (`translucent={false}`) is a near-white trigger, and it read as plain next
+  to the inputs.
 - Left out of the original: Base UI's align-item-with-trigger positioning (the
   list drops below, or flips above if there's no room) and the loading
   spinner.

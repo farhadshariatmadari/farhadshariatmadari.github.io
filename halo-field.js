@@ -64,11 +64,11 @@
     '.halo-sel{z-index:2;}',   // its list has to open over the fields below it
     '.halo-glow{position:absolute;inset:0;z-index:0;overflow:hidden;border-radius:11px;pointer-events:none;}',
 
-    // the two soft washes: input and textarea only (the select is cult-ui's non-translucent default)
+    // the two soft washes behind every field; the select uses them too, as in cult-ui's
+    // demo, which renders it `translucent` (the component's own default is plain)
     '.halo-glow::before,.halo-glow::after{content:"";position:absolute;inset:0;}',
     '.halo-glow::before{background:' + WASH_LOW + ';filter:blur(40px);opacity:.5;}',
     '.halo-glow::after{background:' + WASH_HIGH + ';filter:blur(24px);opacity:.35;}',
-    '.halo-sel>.halo-glow::before,.halo-sel>.halo-glow::after{content:none;}',
 
     // Each bar rides a full-width track, so translateX(%) is a share of the
     // field's width, the same as the original's animated `left`, but composited.
@@ -79,12 +79,12 @@
     '.halo-glow i:nth-child(2)::before{width:144px;background:' + SECONDARY + ';filter:blur(16px);}',
     '.halo-glow i:nth-child(3){bottom:-8px;height:40px;animation-name:hf-c;animation-duration:4s;}',
     '.halo-glow i:nth-child(3)::before{width:96px;background:' + TERTIARY + ';filter:blur(16px);}',
-    '.halo-sel .halo-glow i{opacity:.58;}',
+    '.halo-sel .halo-glow i{opacity:.55;}',
     '.halo-sel .halo-glow i:first-child{height:64px;}',
     '.halo-sel .halo-glow i:first-child::before{width:192px;}',
     '.halo-sel .halo-glow i:nth-child(2){height:48px;}',
     '.halo-sel .halo-glow i:nth-child(2)::before{width:128px;}',
-    '.halo-sel:focus-within .halo-glow i,.halo-sel:has([aria-expanded="true"]) .halo-glow i{opacity:.82;}',
+    '.halo-sel:focus-within .halo-glow i,.halo-sel:has([aria-expanded="true"]) .halo-glow i{opacity:.66;}',
     '@keyframes hf-a{0%,100%{transform:translateX(-5%)}50%{transform:translateX(75%)}}',
     '@keyframes hf-b{0%,100%{transform:translateX(65%)}50%{transform:translateX(10%)}}',
     '@keyframes hf-c{0%,100%{transform:translateX(25%)}50%{transform:translateX(55%)}}',
@@ -105,7 +105,9 @@
     '.hs-trigger{display:flex;align-items:center;gap:8px;width:100%;min-height:44px;margin:0;padding:7px 7px 7px 15px;' +
       'font:inherit;font-size:15px;color:#14171c;text-align:left;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent;' +
       'border:1px solid ' + EDGE + ';border-radius:11px;' +
-      'background:linear-gradient(color-mix(in oklch,#fff 95%,oklch(.97 .02 315)),color-mix(in oklch,#fff 93%,oklch(.96 .025 280)));' +
+      // the translucent trigger: a frosted fill tinted pink, then violet, then blue
+      'background:linear-gradient(color-mix(in oklch,#fff 82%,oklch(.92 .04 330)) 0%,color-mix(in oklch,#fff 78%,oklch(.88 .06 285)) 50%,' +
+        'color-mix(in oklch,#fff 76%,oklch(.9 .05 245)) 100%);' + BLUR +
       'box-shadow:inset 0 1px 0 rgba(255,255,255,.55),' + LIFT + ';transition:border-color .2s ease-out,box-shadow .2s ease-out;}',
     '@media (hover:hover){' +
       '.hs-trigger:hover{border-color:rgba(47,92,240,.5);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),0 1px 3px rgba(0,0,0,.05),0 8px 22px rgba(0,0,0,.06);}' +
