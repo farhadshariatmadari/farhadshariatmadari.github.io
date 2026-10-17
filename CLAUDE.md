@@ -779,8 +779,42 @@ Things that are easy to break:
 ## The home page card stack (`index.html`)
 
 A port of the React/GSAP "CardSwap" component to the x-dc runtime. Nine project
-cards fan in 3D, auto-cycle every 3.4s, and the index list below is kept in sync.
-Hovering a list row pulls that card to the front; clicking either navigates.
+cards fan in 3D and auto-cycle, and the project index **beside** the deck is
+kept in sync. Hovering a list row pulls that card to the front; clicking either
+navigates.
+
+**Index and deck sit side by side (Oct 2026).** The index used to be a
+full-width table under the deck. At laptop heights the two never fit on one
+screen, so the card a row pulled forward was off screen. Now `.cs-head` spans
+the top as one block (kicker, h2, lede) with "All projects →" on the right, on the
+lede's last line, the same shape as the testimonials header. Two earlier
+versions put the lede in a column of its own beside the h2, and Farhad
+rejected both: the title and its description read as two separate things. The
+h2's 20px bottom margin is what keeps the *proof* highlight's cursor clear of
+the lede's first line. At 14px it ran 7px into it. `.cs-top` is a
+`1fr | 600px` grid: the index on the left stretches to the stage's 590px and
+its nine rows share it equally (`flex: 1 1 0`), so both columns end on the same
+line. Rows are two lines (name over tag), with the metric on the right. The
+metric drops under 1180px, where the column is too narrow for it, and comes
+back once the columns stack at 1100. Stacked, the deck comes first (`order:
+-1`). `.cs-head`'s right column is 592px, not 600, so the lede lands on the
+front card's left edge and the h2 gets the 514px it needs to stay on one line.
+
+**The countdown.** The active row draws a 2px signal-blue bar along its bottom
+edge, filling over `DELAY` (3.4s), and the swap fires when it's full. It is a
+GSAP tween (`countdown()`) writing `--cs-p` on the list, read by
+`.cs-row.is-active::after`. There is no `setInterval` any more. `sync()` runs or
+holds it from three flags: `_hover` (pointer on the deck, which pauses and
+resumes mid-bar), `_held` (a row is holding a card, and release starts a fresh
+bar), and `_seen` (an IntersectionObserver at 0.35, so the first bar starts
+when the visitor arrives). `swap()` lights the next row, commits `_order` and
+starts its bar at the `promote` label, where the next card starts forward, not
+at the end of the timeline. That way a resize or a row hover that kills the
+timeline later still sees the right order. `onResize` calls `sync()` because a
+swap killed before `promote` never started the next bar. Verified in headless
+Chrome: rows change every ~3.8s (3.4 bar + 0.4 to promote), a row hover holds
+with the bar at 0, the deck hover freezes the bar, and it pauses off screen. No
+x-overflow from 320 to 1440.
 
 Four landmines already fixed here — don't reintroduce them:
 
@@ -788,9 +822,12 @@ Four landmines already fixed here — don't reintroduce them:
    transform. A CSS `skewY()` on `.cs-card` becomes a baseline GSAP can never
    clear, so `skewY: 0` silently does nothing on mobile. Let GSAP own the skew.
 2. **Each `.cs-row` is its own grid**, so an `auto` column resizes the `1fr`
-   columns per row and the tags stop lining up. The metric column is fixed-width.
+   columns per row. That is safe now only because the tag sits *under* the name
+   in the same `1fr` column (`grid-template-areas`). Give the tag its own column
+   again and the metric column must go back to a fixed width.
 3. **`.cs-stage` needs `overflow: hidden`** — the swapping card falls 520px and
-   would otherwise sweep over the project list below it.
+   would otherwise sweep over whatever is below the stage (the logo bar, or
+   the index once the columns stack).
 4. **Responsive column counts must match the visible children**, or leftovers
    wrap onto an implicit row. `measure()` also recomputes the fan geometry per
    breakpoint; it collapses to a shallow fan on narrow screens.
@@ -828,6 +865,26 @@ Four landmines already fixed here — don't reintroduce them:
    the deck, so `below` reads hugely negative and the shadow guard would yank
    the whole fan to the top of the stage. That's what the `_tl.isActive()` bail
    at the top of `centre()` is for — don't remove it.
+
+## The logo bar (`index.html`)
+
+"Trusted with the work at", under the project section. Real logos since Oct
+2026, from files Farhad supplied, except Trio:
+
+| File | Notes |
+|---|---|
+| `logo-digikala.png` | Persian wordmark, as supplied |
+| `logo-keshavarzi.png` | Emblem, trimmed from a 500px canvas, 110px tall |
+| `logo-sharif.png` | Supplied white-on-transparent, **recoloured to ink** so it shows on the light page |
+| `logo-trio.svg` | Paths from trio.so's own header logo (single colour, ink here). Trio is SternX's product, so it stands in for "SternX Technology" |
+| `logo-zeero.png` | Mark + Persian wordmark, trimmed |
+
+Circle One has no logo yet. It is a type-only mark in the same slot, with no
+caption. Every logo sits in a 44px slot. Each img's inline height is set by
+eye for equal visual weight, not equal boxes. Logos are greyscale at 60%
+at rest and full colour on hover. The mono caption carries the name, because
+three of the marks are Persian-only, so each `alt` is empty. If a phone
+squashes a logo, look for a `max-width` on `.lg`: it belongs on the caption.
 
 ## Logo and favicon
 
