@@ -295,7 +295,7 @@ or not Lenis loaded, and `window.lenis` once it has.
 ### Parallax (`data-speed`)
 
 **Every hero that has two or more layers to drift against each other.** That
-means five places. Farhad asked for it everywhere (Oct 2026), and these are
+means six places. Farhad asked for it everywhere (Oct 2026), and these are
 everywhere it means something:
 
 | Page | Element | Speed | Rest | Off at |
@@ -304,15 +304,18 @@ everywhere it means something:
 | `About.html` | `.about-hero-art` sketch | `0.1` | entry | 860 (goes static) |
 | `Medio.html` | laptop / phone wrappers (`.md-hero-shot`) | `0.05` / `-0.07` | centre | ≤900 (stacks) |
 | `Behinto.html` | outer / middle phone wrappers (`.bh-hero-shot`) | `0.04` / `-0.06` | centre | ≤1000 (wraps) |
+| `Agrino.html` | outer / middle phone wrappers (`.ag-hero-shot`) | `0.04` / `-0.06` | centre | ≤1000 (wraps) |
 | `Zeero.html` | the two outer phones | `0.06` | entry | 860 (wraps under ~800) |
 
-All five were swept in headless Chrome at 880–1920 wide. On screen, no
+The first five were swept in headless Chrome at 880–1920 wide. On screen, no
 element runs into another or into a frame edge it doesn't already stand on.
-Edge-standers (Zeero, About) never lift off their edge.
+Edge-standers (Zeero, About) never lift off their edge. Agrino (Oct 2026) is
+Behinto's hero rebuilt with its own screens (same 272px phones, speeds and
+wrap point), so it inherits that sweep rather than having its own.
 
 **Deliberately left out.** Trio and DigiKala Mehr: one browser-framed
 screenshot, so there's nothing to drift against. Drifting the whole frame
-against the text just reads as lag. Agrino, Safes, Vendora, Sharif AICT:
+against the text just reads as lag. Safes, Vendora, Sharif AICT:
 hatch placeholders, so they get it when their real screens do. Work: its one
 image is cover-cropped to an exact fit, with no slack to pan. How I Work,
 Contact: text only. Screenshots in body sections: they're content to read,
@@ -953,8 +956,8 @@ pngquant/oxipng pass, 175 KB for all four:
 the page shows a placeholder instead of a broken image, and restores itself when
 the file returns.
 
-Four projects have **no screenshots at all** (Safes, Agrino, Vendora, Sharif
-AICT) and use the hatch placeholder — see `assets/MISSING-ASSETS.md`.
+Three projects have **no screenshots at all** (Safes, Vendora, Sharif AICT)
+and use the hatch placeholder — see `assets/MISSING-ASSETS.md`.
 
 ### Medio's screens are WebP, not PNG
 
@@ -978,6 +981,17 @@ The chats and dashboard-feed pair share one `aspect-ratio` box with
 `object-fit: contain`. Their ratios differ (1.61 vs 1.69), and the box's
 `#0c0e12` matches both screenshots' own background, so the letterbox is
 invisible. Don't change that colour on its own.
+
+### Agrino's screens are WebP too
+
+The 10 `assets/agrino-*.webp` files (750 KB in all) came from Farhad in Oct
+2026. The six that arrived as WebP are copied byte-for-byte; the four PNGs
+(`my-ads`, `channel`, `business-clan`, `farmers-office`) were converted with
+`cwebp -q 88`. `agrino-ad-flow.webp` is a whole conversation as one strip, only
+274px wide, so it sits in a 560px scroll frame at about its native width. Give
+it a wider column and it goes soft. The hero's three phones are the market
+bot (`market-bot`, `wheat-bot`, `sell-wheat`), and `market-bot` is also the
+home card-stack image.
 
 ### Testimonial avatars
 
