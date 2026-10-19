@@ -984,8 +984,9 @@ invisible. Don't change that colour on its own.
 
 ### Agrino's screens are WebP too
 
-The 12 `assets/agrino-*.webp` files (about 0.8 MB in all) came from Farhad in Oct
-2026, in two batches. Everything that arrived as WebP is copied byte-for-byte.
+The 13 `assets/agrino-*.webp` files (about 0.9 MB in all) came from Farhad in Oct
+2026, in three batches. The third was `consult-request`, which he asked for as
+the businesses block's example. Everything that arrived as WebP is copied byte-for-byte.
 The four PNGs (`my-ads`, `channel`, `business-clan`, `farmers-office`) were
 converted with `cwebp -q 88`. `agrino-ad-flow.webp` is a whole conversation as
 one strip, only 274px wide, so it sits in a 560px scroll frame at about its
