@@ -582,6 +582,31 @@ pin it on) counts as hover.
   48px grid layer, so the canvas sits over the grid lines and under the copy.
   The box (the host's parent) is what takes the pointer. Same trick as the
   prism grid.
+- **The field parts around the copy (Oct 2026).** The blue pixels used to
+  ripple straight under the words, and the brightest one (`#dbe4ff`) took the
+  paragraph down to 1.75:1 and LinkedIn's label and outline to 1.18:1.
+  Dimming the effect was ruled out (Farhad wanted it kept lively), so the copy
+  is a quiet zone instead. Every frame the field draws, `copyRects()` reads
+  the line boxes of every text node in the box (a `Range` per node, so the
+  zone hugs ragged line ends) plus the border box of every link and button.
+  It reads through transforms, so a heading still rising on its GSAP reveal
+  is followed. Within `QUIET_EDGE` (4px) of those boxes no pixel is drawn,
+  and a swollen one is capped at `clear × 1.41` so even a square's corner
+  can't reach in. Over the next `QUIET_FEATHER` (30px) pixels shrink and fade
+  back in, and the ones lining the zone get a little extra alpha (`RIM`), so
+  the words read as cut out of the light rather than dimmed into it. The
+  radial glow is thinned to `GLOW_KEEP` (20%) under the copy through a mask
+  of one cell per pixel, drawn `destination-out` and upscaled with smoothing,
+  which is what feathers it. The distance field is recomputed only when the
+  rect key changes. Measured in headless Chrome by sampling the canvas under
+  each element's glyph boxes during a sweep and a press: paragraph ≥ 7.16:1,
+  headline and LinkedIn ≥ 14.79:1, at 1440 and 375, reduced motion included.
+  The worst background left is the CSS grid line, not the canvas.
+  It's automatic: any text or link you add to the box is avoided too.
+- Pre-existing, not the effect's: the `// let's talk` kicker (`#6f7a8a`) is
+  4.1:1 on the plain card and 3.7:1 over a grid line, and the mail button's
+  hover blue (`#3f6bff`) is 4.4:1 with white. Both are under AA with the
+  field off; the same kicker colour is used on the other dark CTAs.
 - Only hosts with a box get mounted. The raw x-dc template is in the DOM under
   `display: none` until render, and mounting into it would size the canvas
   to 0.

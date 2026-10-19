@@ -24,6 +24,14 @@
  * existing 48px grid layer, so the pixels sit over the grid lines and under
  * the copy.
  *
+ * The copy stays readable through all of it because the field parts around
+ * the words. Every frame it draws, the script reads the line boxes of the
+ * card's text and the boxes of its links and buttons; no pixel may come
+ * within QUIET_EDGE px of them, pixels shrink and fade back in over the next
+ * QUIET_FEATHER px, and the radial glow is thinned to GLOW_KEEP underneath.
+ * Before this, the brightest pixel (#dbe4ff) could sit right behind the
+ * paragraph (1.75:1) and the LinkedIn button (1.18:1).
+ *
  * Left out of the original: its variants, shapes, `trigger` modes and props
  * (the values below are the ones chosen), and the card chrome (surface,
  * edge highlight, tabIndex), since the CTA brings its own and its links are
@@ -47,6 +55,13 @@
   var SPOTLIGHT = 0.5;
   var GLOW_STRENGTH = 0.5;
   var APPEAR = 0.26, EXIT = 0.22;
+  // The quiet zone: the copy's own line boxes, measured live. No pixel may
+  // overlap them or come within QUIET_EDGE px, and from there out to
+  // QUIET_EDGE + QUIET_FEATHER the pixels shrink and fade back in, so the
+  // field parts around the words. The glow is thinned to GLOW_KEEP under the
+  // copy and comes back over QUIET_GLOW px, a soft pocket rather than a box.
+  var QUIET_EDGE = 4, QUIET_FEATHER = 30, QUIET_GLOW = 64, GLOW_KEEP = 0.2;
+  var RIM = 0.32;            // extra alpha on the pixels lining the zone
   var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function clamp(v, a, b) { return Math.min(Math.max(v, a), b); }
@@ -70,8 +85,57 @@
       x: null, y: null, tint: null, size: null, phase: null, rate: null, jitter: null, presence: new Float32Array(0), delay: null,
       active: false, changedAt: 0, originX: 0, originY: 0, maxDistance: 1,
       pointerX: 0, pointerY: 0, spotX: 0, spotY: 0, spotVX: 0, spotVY: 0, spotPower: 0,
-      hovering: false, focused: false, pulses: [], releaseAt: -1, introAt: -1, introDone: false
+      hovering: false, focused: false, pulses: [], releaseAt: -1, introAt: -1, introDone: false,
+      cols: 0, rows: 0, ox: 0, oy: 0, quietKey: '', quiet: new Float32Array(0), clear: new Float32Array(0)
     };
+    var mask = document.createElement('canvas'), mctx = mask.getContext('2d');
+
+    // Every line box of text in the card, plus the box of every link and
+    // button (LinkedIn's outline has to stay clean), relative to the card.
+    // Read through transforms, so a heading still rising on its GSAP reveal
+    // is followed as it moves.
+    function copyRects() {
+      var cr = card.getBoundingClientRect(), out = [], range = document.createRange();
+      var walk = document.createTreeWalker(card, NodeFilter.SHOW_TEXT), node, list, j;
+      function add(r) {
+        if (r.width < 1 || r.height < 1) return;
+        out.push([r.left - cr.left, r.top - cr.top, r.right - cr.left, r.bottom - cr.top]);
+      }
+      while ((node = walk.nextNode())) {
+        if (host.contains(node) || !node.nodeValue.trim()) continue;
+        range.selectNodeContents(node);
+        list = range.getClientRects();
+        for (j = 0; j < list.length; j++) add(list[j]);
+      }
+      list = card.querySelectorAll('a, button, input, select, textarea');
+      for (j = 0; j < list.length; j++) if (!host.contains(list[j])) add(list[j].getBoundingClientRect());
+      return out;
+    }
+
+    // Re-measured every frame the field draws; recomputed only when the copy
+    // has actually moved, resized or rewrapped.
+    function measureQuiet() {
+      var rects = copyRects(), key = st.key + '#' + rects.map(function (r) {
+        return Math.round(r[0]) + ',' + Math.round(r[1]) + ',' + Math.round(r[2]) + ',' + Math.round(r[3]);
+      }).join(';');
+      if (key === st.quietKey) return;
+      st.quietKey = key;
+      var n = st.count, cols = st.cols, rows = st.rows, img = mctx.createImageData(cols, rows), i, k;
+      if (st.quiet.length !== n) { st.quiet = new Float32Array(n); st.clear = new Float32Array(n); }
+      for (i = 0; i < n; i++) {
+        var x = st.x[i], y = st.y[i], d = Infinity;
+        for (k = 0; k < rects.length; k++) {
+          var r = rects[k], dx = Math.max(r[0] - x, 0, x - r[2]), dy = Math.max(r[1] - y, 0, y - r[3]);
+          d = Math.min(d, Math.hypot(dx, dy));
+        }
+        st.clear[i] = d - QUIET_EDGE;   // room a pixel has before it touches the zone
+        st.quiet[i] = smoothstep(QUIET_EDGE, QUIET_EDGE + QUIET_FEATHER, d);
+        // the pixel order is column-major; image data is row-major
+        img.data[((i % rows) * cols + Math.floor(i / rows)) * 4 + 3] = Math.round(255 * (1 - GLOW_KEEP) * (1 - smoothstep(0, QUIET_GLOW, d)));
+      }
+      mask.width = cols; mask.height = rows;
+      mctx.putImageData(img, 0, 0);
+    }
 
     function build() {
       var r = card.getBoundingClientRect();
@@ -85,7 +149,7 @@
       var cols = Math.floor((w - 1) / GAP) + 1, rows = Math.floor((h - 1) / GAP) + 1;
       var ox = (w - (cols - 1) * GAP) / 2, oy = (h - (rows - 1) * GAP) / 2;
       var n = cols * rows, prev = st.presence;
-      st.count = n;
+      st.count = n; st.cols = cols; st.rows = rows; st.ox = ox; st.oy = oy; st.quietKey = '';
       st.x = new Float32Array(n); st.y = new Float32Array(n); st.tint = new Uint8Array(n);
       st.size = new Float32Array(n); st.phase = new Float32Array(n); st.rate = new Float32Array(n);
       st.jitter = new Float32Array(n); st.presence = new Float32Array(n); st.delay = new Float32Array(n);
@@ -141,6 +205,7 @@
         sum += st.presence[i];
       }
       var avg = st.count ? sum / st.count : 0;
+      if (sum > 0) measureQuiet();
 
       if (avg > 0.001) {
         var cx = st.spotPower > 0.01 ? st.spotX : st.originX, cy = st.spotPower > 0.01 ? st.spotY : st.originY;
@@ -151,6 +216,12 @@
         g.addColorStop(1, 'rgba(' + rgb + ',0)');
         ctx.fillStyle = g;
         ctx.fillRect(0, 0, w, h);
+        // a soft dark pocket under the copy: one mask cell per pixel, scaled
+        // up with smoothing, so the cut-out is feathered for free
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.imageSmoothingEnabled = true;
+        ctx.drawImage(mask, st.ox - GAP / 2, st.oy - GAP / 2, st.cols * GAP, st.rows * GAP);
+        ctx.globalCompositeOperation = 'source-over';
       }
 
       var spotR = Math.min(w, h) * 0.38 + 30, spot = SPOTLIGHT * st.spotPower;
@@ -159,9 +230,12 @@
         ctx.fillStyle = COLORS[col];
         for (i = 0; i < st.count; i++) {
           if (st.tint[i] !== col) continue;
-          var p = st.presence[i];
-          if (p <= 0.002) continue;
+          var p = st.presence[i], q = st.quiet[i];
+          if (p <= 0.002 || q <= 0.002) continue;
           var x = st.x[i], y = st.y[i], size = st.size[i], alpha = 0.5 + p * 0.38;
+          // the pixels lining the zone catch a little more light, so the
+          // words read as cut out of the field rather than dimmed into it
+          alpha += RIM * Math.sin(q * Math.PI) * (q < 0.5 ? 1 : 0.6);
           if (twinkle) {
             var wave = Math.sin(st.phase[i] + st.time * freq * st.rate[i]);
             size *= 0.62 + 0.38 * wave;
@@ -184,8 +258,12 @@
             size *= 1 + pw * 1.4;
             alpha = Math.min(1, alpha + pw * 0.5);
           }
-          if (size <= 0.05) continue;
-          ctx.globalAlpha = alpha;
+          // shrink toward the zone, and never let a swollen pixel reach it (1.41:
+          // a square's corner reaches √2 × its half-side)
+          size = Math.min(size * (0.35 + 0.65 * q), st.clear[i] * 1.41);
+          alpha *= q;
+          if (size <= 0.05 || alpha <= 0.004) continue;
+          ctx.globalAlpha = Math.min(1, alpha);
           ctx.fillRect(x - size * 0.5, y - size * 0.5, size, size);
         }
       }
