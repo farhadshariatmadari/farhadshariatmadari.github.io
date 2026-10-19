@@ -984,14 +984,17 @@ invisible. Don't change that colour on its own.
 
 ### Agrino's screens are WebP too
 
-The 10 `assets/agrino-*.webp` files (750 KB in all) came from Farhad in Oct
-2026. The six that arrived as WebP are copied byte-for-byte; the four PNGs
-(`my-ads`, `channel`, `business-clan`, `farmers-office`) were converted with
-`cwebp -q 88`. `agrino-ad-flow.webp` is a whole conversation as one strip, only
-274px wide, so it sits in a 560px scroll frame at about its native width. Give
-it a wider column and it goes soft. The hero's three phones are the market
-bot (`market-bot`, `wheat-bot`, `sell-wheat`), and `market-bot` is also the
-home card-stack image.
+The 12 `assets/agrino-*.webp` files (about 0.8 MB in all) came from Farhad in Oct
+2026, in two batches. Everything that arrived as WebP is copied byte-for-byte.
+The four PNGs (`my-ads`, `channel`, `business-clan`, `farmers-office`) were
+converted with `cwebp -q 88`. `agrino-ad-flow.webp` is a whole conversation as
+one strip, only 274px wide, so it sits in a 560px scroll frame at about its
+native width. Give it a wider column and it goes soft. The second batch is a
+newer chat style (robot avatar, one "all products" pill), and its three price
+screens (`prices`, `wheat-price`, `price-alert`) are the hero. The older-style
+market-bot screens are the four numbered steps below it, and `market-bot` is
+also the home card-stack image. A wheat-bot intro screen from the first batch
+was dropped when the hero changed.
 
 ### Testimonial avatars
 

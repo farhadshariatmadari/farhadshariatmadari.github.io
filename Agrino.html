@@ -83,24 +83,24 @@
            its GSAP fade-up. The two must never share an element. -->
       <div class="ag-hero-shot" data-speed="0.04" style="width: 272px; max-width: 100%; transform: translateY(14px);">
       <figure data-gsap="fade-up" style="margin: 0; border-radius: 32px; overflow: hidden; border: 1px solid #dce0e6; box-shadow: 0 24px 60px rgba(20,23,28,.16); background: #fff;">
-        <img src="assets/agrino-market-bot.webp" alt="Agrino market bot — a greeting and four starting points: top ads, post an ad, today's prices, a guide" style="display: block; width: 100%; height: auto;">
+        <img src="assets/agrino-prices.webp" alt="Agrino market bot — today's national average prices for five crops, each with its daily change" style="display: block; width: 100%; height: auto;">
       </figure>
       </div>
       <div class="ag-hero-shot" data-speed="-0.06" style="width: 272px; max-width: 100%;">
       <figure data-gsap="fade-up" style="margin: 0; border-radius: 32px; overflow: hidden; border: 1px solid #dce0e6; box-shadow: 0 28px 70px rgba(20,23,28,.20); background: #fff;">
-        <img src="assets/agrino-wheat-bot.webp" alt="Agrino wheat bot — an illustrated farmer and suggested questions about wheat" style="display: block; width: 100%; height: auto;">
+        <img src="assets/agrino-wheat-price.webp" alt="Agrino market bot — the national average wheat price, its range and active ads, with follow-up chips" style="display: block; width: 100%; height: auto;">
       </figure>
       </div>
       <div class="ag-hero-shot" data-speed="0.04" style="width: 272px; max-width: 100%; transform: translateY(14px);">
       <figure data-gsap="fade-up" style="margin: 0; border-radius: 32px; overflow: hidden; border: 1px solid #dce0e6; box-shadow: 0 24px 60px rgba(20,23,28,.16); background: #fff;">
-        <img src="assets/agrino-sell-wheat.webp" alt="Agrino chat — a farmer asks to sell wheat and the bot offers wheat types as chips" style="display: block; width: 100%; height: auto;">
+        <img src="assets/agrino-price-alert.webp" alt="Agrino market bot — setting a wheat price alert for Khorasan at a chosen threshold" style="display: block; width: 100%; height: auto;">
       </figure>
       </div>
     </div>
     <!-- position: relative keeps this bar painted over the phones' shadows;
          a translated element paints above any plain sibling that follows. -->
     <div style="position: relative; border-top: 1px solid #e2e5eb; padding: 14px 24px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #7a8493; background: rgba(255,255,255,.5);">
-      <span>[ agrino · market bot ]</span>
+      <span>[ agrino · market bot · prices ]</span>
       <span>persian · rtl</span>
     </div>
   </div>
@@ -197,18 +197,26 @@
     <!-- Block B · selling through the market bot -->
     <div class="r-side" style="border-top: 1px solid #eef0f3; margin-top: 56px; padding-top: clamp(26px, 3.84vw, 48px); display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px); margin-bottom: 28px;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">→ the market bot</div>
-      <p style="font-size: 16px; line-height: 1.7; color: #3a414d; max-width: 62ch; margin: 0;">Buying and selling run as a conversation. The bot asks one question at a time and offers likely answers as chips, so a farmer can post an ad without filling in a form. It ends on a summary to confirm or correct, and the ad can be managed afterwards.</p>
+      <p style="font-size: 16px; line-height: 1.7; color: #3a414d; max-width: 62ch; margin: 0;">Buying and selling run as a conversation. The bot asks one question at a time and offers likely answers as chips, so a farmer can post an ad without filling in a form. It ends on a summary to confirm or correct, and the ad can be managed afterwards. Prices work the same way: today's prices across crops, one crop's average and range, and an alert when it crosses a level, all from the same chat.</p>
     </div>
     <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
-      <figure style="flex: 0 1 272px; margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
+      <figure data-gsap="fade-up" style="flex: 1 1 220px; max-width: 272px; margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
+        <img src="assets/agrino-market-bot.webp" alt="Agrino market bot — a greeting and four starting points: top ads, post an ad, today's prices, a guide" style="display: block; width: 100%; height: auto;">
+        <figcaption style="padding: 16px 20px; border-top: 1px solid #eef0f3;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #97a0ad; display: block; margin-bottom: 5px;">01 · start</span><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">A greeting and four ways in, instead of an empty prompt.</span></figcaption>
+      </figure>
+      <figure data-gsap="fade-up" style="flex: 1 1 220px; max-width: 272px; margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
+        <img src="assets/agrino-sell-wheat.webp" alt="Agrino market bot — a farmer asks to sell wheat and the bot offers wheat types as chips" style="display: block; width: 100%; height: auto;">
+        <figcaption style="padding: 16px 20px; border-top: 1px solid #eef0f3;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #97a0ad; display: block; margin-bottom: 5px;">02 · ask</span><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">Ask in plain words; the bot answers with choices to tap.</span></figcaption>
+      </figure>
+      <figure style="flex: 1 1 220px; max-width: 272px; margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
         <div data-gsap="fade-up" style="height: 560px; overflow-y: auto; background: #f6f7f9;">
           <img src="assets/agrino-ad-flow.webp" alt="Agrino market bot — a full conversation posting an ad for laying hens, ending in a confirmed summary" style="display: block; width: 100%; height: auto;">
         </div>
-        <figcaption style="padding: 16px 20px; border-top: 1px solid #eef0f3;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #97a0ad; display: block; margin-bottom: 5px;">01 · post · scroll ↓</span><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">One conversation, from greeting to a published ad.</span></figcaption>
+        <figcaption style="padding: 16px 20px; border-top: 1px solid #eef0f3;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #97a0ad; display: block; margin-bottom: 5px;">03 · post · scroll ↓</span><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">One conversation, from greeting to a published ad.</span></figcaption>
       </figure>
-      <figure data-gsap="fade-up" style="flex: 0 1 272px; margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
+      <figure data-gsap="fade-up" style="flex: 1 1 220px; max-width: 272px; margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
         <img src="assets/agrino-my-ads.webp" alt="Agrino — my ads, each with its status and the details the bot collected" style="display: block; width: 100%; height: auto;">
-        <figcaption style="padding: 16px 20px; border-top: 1px solid #eef0f3;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #97a0ad; display: block; margin-bottom: 5px;">02 · manage</span><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">Posted ads, with their status and the details the bot collected.</span></figcaption>
+        <figcaption style="padding: 16px 20px; border-top: 1px solid #eef0f3;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #97a0ad; display: block; margin-bottom: 5px;">04 · manage</span><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">Posted ads, with their status and the details the bot collected.</span></figcaption>
       </figure>
     </div>
 
@@ -218,15 +226,15 @@
       <p style="font-size: 16px; line-height: 1.7; color: #3a414d; max-width: 62ch; margin: 0;">Large agribusinesses get a space of their own. A farmer picks a business, follows its channel, and sends requests — contracts, inputs, invoices — through its farmers' office, where each one keeps a visible status.</p>
     </div>
     <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
-      <figure data-gsap="fade-up" style="flex: 0 1 272px; margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
+      <figure data-gsap="fade-up" style="flex: 1 1 220px; max-width: 272px; margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
         <img src="assets/agrino-business-clan.webp" alt="Agrino — a directory of agribusinesses, shown by logo" style="display: block; width: 100%; height: auto;">
         <figcaption style="padding: 16px 20px; border-top: 1px solid #eef0f3;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #97a0ad; display: block; margin-bottom: 5px;">01 · choose</span><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">The businesses on Agrino.</span></figcaption>
       </figure>
-      <figure data-gsap="fade-up" style="flex: 0 1 272px; margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
+      <figure data-gsap="fade-up" style="flex: 1 1 220px; max-width: 272px; margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
         <img src="assets/agrino-channel.webp" alt="Agrino — a business channel with its farmers' office pinned above its sub-channels" style="display: block; width: 100%; height: auto;">
         <figcaption style="padding: 16px 20px; border-top: 1px solid #eef0f3;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #97a0ad; display: block; margin-bottom: 5px;">02 · follow</span><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">A business's channel, with its farmers' office pinned on top.</span></figcaption>
       </figure>
-      <figure data-gsap="fade-up" style="flex: 0 1 272px; margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
+      <figure data-gsap="fade-up" style="flex: 1 1 220px; max-width: 272px; margin: 0; border: 1px solid #e2e5ea; border-radius: 26px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.10);">
         <img src="assets/agrino-farmers-office.webp" alt="Agrino farmers' office — request history grouped by week and month, each with a status" style="display: block; width: 100%; height: auto;">
         <figcaption style="padding: 16px 20px; border-top: 1px solid #eef0f3;"><span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #97a0ad; display: block; margin-bottom: 5px;">03 · request</span><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">Request history, each with its review status.</span></figcaption>
       </figure>
