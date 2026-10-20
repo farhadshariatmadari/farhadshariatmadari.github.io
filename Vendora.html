@@ -25,6 +25,19 @@
   a { color: #2f5cf0; text-decoration: none; }
   a:hover { color: #234ad1; }
   ::selection { background: #2f5cf0; color: #fff; }
+  /* The hero's two screens overlap at every width, so they never stack and
+     their opposite parallax can't run them together. On a phone the
+     composition is only ~290px wide, so both screens grow, the dialog
+     drops further below the table to keep its left half in view, and the
+     window bar slims down so it isn't a fifth of the window's height. */
+  @media (max-width: 560px) {
+    .vd-hero { padding-bottom: 22% !important; }
+    .vd-hero-back { width: 92% !important; }
+    .vd-hero-front { width: 64% !important; }
+    .vd-bar { gap: 5px !important; padding: 8px 11px !important; }
+    .vd-dot { width: 8px !important; height: 8px !important; }
+    .vd-url { font-size: 10px !important; margin-left: 2px !important; }
+  }
 </style>
 <script src="./smooth-scroll.js"></script>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
@@ -69,15 +82,42 @@
 
 <!-- ============ HERO IMAGE ============ -->
 <section style="padding: 0 clamp(22px, 3.2vw, 40px);">
-  <div style="border: 1px solid #e2e5ea; border-radius: 12px; overflow: hidden; background: #fff;">
-    <div style="display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid #eef0f3;">
-      <span style="width:11px;height:11px;border-radius:50%;background:#e2e5ea;"></span>
-      <span style="width:11px;height:11px;border-radius:50%;background:#e2e5ea;"></span>
-      <span style="width:11px;height:11px;border-radius:50%;background:#e2e5ea;"></span>
-      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#b4bcc7;margin-left:8px;">vendora · merchant panel</span>
+  <div style="border: 1px solid #e2e5ea; border-radius: 16px; overflow: hidden; background: #ebedf1; background-image: linear-gradient(#e2e5eb 1px, transparent 1px), linear-gradient(90deg, #e2e5eb 1px, transparent 1px); background-size: 40px 40px; background-position: -1px -1px;">
+    <div style="padding: clamp(29px, 4.16vw, 52px) clamp(22px, 3.2vw, 40px);">
+      <!-- The light inventory window, with the dark media library dialog
+           hanging off its lower-right corner. The dialog is absolutely
+           placed, so the two overlap at every width instead of wrapping;
+           .vd-hero's padding-bottom (a share of the width) is the room it
+           takes below the window. data-speed: the window sinks and the
+           dialog lifts, as on Behinto, from where they load. Each wrapper
+           owns position, the figure inside owns appearance and its GSAP
+           fade-up. The two must never share an element. -->
+      <div class="vd-hero" style="position: relative; padding-bottom: 8%;">
+        <div class="vd-hero-back" data-speed="0.04" data-speed-rest="entry" style="width: 78%;">
+        <figure data-gsap="fade-up" style="margin: 0; border-radius: 10px; overflow: hidden; border: 1px solid #dce0e6; box-shadow: 0 28px 70px rgba(20,23,28,.16); background: #fff;">
+          <div class="vd-bar" style="display: flex; align-items: center; gap: 8px; padding: 12px 16px; border-bottom: 1px solid #eef0f3;">
+            <span class="vd-dot" style="width:11px;height:11px;border-radius:50%;background:#e2e5ea;flex:none;"></span>
+            <span class="vd-dot" style="width:11px;height:11px;border-radius:50%;background:#e2e5ea;flex:none;"></span>
+            <span class="vd-dot" style="width:11px;height:11px;border-radius:50%;background:#e2e5ea;flex:none;"></span>
+            <span class="vd-url" style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#b4bcc7;margin-left:8px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">vendora · merchant panel</span>
+          </div>
+          <img src="assets/vendora-inventory.webp" alt="Vendora merchant panel — the inventory table, with unavailable, committed, available, on-hand and incoming stock for each variant, filterable by location" width="2000" height="1420" style="display: block; width: 100%; height: auto;">
+        </figure>
+        </div>
+        <!-- The dialog's corners are transparent in the file, so the radius
+             here only shapes the shadow: 10px of 1564 × 1067. -->
+        <div class="vd-hero-front" data-speed="-0.06" data-speed-rest="entry" style="position: absolute; right: 0; bottom: 0; width: 47%;">
+        <figure data-gsap="fade-up" data-gsap-delay="120" style="margin: 0;">
+          <img src="assets/vendora-media-picker.webp" alt="Vendora media library in dark theme — files filtered by type, size and where they're used, with a preview beside the grid" width="1564" height="1067" style="display: block; width: 100%; height: auto; border-radius: 0.64% / 0.94%; box-shadow: 0 32px 80px rgba(12,16,30,.32), 0 10px 24px rgba(12,16,30,.16);">
+        </figure>
+        </div>
+      </div>
     </div>
-    <div style="aspect-ratio: 16/9; background: repeating-linear-gradient(135deg, #eef1f5 0 12px, #f5f7fa 12px 24px); display: flex; align-items: center; justify-content: center;">
-      <span style="font-family: 'JetBrains Mono', monospace; font-size: 12px; color: #b4bcc7; letter-spacing: 0.12em;">[ vendora · orders table hero ]</span>
+    <!-- position: relative keeps this bar painted over the screens' shadows;
+         a translated element paints above any plain sibling that follows. -->
+    <div style="position: relative; border-top: 1px solid #e2e5eb; padding: 14px 24px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #7a8493; background: rgba(255,255,255,.5);">
+      <span>[ vendora · inventory &amp; media library ]</span>
+      <span>light &amp; dark themes</span>
     </div>
   </div>
 </section>
@@ -147,27 +187,55 @@
   <div style="border-top: 1px solid #e2e5ea; padding-top: clamp(26px, 3.84vw, 48px);">
     <div class="r-side" style="display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px); margin-bottom: 36px;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">// key work</div>
-      <h2 data-gsap="split-words" style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0; max-width: 26ch;">Merchant panels, the system, and the crypto libraries.</h2>
+      <h2 data-gsap="split-words" style="font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: clamp(24px, 3vw, 36px); line-height: 1.1; letter-spacing: -0.02em; margin: 0; max-width: 26ch;">The merchant panel: tables, records, and setup.</h2>
     </div>
-    <div data-gsap="fade-up" data-gsap-stagger="90" class="r-g2" style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
-      <div style="border: 1px solid #e2e5ea; border-radius: 10px; overflow: hidden; background: #fff;">
-        <div style="aspect-ratio: 16/10; background: repeating-linear-gradient(135deg, #eef1f5 0 12px, #f5f7fa 12px 24px); display: flex; align-items: center; justify-content: center;"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#b4bcc7;letter-spacing:0.12em;">[ orders &amp; products · table views ]</span></div>
-        <div style="padding: 18px 22px; font-size: 13px; color: #5a6270; border-top: 1px solid #eef0f3;">Dense table views and bulk actions.</div>
-      </div>
-      <div style="border: 1px solid #e2e5ea; border-radius: 10px; overflow: hidden; background: #fff;">
-        <div style="aspect-ratio: 3/5; background: repeating-linear-gradient(135deg, #eef1f5 0 12px, #f5f7fa 12px 24px); display: flex; align-items: center; justify-content: center;"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#b4bcc7;letter-spacing:0.12em;">[ record forms ]</span></div>
-        <div style="padding: 18px 22px; font-size: 13px; color: #5a6270; border-top: 1px solid #eef0f3;">Record management &amp; forms.</div>
-      </div>
+
+    <!-- Block A · filters and saved views, from the Figma file -->
+    <div class="r-side" style="display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px); margin-bottom: 28px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">→ filters &amp; views</div>
+      <p style="font-size: 16px; line-height: 1.7; color: #3a414d; max-width: 62ch; margin: 0;">Most of the panel is tables: orders, products, inventory, customers. Filtering was designed on a generic table, state by state. Filters sit inside the search field as tags, each one a field, one or more of its options, and is or is not. A filtered table can be saved as a named view. On tablet and phone nothing can be hovered, so there a tag's remove icon is always visible.</p>
     </div>
-    <div data-gsap="fade-up" data-gsap-stagger="90" class="r-g2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
-      <div style="border: 1px solid #e2e5ea; border-radius: 10px; overflow: hidden; background: #fff;">
-        <div style="aspect-ratio: 16/10; background: repeating-linear-gradient(135deg, #eef1f5 0 12px, #f5f7fa 12px 24px); display: flex; align-items: center; justify-content: center;"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#b4bcc7;letter-spacing:0.12em;">[ 55+ components · 4 theme modes ]</span></div>
-        <div style="padding: 18px 22px; font-size: 13px; color: #5a6270; border-top: 1px solid #eef0f3;">The two-tier design system.</div>
-      </div>
-      <div style="border: 1px solid #e2e5ea; border-radius: 10px; overflow: hidden; background: #fff;">
-        <div style="aspect-ratio: 16/10; background: repeating-linear-gradient(135deg, #eef1f5 0 12px, #f5f7fa 12px 24px); display: flex; align-items: center; justify-content: center;"><span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:#b4bcc7;letter-spacing:0.12em;">[ crypto asset libraries ]</span></div>
-        <div style="padding: 18px 22px; font-size: 13px; color: #5a6270; border-top: 1px solid #eef0f3;">Tokens, chains, and wallet logos.</div>
-      </div>
+    <figure data-gsap="fade-up" style="margin: 0; border: 1px solid #e2e5ea; border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.08);">
+      <img src="assets/vendora-filter-states.webp" alt="Figma board of Vendora's table filter states — choosing a field, ticking its options, hovering a tag, reopening a filter, adding another — on desktop, then on phone and tablet with the keyboard up" width="2000" height="762" style="display: block; width: 100%; height: auto;">
+      <figcaption style="padding: 16px 20px; border-top: 1px solid #eef0f3;"><span style="display: block; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #97a0ad; margin-bottom: 5px;">01 · filter states</span><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">A field picked, its options ticked, a tag hovered, a filter reopened, another added. Below, the same steps on phone and tablet, with the keyboard up.</span></figcaption>
+    </figure>
+    <figure data-gsap="fade-up" style="margin: 20px 0 0; border: 1px solid #e2e5ea; border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.08);">
+      <img src="assets/vendora-save-view.webp" alt="Figma board — a filtered table's Save view button opening the Save view as dialog, with a name of up to 40 characters" width="2000" height="912" style="display: block; width: 100%; height: auto;">
+      <figcaption style="padding: 16px 20px; border-top: 1px solid #eef0f3;"><span style="display: block; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #97a0ad; margin-bottom: 5px;">02 · save view</span><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">Save view sits beside the search. The name takes up to 40 characters, and the button stays off until there is one.</span></figcaption>
+    </figure>
+
+    <!-- Block B · records. The columns are in the two images' aspect
+         ratios (0.9 and 0.958), so both screens come out the same height. -->
+    <div class="r-side" style="border-top: 1px solid #eef0f3; margin-top: 56px; padding-top: clamp(26px, 3.84vw, 48px); display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px); margin-bottom: 28px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">→ records</div>
+      <p style="font-size: 16px; line-height: 1.7; color: #3a414d; max-width: 62ch; margin: 0;">Every record opens in the same frame: its title and actions on top, a breadcrumb back, a card for each concern, and Back and Save at the foot. A collection keeps its products, publishing and theme template on one page. A product with 32 variants gets a two-pane editor: the variants on the left, narrowed by each option, the selected one on the right. Optional fields wait folded as chips, from compare-at price to HS code, so a form starts short.</p>
+    </div>
+    <div data-gsap="fade-up" data-gsap-stagger="90" class="r-g2" style="display: grid; grid-template-columns: 900fr 958fr; gap: 20px; align-items: stretch;">
+      <figure style="margin: 0; display: flex; flex-direction: column; border: 1px solid #e2e5ea; border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.08);">
+        <img src="assets/vendora-collection.webp" alt="Vendora collection page after a save — title, description, its products in order, publishing channels, image and theme template" width="1800" height="2000" style="display: block; width: 100%; height: auto;">
+        <figcaption style="flex: 1 0 auto; padding: 16px 20px; border-top: 1px solid #eef0f3;"><span style="display: block; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #97a0ad; margin-bottom: 5px;">01 · collection · light</span><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">After a save, the banner offers the two likely next steps: see it in the store, or make another.</span></figcaption>
+      </figure>
+      <figure style="margin: 0; display: flex; flex-direction: column; border: 1px solid #e2e5ea; border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.08);">
+        <img src="assets/vendora-variant.webp" alt="Vendora variant editor in dark theme — the product's 32 variants listed and filtered by option on the left; price, inventory and shipping for the selected one on the right" width="1916" height="2000" style="display: block; width: 100%; height: auto;">
+        <figcaption style="flex: 1 0 auto; padding: 16px 20px; border-top: 1px solid #eef0f3;"><span style="display: block; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #97a0ad; margin-bottom: 5px;">02 · variant · dark</span><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">Duplicating a variant: change any of its three options, then save. The same frame and cards, in the dark theme.</span></figcaption>
+      </figure>
+    </div>
+
+    <!-- Block C · sign-up and settings. Columns in the images' ratios
+         again (1.6 and 1.538), for equal heights. -->
+    <div class="r-side" style="border-top: 1px solid #eef0f3; margin-top: 56px; padding-top: clamp(26px, 3.84vw, 48px); display: grid; grid-template-columns: 200px 1fr; gap: clamp(26px, 3.84vw, 48px); margin-bottom: 28px;">
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #97a0ad;">→ sign-up &amp; settings</div>
+      <p style="font-size: 16px; line-height: 1.7; color: #3a414d; max-width: 62ch; margin: 0;">A new store starts with an email and a 6-digit code, or a Google or Apple account, and the trial's terms are on screen before anything is asked. Settings open as a sheet over the panel rather than a page of their own, with their own search and navigation, from plan and billing to domains and notifications.</p>
+    </div>
+    <div data-gsap="fade-up" data-gsap-stagger="90" class="r-g2" style="display: grid; grid-template-columns: 1600fr 1538fr; gap: 20px; align-items: stretch;">
+      <figure style="margin: 0; display: flex; flex-direction: column; border: 1px solid #e2e5ea; border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.08);">
+        <img src="assets/vendora-sign-up.webp" alt="Vendora sign-up — start a free trial with an email and a 6-digit code, or with Google or Apple" width="2000" height="1250" style="display: block; width: 100%; height: auto;">
+        <figcaption style="flex: 1 0 auto; padding: 16px 20px; border-top: 1px solid #eef0f3;"><span style="display: block; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #97a0ad; margin-bottom: 5px;">01 · sign-up</span><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">No password to invent: an email and a code, or Google or Apple.</span></figcaption>
+      </figure>
+      <figure style="margin: 0; display: flex; flex-direction: column; border: 1px solid #e2e5ea; border-radius: 10px; overflow: hidden; background: #fff; box-shadow: 0 14px 40px rgba(20,23,28,.08);">
+        <img src="assets/vendora-settings.webp" alt="Vendora settings, General — business details, store contact details and store defaults, open over the merchant panel" width="2000" height="1300" style="display: block; width: 100%; height: auto;">
+        <figcaption style="flex: 1 0 auto; padding: 16px 20px; border-top: 1px solid #eef0f3;"><span style="display: block; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #97a0ad; margin-bottom: 5px;">02 · settings</span><span style="font-size: 13px; line-height: 1.5; color: #5a6270;">General: the business entity, the store's contact details and address, and its defaults.</span></figcaption>
+      </figure>
     </div>
   </div>
 </section>

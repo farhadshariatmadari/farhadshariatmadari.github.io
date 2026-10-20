@@ -295,7 +295,7 @@ or not Lenis loaded, and `window.lenis` once it has.
 ### Parallax (`data-speed`)
 
 **Every hero that has two or more layers to drift against each other.** That
-means six places. Farhad asked for it everywhere (Oct 2026), and these are
+means seven places. Farhad asked for it everywhere (Oct 2026), and these are
 everywhere it means something:
 
 | Page | Element | Speed | Rest | Off at |
@@ -306,16 +306,22 @@ everywhere it means something:
 | `Behinto.html` | outer / middle phone wrappers (`.bh-hero-shot`) | `0.04` / `-0.06` | centre | ≤1000 (wraps) |
 | `Agrino.html` | outer / middle phone wrappers (`.ag-hero-shot`) | `0.04` / `-0.06` | centre | ≤1000 (wraps) |
 | `Zeero.html` | the two outer phones | `0.06` | entry | 860 (wraps under ~800) |
+| `Vendora.html` | inventory window / media dialog wrappers (`.vd-hero-back` / `.vd-hero-front`) | `0.04` / `-0.06` | entry | never (they overlap, so can't stack) |
 
 The first five were swept in headless Chrome at 880–1920 wide. On screen, no
 element runs into another or into a frame edge it doesn't already stand on.
 Edge-standers (Zeero, About) never lift off their edge. Agrino (Oct 2026) is
 Behinto's hero rebuilt with its own screens (same 272px phones, speeds and
 wrap point), so it inherits that sweep rather than having its own.
+Vendora (Oct 2026) is the one overlap: the dark dialog is absolutely placed
+on the light window's lower-right corner at every width, so the two never
+stack and need no "off at" rule. Swept at 880–1920: the dialog's top stays
+258px+ inside the stage, and no screen's bottom gets nearer the caption bar
+than the stage's own padding.
 
 **Deliberately left out.** Trio and DigiKala Mehr: one browser-framed
 screenshot, so there's nothing to drift against. Drifting the whole frame
-against the text just reads as lag. Safes, Vendora, Sharif AICT:
+against the text just reads as lag. Safes, Sharif AICT:
 hatch placeholders, so they get it when their real screens do. Work: its one
 image is cover-cropped to an exact fit, with no slack to pan. How I Work,
 Contact: text only. Screenshots in body sections: they're content to read,
@@ -981,7 +987,7 @@ pngquant/oxipng pass, 175 KB for all four:
 the page shows a placeholder instead of a broken image, and restores itself when
 the file returns.
 
-Three projects have **no screenshots at all** (Safes, Vendora, Sharif AICT)
+Two projects have **no screenshots at all** (Safes, Sharif AICT)
 and use the hatch placeholder — see `assets/MISSING-ASSETS.md`.
 
 ### Medio's screens are WebP, not PNG
@@ -1021,6 +1027,30 @@ screens (`prices`, `wheat-price`, `price-alert`) are the hero. The older-style
 market-bot screens are the four numbered steps below it, and `market-bot` is
 also the home card-stack image. A wheat-bot intro screen from the first batch
 was dropped when the hero changed.
+
+### Vendora's screens are WebP too
+
+The 8 `assets/vendora-*.webp` files (about 0.6 MB) came from Farhad in Oct
+2026 as WebP at 2000px or less. Six are copied byte-for-byte. Two were cut
+(q88) from the supplied originals, which are not in the repo:
+
+- `vendora-media-picker` arrived with the dialog's 20% black scrim baked in as
+  alpha around it. It is cropped to the dialog's edge, and the scrim is taken
+  back out of the anti-aliased corner pixels (alpha unmixed, colour
+  un-premultiplied), so the corners are transparent. The CSS
+  `border-radius: 0.64% / 0.94%` (its 10px corner of 1564×1067) only shapes
+  the shadow. It is the hero's front layer, over `vendora-inventory`, which
+  is also the home card-stack image.
+- `vendora-filter-states` has 8px off the top, where a Figma frame label was
+  cut in half by the capture.
+
+`filter-states` and `save-view` are Figma boards, not screens. Their frames
+are too small to read on the page, so the captions carry the detail. The two
+pairs below them (collection + variant, sign-up + settings) sit in grid
+columns set to the images' aspect ratios (`900fr 958fr`, `1600fr 1538fr`),
+which makes each pair exactly the same height. Re-cut one and its `fr` has to
+change with it. The screens carry Greek sample data (Athens, Thessaloniki,
+a Greek business entity), while the copy says "European launch".
 
 ### Testimonial avatars
 
