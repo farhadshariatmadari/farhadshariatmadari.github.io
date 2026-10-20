@@ -295,7 +295,7 @@ or not Lenis loaded, and `window.lenis` once it has.
 ### Parallax (`data-speed`)
 
 **Every hero that has two or more layers to drift against each other.** That
-means seven places. Farhad asked for it everywhere (Oct 2026), and these are
+means eight places. Farhad asked for it everywhere (Oct 2026), and these are
 everywhere it means something:
 
 | Page | Element | Speed | Rest | Off at |
@@ -307,6 +307,7 @@ everywhere it means something:
 | `Agrino.html` | outer / middle phone wrappers (`.ag-hero-shot`) | `0.04` / `-0.06` | centre | ≤1000 (wraps) |
 | `Zeero.html` | the two outer phones | `0.06` | entry | 860 (wraps under ~800) |
 | `Vendora.html` | inventory window / media dialog wrappers (`.vd-hero-back` / `.vd-hero-front`) | `0.04` / `-0.06` | entry | never (they overlap, so can't stack) |
+| `Sharif-AICT.html` | assistant / studio window wrappers (`.sh-back` / `.sh-front`) | `0.04` / `-0.06` | centre | never (they overlap, so can't stack) |
 
 The first five were swept in headless Chrome at 880–1920 wide. On screen, no
 element runs into another or into a frame edge it doesn't already stand on.
@@ -318,11 +319,20 @@ on the light window's lower-right corner at every width, so the two never
 stack and need no "off at" rule. Swept at 880–1920: the dialog's top stays
 258px+ inside the stage, and no screen's bottom gets nearer the caption bar
 than the stage's own padding.
+Sharif AICT (Oct 2026) overlaps too: two windows in row 1 of a 12-column
+grid, with the studio's top just under the assistant's prompt. It rests at
+**centre**, not entry. The studio is the lower layer and the nearer one, so
+the two can only ever converge. Under entry, that put the studio over the
+prompt by 300px of scroll, before the stage had reached mid-screen. At centre
+they arrive a little apart, sit exactly as laid out when centred, and close
+only as the stage leaves. Swept at 880–1920 (viewports 640–1080 tall): on
+arrival the back keeps 27px+ under the stage top and the studio 13px+ above
+the caption bar.
 
 **Deliberately left out.** Trio and DigiKala Mehr: one browser-framed
 screenshot, so there's nothing to drift against. Drifting the whole frame
-against the text just reads as lag. Safes, Sharif AICT:
-hatch placeholders, so they get it when their real screens do. Work: its one
+against the text just reads as lag. Safes: hatch placeholders, so it
+gets it when its real screens do. Work: its one
 image is cover-cropped to an exact fit, with no slack to pan. How I Work,
 Contact: text only. Screenshots in body sections: they're content to read,
 and some are the nested-scroll frames.
@@ -987,8 +997,8 @@ pngquant/oxipng pass, 175 KB for all four:
 the page shows a placeholder instead of a broken image, and restores itself when
 the file returns.
 
-Two projects have **no screenshots at all** (Safes, Sharif AICT)
-and use the hatch placeholder — see `assets/MISSING-ASSETS.md`.
+One project has **no screenshots at all** (Safes), and it uses the hatch
+placeholder. See `assets/MISSING-ASSETS.md`.
 
 ### Medio's screens are WebP, not PNG
 
@@ -1052,6 +1062,38 @@ which makes each pair exactly the same height. Re-cut one and its `fr` has to
 change with it. The screens carry Greek sample data (Athens, Thessaloniki,
 a Greek business entity), while the copy says "European launch". Farhad is
 fine with Greece showing there (Oct 2026), so leave the screens as they are.
+
+### Sharif AICT's screens are WebP too
+
+The 7 `assets/sharif-*.webp` files (about 0.4 MB) are the National AI
+Platform, from Farhad in Oct 2026 as 2000px WebP. Persian and right to left,
+so the page's captions say "on the right" where an LTR page would say left.
+Three are copied byte-for-byte. Four were cut (q88, the strip q90) from the
+supplied originals, which are not in the repo:
+
+- `sharif-infrastructure` is the top 1000px of 1300. The rest was empty canvas
+  under the cards, and it set the hero's height, because the studio window is
+  the lower layer. It is also the home card-stack image (`object-position:
+  top right`, so the sidebar and its logo show).
+- `sharif-support-panel` is cut tight to the dark help panel, out of a capture
+  of the infrastructure page with the panel open. The CSS `border-radius:
+  1.5% / 1.9%` is its ~11px corner as a share of 725×573.
+- `sharif-org-picker` is the middle 722×854 of a mostly white 2000px frame.
+- `sharif-handoff-signup` loses its right 12px, a Figma scrollbar.
+
+The hero's studio sits at `margin-top: calc(32.7% + 32px + 18px)`. That is
+the prompt's depth (44% down a 1300/2000 image, scaled by the back window's
+width over the front's, 8/7), plus the 32px window bar and clearance. A plain
+% put the studio over the prompt below ~800px, because the bar doesn't shrink.
+The phone layout has its own numbers. Swap either hero image and both have to
+be re-derived. Both windows reveal at `data-gsap-start="top bottom"`, so a
+window that is half in view on arrival doesn't sit invisible until a scroll.
+
+`sharif-handoff-signup` is a 4.7:1 Figma board. It holds 880px and scrolls
+sideways in its frame below ~940px, and the "four states" list beside the org
+picker spells out what its Persian frame labels and notes say. The screens'
+sample data (olivia@untitledui.com, a university seal as the org avatar,
+`Playload` on the code tabs) is in Farhad's files as supplied.
 
 ### Testimonial avatars
 
