@@ -1050,7 +1050,8 @@ pairs below them (collection + variant, sign-up + settings) sit in grid
 columns set to the images' aspect ratios (`900fr 958fr`, `1600fr 1538fr`),
 which makes each pair exactly the same height. Re-cut one and its `fr` has to
 change with it. The screens carry Greek sample data (Athens, Thessaloniki,
-a Greek business entity), while the copy says "European launch".
+a Greek business entity), while the copy says "European launch". Farhad is
+fine with Greece showing there (Oct 2026), so leave the screens as they are.
 
 ### Testimonial avatars
 
