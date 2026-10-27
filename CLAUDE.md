@@ -39,9 +39,51 @@ production.
   what makes the relative paths work.
 - The old `Work.html` URLs still resolve — they're the real filenames — so any
   link shared before Aug 2026 keeps working. That leaves each page reachable at
-  two URLs, which is why every `<helmet>` now carries a
-  `<link rel="canonical">` pointing at the extensionless form.
-- Adding a page means adding its canonical tag too, right after `<title>`.
+  two URLs, which is why every page carries a `<link rel="canonical">`
+  pointing at the extensionless form.
+- Adding a page means adding its canonical tag too, right after `<title>`,
+  adding it to `PAGES` in `tools/seo-head.py`, and running that script (next
+  section).
+
+## Search (`tools/seo-head.py`, `sitemap.xml`, `robots.txt`)
+
+Set up in Oct 2026 so that searching Farhad's name, in English or in Persian,
+finds the site.
+
+- **Search tags live in the real `<head>`, between `<!-- seo:start -->` and
+  `<!-- seo:end -->`, not in `<helmet>`.** Helmet sits in `<body>` until x-dc
+  moves it with JavaScript. Google ignores a canonical in `<body>`, and
+  anything that exists only after rendering waits for Google's slower
+  rendering pass. The block holds the canonical, `<title>`, description,
+  `og:*` (plus a generated `og:url` and `og:site_name`) and the favicon.
+- **They are moved out of helmet, never copied.** The helmet manager in
+  `support.js` appends every tag it holds to `<head>` without checking what is
+  already there, so a copy would mean two titles and two canonicals. Verified
+  on all 14 pages after render: exactly one of each.
+- **A Claude Design re-export puts them back in helmet.** Re-run the script
+  after one. It is idempotent, and tags from a fresh export win over the old
+  block:
+
+  ```bash
+  python3 tools/seo-head.py          # --check to preview
+  ```
+
+- The home page's block also holds a JSON-LD graph (`Person` + `WebSite`).
+  `alternateName` carries the Persian spellings (فرهاد شریعتمداری, and the
+  ZWNJ form), and `sameAs` carries LinkedIn and GitHub. Add any new public
+  profile there; a link from that profile back to the site counts as much.
+- The script also writes `sitemap.xml`, with each page's last commit date as
+  `<lastmod>`. Run it after committing a content change if you want that date
+  current. `robots.txt` is static and points at the sitemap.
+- Every footer's bottom line has the Persian name in a `<bdi lang="fa">`, so it
+  exists as visible text on all 14 pages. It uses `system-ui` because
+  JetBrains Mono has no Persian glyphs, and `nowrap` so the name never splits
+  at 320px.
+- Not done yet: there's no `og:image` (needs a 1200×630 PNG), and the site
+  isn't in Google Search Console. Farhad has to verify ownership there and
+  submit `sitemap.xml`. For an HTML-tag verification, put the `<meta
+  name="google-site-verification">` inside the seo block in `index.html`, not
+  in helmet.
 
 ## ⚠️ These pages are NOT plain HTML
 
