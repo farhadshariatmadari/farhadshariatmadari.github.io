@@ -79,11 +79,13 @@ finds the site.
   exists as visible text on all 14 pages. It uses `system-ui` because
   JetBrains Mono has no Persian glyphs, and `nowrap` so the name never splits
   at 320px.
-- Not done yet: there's no `og:image` (needs a 1200×630 PNG), and the site
-  isn't in Google Search Console. Farhad has to verify ownership there and
-  submit `sitemap.xml`. For an HTML-tag verification, put the `<meta
-  name="google-site-verification">` inside the seo block in `index.html`, not
-  in helmet.
+- **Google Search Console ownership is proved two ways (Oct 2026):** the
+  `google-site-verification` meta in `index.html`'s seo block, and
+  `google9065f1fe6f7c74c5.html` in the root. **Delete neither.** Google keeps
+  re-checking, and the property is un-verified once both are gone. The script
+  carries the meta through re-runs, and it belongs in the block, not in helmet
+  (Google reads it from the raw HTML).
+- Not done yet: there's no `og:image` (needs a 1200×630 PNG).
 
 ## ⚠️ These pages are NOT plain HTML
 

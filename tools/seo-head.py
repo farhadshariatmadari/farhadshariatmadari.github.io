@@ -56,6 +56,9 @@ MOVABLE = [
     ("description", re.compile(r'[ \t]*<meta name="description"[^>]*>\n?')),
     ("og", re.compile(r'[ \t]*<meta property="og:[^"]*"[^>]*>\n?')),
     ("icon", re.compile(r'[ \t]*<link rel="icon"[^>]*>\n?')),
+    # Search Console ownership. Google reads it from the raw HTML, so it has
+    # to be here. Removing it un-verifies the site.
+    ("verify", re.compile(r'[ \t]*<meta name="google-site-verification"[^>]*>\n?')),
 ]
 
 PERSON = {
@@ -131,6 +134,7 @@ def build_block(found, page):
 
     lines = [START, canon]
     lines += found["title"][:1] + found["description"][:1] + og + found["icon"][:1]
+    lines += found["verify"][:1]
     if page == "index.html":
         lines.append('<script type="application/ld+json">')
         lines.append(json.dumps(PERSON, ensure_ascii=False, indent=2))
