@@ -118,6 +118,8 @@
           if (played) return;
           played = draw(fx);
           if (!played) requestAnimationFrame(start);   // hero not laid out yet
+          // text-roll.js rolls the word inside the box as it draws
+          else fx.dispatchEvent(new CustomEvent('ph:draw', { bubbles: true }));
         }, reduced ? 0 : delay);
       });
     }

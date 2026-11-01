@@ -279,6 +279,59 @@ Markup:
   a `.42s` stagger.
 - Under `prefers-reduced-motion` the box appears at full size with no animation.
   Nothing is hidden, only the motion is dropped.
+- When the box starts drawing it dispatches a bubbling `ph:draw` event, which
+  `text-roll.js` uses to roll the word inside it.
+
+## The text roll (`text-roll.js`)
+
+A vanilla port of [slot-text](https://textmotion.dev) (Farhad's pick, Oct
+2026): each letter rolls out of a clipped cell while a fresh copy rolls in,
+staggered left to right, with slot-text's overshoot easing and per-letter tilt.
+It uses the "chromatic" mode: incoming letters arrive tinted along the prism
+grid's sweep (azure → violet → pink, not slot-text's rainbow) and fade to the
+text's own colour. Dark text gets deep tints, light text pastel ones, so it
+reads on white, blue and ink buttons alike. One `<script>` line in all 14
+helmets, after `smooth-scroll.js`.
+
+Where it runs, found automatically. No markup needed:
+
+- **Buttons**, on mouse hover and keyboard focus (`:focus-visible`, so a click
+  doesn't count). Today that's the nav "Contact" on every page, "Start a
+  conversation →", "See the work", "See how I work", the email button,
+  "LinkedIn" and "Send message →". A button here means an `<a>`/`<button>` with
+  a fill or border, ≥8px padding, ≤48 characters, and only phrasing tags inside.
+  Cards (Work grid, next-project, contact methods) hold `div`s and are skipped,
+  and so is the project index, whose rows are grids. Check by **tag, not
+  display**: inside an inline-flex button the arrow's `<span>` is blockified.
+  `data-roll` forces an element in, and `data-roll="off"` takes one out.
+- **The five highlighted words**, as their box draws (`ph:draw`) and again on
+  hover.
+- **A label that changes**: "Send message →" rolls into "Sending…" and back,
+  through a MutationObserver on the button. Letters are matched by position in
+  the *visible* text, because the two React states are wrapped in different
+  amounts of markup whitespace. Matched letters ("Send") stay put.
+
+How it stays out of React's way:
+
+- **No text node is ever split, moved or edited.** For one roll, an
+  `aria-hidden` `.tr-layer` is appended to the element, with one cell per glyph
+  placed exactly over it. The cells are measured with a `Range` per grapheme,
+  so kerning, the arrow's 16px size and a wrapped label all line up. Verified:
+  0.00px offset on every letter of every button and word. The real text goes
+  `-webkit-text-fill-color: transparent` underneath, which hides glyphs only,
+  so fills, borders, SVG and the highlight's box keep their colour. When the
+  roll ends the layer is removed, and the element is exactly as React left it.
+- Each face's `line-height` is the glyph rect's height, which makes the line
+  box equal the content area, so the baseline lands where the real one is.
+- Long labels squeeze the stagger so the whole wave starts within 600ms. At
+  45ms a letter, the email took 2.2s.
+- A hover mid-roll is ignored, so rolls never stack. A label change aborts and
+  restarts, and a resize aborts every roll (the measured cells would be stale).
+- Persian/Arabic-script text is skipped, because rolling joined letters one by
+  one breaks the joins. Reduced motion: the script does nothing.
+- Verified in headless Chrome with real mouse moves and a stubbed `fetch` for
+  the form (nothing was sent): every layer removed, classes restored, no
+  x-overflow at 375 or 1440, and no console errors.
 
 ## Smooth scroll (`smooth-scroll.js`)
 
