@@ -21,4 +21,4 @@ Then open http://localhost:4321
 
 ## Deploying
 
-Pushing to `main` publishes automatically via GitHub Pages.
+Pushing to `main` publishes automatically via GitHub Pages and Vercel (`vercel.json` turns on clean URLs there).

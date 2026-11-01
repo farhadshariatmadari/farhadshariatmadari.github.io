@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- sw.js serves this in place of any page that fails to load while the
+     visitor has no connection, at that page's own URL, so every path here
+     is absolute and nothing it needs may come from the network: the CSS, JS
+     and logo are precached, and the web fonts are optional (media="print"
+     swap), so a hanging font request can't hold the page blank. -->
+<title>Offline — Farhad Shariatmadari</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="/status.css">
+<script src="/status.js" defer></script>
+</head>
+<body class="st" data-status="offline">
+
+<header class="st-head">
+  <nav class="st-nav" aria-label="Site">
+    <a class="st-brand" href="/" aria-label="Farhad Shariatmadari, home">
+      <img src="/assets/logo-mark.svg" alt="" width="19" height="26">
+      <span class="st-brand-txt"><span class="st-brand-name">Farhad Shariatmadari</span><span class="st-brand-tag">/ design</span></span>
+    </a>
+    <div class="st-links">
+      <a href="/Work">Work</a>
+      <a href="/About">About</a>
+      <a href="/How-I-Work">How I work</a>
+      <a class="st-cta" href="/Contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<main class="st-main">
+  <div class="st-wrap">
+
+    <div class="st-copy">
+      <div class="st-kicker"><span class="st-dot"></span>offline</div>
+      <h1 class="st-h1">You’re offline.</h1>
+      <p class="st-lede">Your connection dropped before the page could load. Nothing is lost: it will load by itself as soon as you’re back.</p>
+      <div class="st-actions">
+        <button type="button" class="st-btn st-btn-primary" data-retry>Try again <span class="st-arrow">↻</span></button>
+        <a class="st-btn" href="mailto:farhadshariatmadari@gmail.com">Email instead</a>
+      </div>
+      <div class="st-meta" data-countdown>Checks again every few seconds.</div>
+    </div>
+
+    <div class="st-shot" aria-hidden="true">
+      <div class="st-win">
+        <div class="st-bar">
+          <i></i><i></i><i></i>
+          <span class="st-file">farhad.fig</span>
+          <span class="st-zoom">100%<span class="st-av">FS</span></span>
+        </div>
+        <div class="st-canvas">
+          <svg viewBox="0 0 460 384" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="of-main" x1="61" y1="0" x2="4" y2="84" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#4F68F3"/><stop offset="0.42" stop-color="#4740DE"/><stop offset="1" stop-color="#BCA8F6"/>
+              </linearGradient>
+              <linearGradient id="of-arm" x1="10" y1="33" x2="48" y2="60" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#C6B6F9"/><stop offset="1" stop-color="#9B85F2"/>
+              </linearGradient>
+              <linearGradient id="of-cross" x1="14" y1="33" x2="40" y2="60" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#2B2472"/><stop offset="1" stop-color="#171337"/>
+              </linearGradient>
+              <mask id="of-mask" maskUnits="userSpaceOnUse" x="-20" y="-20" width="101" height="124">
+                <rect x="-20" y="-20" width="101" height="124" fill="#000"/>
+                <path d="M13.5 70.5V13.5H47.5" fill="none" stroke="#fff" stroke-width="27" stroke-linecap="round" stroke-linejoin="round"/>
+              </mask>
+            </defs>
+
+            <!-- the mark, greyed: it's there, it just can't sync -->
+            <g class="st-mono" transform="translate(157 92) scale(2.4)" fill="none" stroke-width="27" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13.5 70.5V13.5H47.5" stroke="url(#of-main)"/>
+              <path d="M13.5 46H34" stroke="url(#of-arm)"/>
+              <g mask="url(#of-mask)"><path d="M13.5 46H34" stroke="url(#of-cross)"/></g>
+            </g>
+
+            <!-- the toast a design tool shows when it loses its connection -->
+            <rect x="128" y="26" width="204" height="30" rx="15" fill="#14171c"/>
+            <g transform="translate(146 41)">
+              <circle r="6" fill="none" stroke="#3a414d" stroke-width="2"/>
+              <g class="st-spin"><path d="M0 -6a6 6 0 0 1 6 6" fill="none" stroke="#e2a00b" stroke-width="2" stroke-linecap="round"/></g>
+            </g>
+            <text class="st-t" x="160" y="45" fill="#fff">Offline · reconnecting…</text>
+
+            <!-- the "Farhad" cursor, idle -->
+            <g transform="translate(300 252)">
+              <g class="st-idle">
+                <path d="M0 0V16.5l4.3-4.1 3 6.6 2.6-1.2-3-6.5h5.9z" fill="#c3c9d2" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/>
+                <rect x="12" y="17" width="84" height="17" rx="4" fill="#c3c9d2"/>
+                <text class="st-t-sm" x="54" y="28.6" fill="#fff" text-anchor="middle">Farhad · away</text>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="st-strip"><span>connection · lost</span><span>auto-retry · on</span></div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="st-foot">
+  <span>© 2026 Farhad Shariatmadari · <bdi lang="fa">فرهاد شریعتمداری</bdi></span>
+  <span>Tehran, Iran · Remote worldwide</span>
+</footer>
+
+</body>
+</html>

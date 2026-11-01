@@ -1,8 +1,12 @@
 # Farhad Shariatmadari — portfolio site
 
 Live: **https://farhadshariatmadari.github.io** · Repo: `farhadshariatmadari/farhadshariatmadari.github.io`
+Also on Vercel (Nov 2026): **https://farhadshariatmadarigithubio.vercel.app**, project
+`farhadshariatmadari.github.io` in the `farhad-personal1` team, deployed from the
+same repo.
 
-Static site, no build step, no package.json. Deployed by GitHub Pages from `main`.
+Static site, no build step, no package.json. Deployed from `main` by both GitHub
+Pages and Vercel. The canonicals still point at github.io.
 
 ## Deploying
 
@@ -10,7 +14,9 @@ Static site, no build step, no package.json. Deployed by GitHub Pages from `main
 git add -A && git commit -m "message" && git push
 ```
 
-Live in ~1 minute. That is the entire deploy process — no build, no CI.
+Live in ~1 minute on both hosts. That is the entire deploy process — no build,
+no CI. Vercel builds nothing; it serves the repo root as static files, and
+`vercel.json` is its only config (next section).
 
 ## Local preview
 
@@ -33,8 +39,18 @@ Jekyll (there's a `.nojekyll`), no rewrite config, nothing to maintain. `npx
 serve` does the same locally via its default `cleanUrls`, so preview matches
 production.
 
-- **Don't restructure into `Work/index.html` folders.** `/Work/` is a 404 today,
-  and moving the files would change the URL depth and break every relative
+**Vercel does not do this by default.** Without `vercel.json` every page but
+the home page was Vercel's own `404: NOT_FOUND`. `vercel.json` sets
+`cleanUrls: true` (serves `/Work` from `Work.html`, and 308-redirects
+`/Work.html` to `/Work`) and `trailingSlash: false` (308s `/Work/` to `/Work`).
+Don't delete it.
+
+Both hosts are **case-sensitive**: `/work` is a 404. `npx serve` on macOS is
+not (the disk isn't), so it can't show you that. The 404 page sends a
+wrong-case page name straight to the right one (see "Failure pages").
+
+- **Don't restructure into `Work/index.html` folders.** `/Work/` has no file
+  (Vercel redirects it, and on GitHub Pages the 404 page does), and moving the files would change the URL depth and break every relative
   `assets/…` and `./support.js` path on the page. Flat files at the root are
   what makes the relative paths work.
 - The old `Work.html` URLs still resolve — they're the real filenames — so any
@@ -43,7 +59,9 @@ production.
   pointing at the extensionless form.
 - Adding a page means adding its canonical tag too, right after `<title>`,
   adding it to `PAGES` in `tools/seo-head.py`, and running that script (next
-  section).
+  section). Also add it to `PAGES` in `status.js` (so the 404 page can
+  suggest it), and put `<script src="./status.js"></script>` right after
+  `support.js` in its static `<head>`.
 
 ## Search (`tools/seo-head.py`, `sitemap.xml`, `robots.txt`)
 
@@ -86,6 +104,92 @@ finds the site.
   carries the meta through re-runs, and it belongs in the block, not in helmet
   (Google reads it from the raw HTML).
 - Not done yet: there's no `og:image` (needs a 1200×630 PNG).
+
+## Failure pages (`404.html`, `offline.html`, `500.html`, `status.js`, `sw.js`)
+
+Added Nov 2026. Three pages for when something is wrong, in the site's own
+design: the nav, the 64px hero grid, and a `farhad.fig` window like the home
+hero's, each with its own scene drawn from the logo's geometry. On 404 the
+mark is a dashed ghost in an empty frame and the "Farhad" cursor goes looking
+for it. Offline, the mark is greyed under a "reconnecting…" toast. On 500,
+the middle arm is knocked loose and keeps trying to snap back into place.
+
+**They are plain HTML, not x-dc,** and share `status.css` and `status.js`.
+They exist for the moments when React, unpkg or the network is missing, so
+they can't depend on any of them. Rules that follow from that:
+
+- **Every path is absolute** (`/status.css`, `/assets/…`, `/Work`). The 404
+  page answers at any depth (`/a/b/c`), and the service worker serves the
+  other two at the failing page's own URL.
+- **Web fonts are optional**: `media="print" onload="this.media='all'"`. A
+  render-blocking font request that hangs, as it can when the internet is
+  filtered rather than off, would hold the page blank. The fallback stacks
+  are `system-ui` and `ui-monospace`.
+- Everything in `status.css` is scoped under `.st`, because the same markup is
+  also shown as an overlay on top of a normal page (below).
+- `noindex`, not in `sitemap.xml`, not in `seo-head.py`'s `PAGES`.
+
+What serves each one:
+
+| Page | Shown when | By |
+|---|---|---|
+| `404.html` | no file at the URL | GitHub Pages and Vercel, natively, with status 404 |
+| `offline.html` | a page can't be fetched and the visitor's internet is down | `sw.js` |
+| `500.html` · `server` | the host answers 5xx (it's shown with that status) | `sw.js` |
+| `500.html` · `unreachable` | a page can't be fetched, but the internet works | `sw.js` |
+| `500.html` · `runtime` | React, ReactDOM or Babel failed to load from unpkg | `status.js`, as an overlay |
+| `500.html` · `slow` | still no render after 20s | `status.js`, as an overlay |
+
+The four 500 causes are one page. `data-reason` on `<body>` picks the
+heading and paragraph (`[data-when]` in the CSS). With no reason, as on a
+direct visit or with JS off, it reads as `server`.
+
+**`status.js`** loads on all 14 pages, in the static `<head>` right after
+`support.js` and outside helmet, because it has to run even when x-dc never
+does. It is not before `support.js` because `seo-head.py` re-inserts its
+block directly before that tag. Script load errors arrive asynchronously, so
+it is still listening in time. It does three jobs:
+
+- Registers `sw.js`, **on HTTPS only**, so a localhost preview never gets a
+  worker that outlives it (and later intercepts some other project on 4321).
+- **Render watchdog.** A failed React/ReactDOM/Babel `<script>` shows the
+  `runtime` overlay at once. Lenis also comes from unpkg but isn't fatal, so
+  it's excluded. No render after 20s shows `slow`, which removes itself when
+  the page renders after all. It fetches `/500` and shows its body in a fixed
+  `.st-overlay` div appended to `<body>`. **Never swap the body instead**:
+  x-dc still has to find `<x-dc>` to mount into. Verified with React served
+  3s late: the overlay came and went, and the page rendered with no error.
+- The status pages' behaviour. On 404, a single path segment that matches a
+  page in another case or with `.html`/a trailing slash goes straight there
+  (`/work` → `/Work`, `/index.html` → `/`), with `location.replace`, and only
+  when the target differs from the current path, so it can't loop.
+  Otherwise it suggests the nearest page ("Did you mean /Zeero?"): an alias
+  (`portfolio` → Work, `mehr` → DigiKala-Mehr) or edit distance, trying the
+  last segment first. Offline, it checks again at 5, 10, 20, then every 30s,
+  and on the `online` event, and reloads once the page answers. Opened at
+  their own address (`/offline`, `/500`), "Try again" becomes "Go to the home
+  page", since a reload would only show the same page.
+
+**`sw.js` caches the status pages, never the site.** A cached x-dc page would
+still need React from unpkg, so offline it would only be a blank page. It
+passes every navigation through, with navigation preload so the worker
+costs no startup time. It only steps in on a 5xx or a failed fetch. To tell
+"you're offline" from "the site is down", it probes two unrelated hosts
+(gstatic's `generate_204`, Cloudflare's `cdn-cgi/trace`) with a 4s cap.
+`navigator.onLine` alone can't tell, because it stays true on a network
+with no internet. It fills in the empty `data-reason=""` on `500.html`'s
+`<body>` (a regex anchored on `<body`; the comment above it mentions the
+attribute too, and a plain string replace hit the comment first). **Bump
+`VERSION` in `sw.js` after changing any precached file**, or returning
+visitors keep the old copies.
+
+Testing: the preview runs on http, so status.js won't register the worker.
+Register it by hand in the console (`navigator.serviceWorker.register('/sw.js')`,
+which localhost allows), stop the server, and navigate: you get the
+`unreachable` page. **Unregister it afterwards**, and clear its cache.
+`npx serve` gives the 404 page its 404 status like the hosts do. The hidden
+preview pane often screenshots the pages mid-fade-in. Check
+`document.getAnimations()` rather than trusting the picture.
 
 ## ⚠️ These pages are NOT plain HTML
 

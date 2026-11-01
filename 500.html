@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- "The site is down", for four causes, picked by data-reason on <body>:
+       server       the host answered 5xx            (sw.js, data-code = status)
+       unreachable  internet works, host didn't answer (sw.js)
+       runtime      React/Babel from unpkg failed      (status.js overlay)
+       slow         still not rendered after 20s       (status.js overlay)
+     sw.js fills in the empty data-reason on <body> by string replace, so
+     keep it there and keep it empty. Same rules as offline.html: absolute paths, precached, the
+     fonts are optional. -->
+<title>Something broke — Farhad Shariatmadari</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="/status.css">
+<script src="/status.js" defer></script>
+</head>
+<body class="st" data-status="500" data-reason="">
+
+<header class="st-head">
+  <nav class="st-nav" aria-label="Site">
+    <a class="st-brand" href="/" aria-label="Farhad Shariatmadari, home">
+      <img src="/assets/logo-mark.svg" alt="" width="19" height="26">
+      <span class="st-brand-txt"><span class="st-brand-name">Farhad Shariatmadari</span><span class="st-brand-tag">/ design</span></span>
+    </a>
+    <div class="st-links">
+      <a href="/Work">Work</a>
+      <a href="/About">About</a>
+      <a href="/How-I-Work">How I work</a>
+      <a class="st-cta" href="/Contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<main class="st-main">
+  <div class="st-wrap">
+
+    <div class="st-copy">
+      <div class="st-kicker"><span class="st-dot"></span><span data-code-text>500 · server error</span></div>
+      <h1 class="st-h1">
+        <span data-when="server unreachable">Something broke on my side.</span>
+        <span data-when="runtime">The page couldn’t finish loading.</span>
+        <span data-when="slow">This is taking longer than it should.</span>
+      </h1>
+      <p class="st-lede" data-when="server">The server answered with an error instead of the page. That’s on me, not you, and it’s usually brief. Try again in a minute.</p>
+      <p class="st-lede" data-when="unreachable">Your internet is working, but the site’s server didn’t answer. It’s usually brief. Try again in a minute.</p>
+      <p class="st-lede" data-when="runtime">The page arrived, but the scripts that draw it didn’t. They come from unpkg.com, which may be down or blocked on your network.</p>
+      <p class="st-lede" data-when="slow">The scripts that draw this page come from unpkg.com, and they’re arriving slowly. The page will replace this message by itself once they land.</p>
+      <div class="st-actions">
+        <button type="button" class="st-btn st-btn-primary" data-retry>Try again <span class="st-arrow">↻</span></button>
+        <a class="st-btn" href="mailto:farhadshariatmadari@gmail.com">Email me</a>
+      </div>
+      <div class="st-meta">Urgent? <a href="mailto:farhadshariatmadari@gmail.com">farhadshariatmadari@gmail.com</a> · <a href="tel:+989006665599">+98 900 666 55 99</a></div>
+    </div>
+
+    <div class="st-shot" aria-hidden="true">
+      <div class="st-win">
+        <div class="st-bar">
+          <i></i><i></i><i></i>
+          <span class="st-file">farhad.fig</span>
+          <span class="st-zoom">100%<span class="st-av">FS</span></span>
+        </div>
+        <div class="st-canvas">
+          <svg viewBox="0 0 460 384" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="er-main" x1="61" y1="0" x2="4" y2="84" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#4F68F3"/><stop offset="0.42" stop-color="#4740DE"/><stop offset="1" stop-color="#BCA8F6"/>
+              </linearGradient>
+              <linearGradient id="er-arm" x1="10" y1="33" x2="48" y2="60" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#C6B6F9"/><stop offset="1" stop-color="#9B85F2"/>
+              </linearGradient>
+              <linearGradient id="er-cross" x1="14" y1="33" x2="40" y2="60" gradientUnits="userSpaceOnUse">
+                <stop offset="0" stop-color="#2B2472"/><stop offset="1" stop-color="#171337"/>
+              </linearGradient>
+              <!-- region made large: the arm travels outside 61×84 -->
+              <mask id="er-mask" maskUnits="userSpaceOnUse" x="-20" y="-20" width="101" height="124">
+                <rect x="-20" y="-20" width="101" height="124" fill="#000"/>
+                <path d="M13.5 70.5V13.5H47.5" fill="none" stroke="#fff" stroke-width="27" stroke-linecap="round" stroke-linejoin="round"/>
+              </mask>
+            </defs>
+
+            <!-- the mark, with its middle arm knocked loose. The dashed outline
+                 is where it belongs; it keeps trying to snap back. -->
+            <g transform="translate(157 92) scale(2.4)" fill="none" stroke-width="27" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13.5 70.5V13.5H47.5" stroke="url(#er-main)"/>
+              <rect x="0" y="32.5" width="47.5" height="27" rx="13.5" stroke="#e5484d" stroke-width=".5" stroke-dasharray="2 1.6"/>
+              <g class="st-arm"><path d="M13.5 46H34" stroke="url(#er-arm)"/></g>
+              <g mask="url(#er-mask)"><g class="st-arm"><path d="M13.5 46H34" stroke="url(#er-cross)"/></g></g>
+            </g>
+
+            <g class="st-flash">
+              <rect x="296" y="70" width="104" height="22" rx="4" fill="#e5484d"/>
+              <text class="st-t" x="348" y="85" fill="#fff" text-anchor="middle">render failed</text>
+            </g>
+
+            <!-- the "Farhad" cursor, dragging it back -->
+            <g transform="translate(258 239)">
+              <g class="st-drag">
+                <path d="M0 0V16.5l4.3-4.1 3 6.6 2.6-1.2-3-6.5h5.9z" fill="#2f5cf0" stroke="#fff" stroke-width="1.2" stroke-linejoin="round"/>
+                <rect x="12" y="17" width="50" height="17" rx="4" fill="#2f5cf0"/>
+                <text class="st-t-sm" x="37" y="28.6" fill="#fff" text-anchor="middle">Farhad</text>
+              </g>
+            </g>
+          </svg>
+        </div>
+        <div class="st-strip"><span data-code-text>500 · server error</span><span>fixing · by hand</span></div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="st-foot">
+  <span>© 2026 Farhad Shariatmadari · <bdi lang="fa">فرهاد شریعتمداری</bdi></span>
+  <span>Tehran, Iran · Remote worldwide</span>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,248 @@
+/* The site's failure pages: 404.html, offline.html, 500.html, and the overlay
+   status.js puts over a page whose runtime never arrived. Plain HTML and CSS
+   on purpose (see CLAUDE.md): these show exactly when React, unpkg or the
+   network may be missing. Every rule is scoped under .st, so the overlay can't
+   restyle the page underneath it. */
+
+.st, .st *, .st *::before, .st *::after { box-sizing: border-box; }
+
+body.st { margin: 0; }
+
+.st {
+  --ink: #14171c;
+  --ink-2: #3a414d;
+  --ink-3: #5a6270;
+  --mute: #97a0ad;
+  --line: #e2e5ea;
+  --line-2: #eef0f3;
+  --grid: #eceef2;
+  --base: #f6f7f9;
+  --signal: #2f5cf0;
+  --signal-d: #234ad1;
+  --amber: #e2a00b;
+  --red: #e5484d;
+  --display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --body: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--base);
+  color: var(--ink);
+  font-family: var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+.st a { color: inherit; text-decoration: none; }
+
+/* status.js: over a page whose scripts never arrived */
+.st-overlay { position: fixed; inset: 0; z-index: 2147483000; overflow: auto; }
+
+/* ---------- nav: the site's, minus the runtime ---------- */
+.st-head {
+  position: sticky; top: 0; z-index: 5;
+  background: rgba(246,247,249,.85);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.st-nav {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 18px clamp(22px, 3.2vw, 40px);
+}
+.st-brand { display: flex; align-items: center; gap: 11px; color: var(--ink); }
+.st-brand img { display: block; flex: none; }
+.st-brand-txt { display: flex; align-items: baseline; gap: 10px; }
+.st-brand-name { font: 700 17px/1.2 var(--display); letter-spacing: -0.01em; }
+.st-brand-tag { font: 11px/1 var(--mono); color: var(--mute); }
+.st-links { display: flex; align-items: center; gap: clamp(18px, 2.56vw, 32px); font: 13px/1 var(--mono); }
+.st-links a { color: var(--ink-2); transition: color .15s; }
+.st-links a:hover { color: var(--ink); }
+.st-links .st-cta { background: var(--ink); color: #fff; padding: 9px 16px; border-radius: 4px; transition: background .15s; }
+.st-links .st-cta:hover { background: var(--signal); color: #fff; }
+
+/* sheds parts rather than wrapping, as the site's nav does */
+@media (max-width: 860px) { .st-brand-tag { display: none; } }
+@media (max-width: 720px) { .st-brand-name { font-size: 15px; } }
+@media (max-width: 560px) { .st-brand-txt { display: none; } .st-links { gap: 16px; } }
+@media (max-width: 380px) { .st-links a:not(.st-cta) { font-size: 12px; } .st-links { gap: 12px; } }
+
+/* ---------- hero: the 64px grid of the main pages ---------- */
+.st-main {
+  position: relative; flex: 1;
+  display: flex; align-items: center;
+  overflow: hidden;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: -1px -1px;
+}
+.st-main::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgba(246,247,249,.95) 0%, rgba(246,247,249,.82) 46%, rgba(246,247,249,.3) 100%);
+}
+/* one column: the copy runs full width, so the veil has to as well */
+@media (max-width: 860px) { .st-main::before { background: rgba(246,247,249,.8); } }
+
+.st-wrap {
+  position: relative; width: 100%; max-width: 1240px; margin: 0 auto;
+  padding: clamp(48px, 7vw, 96px) clamp(22px, 3.2vw, 40px);
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: clamp(40px, 5vw, 72px);
+}
+.st-copy { flex: 1 1 440px; min-width: min(100%, 280px); max-width: 600px; }
+.st-shot { flex: 0 1 460px; min-width: min(100%, 280px); }
+
+.st-copy, .st-shot { animation: st-rise .8s cubic-bezier(.2,.7,.2,1) both; }
+.st-shot { animation-delay: .15s; }
+@keyframes st-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+
+/* ---------- copy ---------- */
+.st-kicker {
+  display: inline-flex; align-items: center; gap: 10px;
+  font: 500 12px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase;
+  color: var(--mute); margin-bottom: 22px;
+}
+.st-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--signal); box-shadow: 0 0 0 4px rgba(47,92,240,.14); flex: none; }
+.st[data-status="offline"] .st-dot { background: var(--amber); box-shadow: 0 0 0 4px rgba(226,160,11,.18); animation: st-pulse 1.8s ease-in-out infinite; }
+.st[data-status="500"] .st-dot { background: var(--red); box-shadow: 0 0 0 4px rgba(229,72,77,.16); }
+@keyframes st-pulse { 50% { box-shadow: 0 0 0 8px rgba(226,160,11,0); } }
+
+.st-h1 {
+  font: 700 clamp(40px, 6vw, 72px)/1 var(--display);
+  letter-spacing: -0.035em;
+  margin: 0 0 24px; max-width: 14ch; text-wrap: balance;
+}
+.st-lede {
+  font-size: clamp(16px, 1.5vw, 19px); line-height: 1.6; color: var(--ink-2);
+  max-width: 52ch; margin: 0 0 32px;
+}
+
+.st-suggest { display: none; margin: -14px 0 30px; font: 13px/1.5 var(--mono); color: var(--ink-2); }
+.st-suggest.is-on { display: block; }
+.st-suggest a { color: var(--signal); border-bottom: 1px solid rgba(47,92,240,.32); }
+.st-suggest a:hover { border-bottom-color: var(--signal); }
+
+.st-actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.st-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font: 14px/1.2 var(--mono); padding: 15px 24px; border-radius: 5px;
+  border: 1px solid #d7dbe1; background: #fff; color: var(--ink);
+  cursor: pointer; transition: background .15s, border-color .15s;
+}
+.st-btn:hover { border-color: var(--ink); }
+.st-btn-primary { background: var(--signal); border-color: var(--signal); color: #fff; }
+.st-btn-primary:hover { background: var(--signal-d); border-color: var(--signal-d); }
+.st-btn:focus-visible, .st a:focus-visible { outline: 2px solid var(--signal); outline-offset: 3px; }
+.st-btn .st-arrow { font-size: 16px; }
+
+.st-meta { margin-top: 28px; font: 12px/1.7 var(--mono); color: var(--mute); }
+.st-meta b { color: var(--ink-2); font-weight: 500; }
+.st-meta a { color: var(--ink-2); border-bottom: 1px solid var(--line); overflow-wrap: anywhere; }
+.st-meta a:hover { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* 404: the rest of the site, one click away */
+.st-tiles {
+  margin-top: 40px; max-width: 520px;
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px;
+}
+.st-tile {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 16px; border: 1px solid var(--line); border-radius: 8px; background: #fff;
+  transition: border-color .15s, transform .15s;
+}
+.st-tile:hover { border-color: var(--signal); transform: translateY(-1px); }
+.st-tile b { display: block; font: 600 15px/1.3 var(--display); letter-spacing: -0.01em; }
+.st-tile span { display: block; font-size: 12.5px; line-height: 1.45; color: var(--ink-3); margin-top: 2px; }
+.st-tile i { font: normal 14px/1 var(--mono); color: var(--mute); transition: color .15s, transform .15s; }
+.st-tile:hover i { color: var(--signal); transform: translateX(2px); }
+@media (max-width: 420px) { .st-tiles { grid-template-columns: 1fr; } }
+
+/* 500: one page, four causes. The service worker and status.js set
+   data-reason; with none set (a direct visit, or no JS) it reads as "server". */
+.st [data-when] { display: none; }
+.st:not([data-reason]) [data-when~="server"],
+.st[data-reason=""] [data-when~="server"],
+.st[data-reason="server"] [data-when~="server"],
+.st[data-reason="unreachable"] [data-when~="unreachable"],
+.st[data-reason="runtime"] [data-when~="runtime"],
+.st[data-reason="slow"] [data-when~="slow"] { display: revert; }
+
+/* ---------- the design-file window, as in the home hero ---------- */
+.st-win {
+  border: 1px solid var(--line); border-radius: 12px;
+  background: rgba(255,255,255,.72);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  box-shadow: 0 30px 60px -40px rgba(20,23,28,.32);
+  overflow: hidden;
+}
+.st-bar { display: flex; align-items: center; gap: 8px; padding: 11px 16px; border-bottom: 1px solid var(--line-2); }
+.st-bar > i { width: 9px; height: 9px; border-radius: 50%; background: #e2e5ea; flex: none; }
+.st-file { font: 11px/1.2 var(--mono); color: var(--mute); margin-left: 6px; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.st-zoom { margin-left: auto; display: flex; align-items: center; gap: 10px; font: 10.5px/1 var(--mono); color: #b4bcc7; flex: none; }
+.st-av { width: 18px; height: 18px; border-radius: 50%; background: var(--signal); color: #fff; display: grid; place-items: center; font: 600 8.5px/1 var(--display); letter-spacing: .02em; }
+.st[data-status="offline"] .st-av { background: #c3c9d2; }
+
+.st-canvas { background: #fbfbfc radial-gradient(circle, #dde1e7 1px, transparent 1.4px) 0 0 / 16px 16px; }
+.st-canvas svg { display: block; width: 100%; height: auto; }
+.st-strip {
+  display: flex; justify-content: space-between; gap: 12px;
+  padding: 10px 16px; border-top: 1px solid var(--line-2);
+  font: 10.5px/1.3 var(--mono); color: var(--mute); background: rgba(255,255,255,.6);
+}
+.st-strip span { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* SVG type and motion */
+.st-t { font: 500 11px var(--mono); }
+.st-t-sm { font: 500 10px var(--mono); }
+
+/* 404: the "Farhad" cursor goes looking for the missing frame */
+.st-seek { animation: st-seek 9s cubic-bezier(.45,0,.25,1) infinite; }
+@keyframes st-seek {
+  0%, 100% { transform: translate(0, 0); }
+  22% { transform: translate(-96px, -128px); }
+  30% { transform: translate(-96px, -128px); }
+  52% { transform: translate(-150px, -20px); }
+  60% { transform: translate(-150px, -20px); }
+  82% { transform: translate(-40px, 26px); }
+  90% { transform: translate(-40px, 26px); }
+}
+
+/* offline: the mark greys out, the toast waits */
+.st-mono { filter: grayscale(1); opacity: .42; }
+.st-spin { transform-origin: 0 0; animation: st-spin 1.1s linear infinite; }
+@keyframes st-spin { to { transform: rotate(360deg); } }
+.st-idle { animation: st-idle 3.6s ease-in-out infinite; }
+@keyframes st-idle { 50% { transform: translate(0, 3px); } }
+
+/* 500: the middle arm keeps trying to snap back into place, and slips */
+.st-arm { transform-origin: 13.5px 46px; animation: st-arm 5.2s cubic-bezier(.6,0,.3,1) infinite; }
+@keyframes st-arm {
+  0%, 38%, 100% { transform: translate(9px, 13px) rotate(9deg); }
+  58% { transform: translate(-.6px, -.8px) rotate(-.8deg); }
+  64%, 70% { transform: translate(0, 0) rotate(0deg); }
+  84% { transform: translate(9px, 13px) rotate(9deg); }
+}
+.st-drag { animation: st-drag 5.2s cubic-bezier(.6,0,.3,1) infinite; }
+@keyframes st-drag {
+  0%, 38%, 100% { transform: translate(0, 0); }
+  58% { transform: translate(-22px, -40px); }
+  64%, 70% { transform: translate(-21px, -39px); }
+  84% { transform: translate(0, 0); }
+}
+.st-flash { animation: st-flash 5.2s steps(1) infinite; }
+@keyframes st-flash { 0%, 62% { opacity: 1; } 63%, 79% { opacity: 0; } 80% { opacity: 1; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .st *, .st *::before, .st *::after { animation: none !important; transition: none !important; }
+}
+
+/* ---------- footer ---------- */
+.st-foot {
+  border-top: 1px solid var(--line);
+  padding: 20px clamp(22px, 3.2vw, 40px);
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  font: 11px/1.5 var(--mono); color: var(--mute);
+}
+.st-foot bdi { font-family: system-ui, sans-serif; white-space: nowrap; }
